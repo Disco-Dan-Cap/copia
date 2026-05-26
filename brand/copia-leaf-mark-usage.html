@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copia — Leaf Mark Usage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deepest-forest: #1E3D30;
+    --forest:         #1C664D;
+    --mid-forest:     #30594A;
+    --sage-shadow:    #4E8472;
+    --sage:           #509982;
+    --light-sage:     #74B5A1;
+    --mint:           #9CE5D0;
+    --cream:          #FAF6EE;
+    --charcoal:       #1A1A1A;
+    --terracotta:     #C46A4F;
+    --sans: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 80px 48px 120px; }
+  @media (max-width: 700px) { .wrap { padding: 48px 24px 80px; } }
+
+  header { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; padding-bottom: 32px; border-bottom: 1px solid var(--forest); }
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .brand-mark { width: 44px; height: 62px; color: var(--forest); }
+  .brand-name { font-family: var(--sans); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; line-height: 1; color: var(--forest); }
+  .brand-sub { font-family: var(--mono); font-size: 11px; color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px; }
+  .doc-meta { font-family: var(--mono); font-size: 11px; color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.12em; text-align: right; }
+  .doc-meta div + div { margin-top: 4px; }
+
+  .hero { padding: 88px 0 64px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; color: var(--forest); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 24px; }
+  .hero h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(40px, 6.5vw, 76px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 24px; color: var(--deepest-forest); max-width: 780px; }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--forest); }
+  .hero p.lede { font-size: 19px; line-height: 1.55; color: var(--charcoal); max-width: 620px; margin: 0; }
+
+  section { padding: 72px 0; border-top: 1px solid color-mix(in oklab, var(--forest) 30%, transparent); }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px; gap: 24px; flex-wrap: wrap; }
+  .sec-num { font-family: var(--mono); font-size: 12px; color: var(--forest); text-transform: uppercase; letter-spacing: 0.18em; }
+  .sec-title { font-family: var(--sans); font-weight: 600; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1; letter-spacing: -0.025em; color: var(--deepest-forest); margin: 8px 0 0; }
+  .sec-intro { max-width: 580px; color: var(--charcoal); font-size: 16px; }
+
+  /* ── Hero mark ──────────────────────────────────────── */
+  .mark-hero {
+    background: var(--cream);
+    border: 1px solid color-mix(in oklab, var(--forest) 15%, transparent);
+    border-radius: 24px;
+    padding: 80px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+  }
+  .mark-hero svg { width: 200px; height: 280px; color: var(--forest); }
+
+  /* ── Variant grid ───────────────────────────────────── */
+  .variants { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-radius: 14px; overflow: hidden; }
+  @media (max-width: 800px) { .variants { grid-template-columns: repeat(2, 1fr); } }
+  .variant {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 16px 20px;
+    position: relative;
+  }
+  .variant svg { width: 56px; height: 78px; }
+  .variant .v-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* ── Size + clear space ─────────────────────────────── */
+  .sizes {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 40px 0;
+  }
+  .size-item { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .size-item svg { color: var(--forest); display: block; }
+  .size-cap {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mid-forest);
+    text-align: center;
+    line-height: 1.5;
+  }
+  .size-cap strong { color: var(--deepest-forest); font-weight: 500; display: block; font-size: 12px; }
+
+  .clear-space-demo {
+    background: var(--mint);
+    border-radius: 14px;
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    position: relative;
+  }
+  .clear-frame {
+    position: relative;
+    padding: 0;
+  }
+  .clear-frame svg.mark-fig { width: 120px; height: 168px; color: var(--deepest-forest); display: block; position: relative; z-index: 2; }
+  .clear-frame::before {
+    content: "";
+    position: absolute;
+    top: -42px; left: -42px;
+    width: calc(120px + 84px);
+    height: calc(168px + 84px);
+    border: 1.5px dashed var(--forest);
+    border-radius: 8px;
+    z-index: 1;
+    opacity: 0.55;
+  }
+  .clear-caption {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--deepest-forest);
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  /* ── App icons ──────────────────────────────────────── */
+  .app-icons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 16px; }
+  @media (max-width: 760px) { .app-icons { grid-template-columns: repeat(2, 1fr); } }
+  .app-icon { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .app-tile {
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(30, 61, 48, 0.12), 0 1px 2px rgba(30, 61, 48, 0.08);
+  }
+  .app-tile svg { width: 50%; height: 70%; }
+  .app-cap {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mid-forest);
+    text-align: center;
+    line-height: 1.5;
+  }
+  .app-cap strong { color: var(--deepest-forest); font-weight: 500; display: block; font-size: 11.5px; }
+
+  /* ── Lockup section ─────────────────────────────────── */
+  .lockup-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 760px) { .lockup-stack { grid-template-columns: 1fr; } }
+  .lockup {
+    background: var(--cream);
+    border: 1px solid color-mix(in oklab, var(--forest) 15%, transparent);
+    border-radius: 14px;
+    padding: 56px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    min-height: 240px;
+    justify-content: center;
+  }
+  .lockup .pair-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .lockup .pair-row svg { width: 38px; height: 53px; color: var(--forest); }
+  .lockup .wordmark-text {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 42px;
+    letter-spacing: -0.04em;
+    color: var(--forest);
+    line-height: 1;
+  }
+  .lockup .pair-row.stacked { flex-direction: column; gap: 14px; }
+  .lockup .pair-row.stacked svg { width: 52px; height: 72px; }
+  .lockup .lockup-cap {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mid-forest);
+  }
+
+  /* ── Do / Don't ─────────────────────────────────────── */
+  .dont-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 760px) { .dont-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .dont-grid { grid-template-columns: 1fr; } }
+  .dont {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    background: var(--cream);
+    border: 1px solid color-mix(in oklab, var(--forest) 15%, transparent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 16px 18px;
+    text-align: center;
+    position: relative;
+  }
+  .dont .x {
+    position: absolute;
+    top: 12px; right: 14px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .dont svg { color: var(--forest); }
+  .dont .dont-cap {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--mid-forest);
+    line-height: 1.45;
+  }
+  .dont .dont-cap strong { color: var(--deepest-forest); display: block; font-weight: 500; font-size: 11px; margin-bottom: 4px; }
+
+  /* Rules */
+  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 56px; }
+  @media (max-width: 720px) { .rules { grid-template-columns: 1fr; } }
+  .rule h3 { font-family: var(--sans); font-weight: 600; font-size: 17px; margin: 0 0 10px; color: var(--deepest-forest); letter-spacing: -0.01em; }
+  .rule p { font-size: 15px; line-height: 1.6; margin: 0; color: var(--charcoal); }
+  .rule code { font-family: var(--mono); font-size: 12.5px; background: color-mix(in oklab, var(--forest) 8%, transparent); padding: 1px 6px; border-radius: 4px; color: var(--deepest-forest); }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid color-mix(in oklab, var(--forest) 30%, transparent);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mid-forest);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Reusable mark as SVG symbol -->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <symbol id="copia-mark" viewBox="0 0 634.53 883.74">
+      <path fill="currentColor" d="M510.42,182.26c5.32-12.33,10.29-23.1,12.68-36.18-14.8,32.74-31.44,63.95-52.66,93.08-13.8,18.95-27.9,36.37-43.76,53.67-28.09,30.64-57.76,58.9-90.07,85.46-1.7-1.45-.99-3.3-.35-5.03,9.9-26.74,13.49-54.16,11.64-82.52l-5.09-46.65c-2.07-18.98-4.62-37.23-3.72-56.37.95-20.14,5.32-39.27,15.15-56.94,11.6-20.85,29.96-36.59,52.14-44.95l33.42-12.61c17.78-6.71,34.43-14.49,50.9-24.06,20.1-11.69,37.73-25.71,53.24-43.02,2.68-2.99,5.96-5.74,10.04-6.09,5.1-.44,9.79,3.09,11.97,7.68l11.02,23.11c18.95,44.77,33.17,90.96,42.78,138.67,3.25,16.16,5.42,31.57,6.45,47.9,3.03,47.68-12.48,90.61-52.95,117.61-18.18,12.14-37.79,20.34-58.95,26.18-18.27,5.04-36.19,8.56-54.88,11.68l-39.25,6.55c-22.88,3.82-44.87,9.16-67.01,16-1.08.33-2.21.06-2.65-.55-.7-.95-.22-1.9.85-2.94l38.09-37.05c24.14-23.48,45.22-48.92,65.09-76.25,21.98-30.22,40.92-61.75,55.88-96.39Z"/>
+      <path fill="currentColor" d="M121.15,879c-7.12,5.18-15.32,7.85-19.22-1.27-1.81-4.25-2.65-20.37-1.96-31.36,4.78-75.66-4.46-50.45,7.24-106.53l6.91-21.87c5.37-17,10.91-33.04,18.69-49.06,17.55-36.17,43.45-64.62,80-81.78,35.84-16.83,74.88-22.05,114.35-22.1l54.93,1.97,57.67,2.19c22.8.87,44.85-1.34,67.21-5.84,23.35-4.7,45.04-13.03,65.2-25.51l9.18-5.09c2.4-1.33,5.43-1.03,7.42.61,1.79,1.48,3.15,4.85,2.17,7.76-3.28,9.68-7.85,18.42-12.92,27.49-11.95,21.38-25.73,40.95-41.86,59.45-34.28,39.32-76.73,67.81-127.01,82.37-23.18,6.71-46.46,10.29-70.58,11.69l-54.15.77-36.74.11c-18.04.05-36.08.21-52.92,6.63-68.46,26.14-59.2,79.44-64.95,120.24-.68,4.82-4.91,26.39-8.66,29.12Z"/>
+      <path fill="currentColor" d="M303.51,546.52c-45.79,2.46-88.35,12.87-126.13,39.5-1.02.72-2.55-.3-2.86-.93-.53-1.09-.59-2.2.18-4.04,27.56-43.62,60.59-83.85,99.41-118.04,28.86-25.42,62.32-43.96,99.17-54.29,17.24-4.84,33.81-8.14,51.35-11.14l52.95-9.06c21.8-3.73,42.44-9.37,63.01-17.4,34.65-13.5,64.58-33.48,83.84-65.84,1.18-1.98,3.73-2.64,5.36-2.26,1.45.34,4.17,2.03,4.27,4.39,1.5,37.88-.41,75.58-7.95,113.03-9.77,48.55-30.77,88.12-76.22,110.04-20.32,9.8-41.52,15.46-64.05,17.92-23.56,2.58-46.49,2.72-70.18,1.45l-55.49-2.98-56.67-.34Z"/>
+      <path fill="currentColor" d="M207.37,497.21c-12.71,13.59-22.23,27.32-34.43,42.85,5.13-35.53,4.54-69.13-2.75-103.44-5.18-24.38-11.78-47.57-18.81-71.45-8.57-29.12-16.97-62.69-17.06-92.77-.14-47.85,20.95-90.16,63.72-112.64l8.11-4.73c22.84-11.15,46.01-20.24,70.25-28.27,19.52-6.46,38.35-12.64,58.13-17.81,2.72-.71,5.36.26,6.83,2.19,1.38,1.8,1.65,4.66.17,7.11-11.76,19.48-18.27,40.87-20.18,63.63-1.11,13.32-1,25.97.47,39.22l4.47,40.35,3.27,35.11c2.1,46.79-9.9,84.04-41.23,119.04l-31.83,31.68c-16.66,16.58-33.27,32.03-49.15,49.93Z"/>
+      <path fill="currentColor" d="M85.44,726.7c-.57,1.96-4.29.75-4.75-.14-.46-.9-1.45-1.97-1.59-3.79-1.88-26.24-6.71-51.55-14.62-76.77-6.1-19.45-13.91-37.34-21.68-56.12l-20.94-50.62c-7.1-19.64-12.76-38.92-16.71-59.48-12.15-63.26-3.05-125.73,29.35-181.94,20.46-35.5,48.51-65.38,81.93-88.71,2.46-1.72,4.83-2.07,7.1-.97,1.88.92,4.04,4.01,2.98,6.93-17.02,46.86-10.96,93.22,2.26,140.4l14.26,50.89c4.84,17.27,8.66,33.94,11.52,51.67,6.3,39.13,2.61,78.04-10.81,115.47l-21.41,52.69c-14.58,32.82-26.8,65.69-36.9,100.51Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+  <div class="wrap">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <svg class="brand-mark" aria-label="Copia leaf mark"><use href="#copia-mark"/></svg>
+        <div>
+          <div class="brand-name">Copia</div>
+          <div class="brand-sub">Brand System</div>
+        </div>
+      </div>
+      <div class="doc-meta">
+        <div>Leaf Mark Usage / v1</div>
+        <div>May 2026 · Austin, TX</div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="eyebrow">01 — The Mark</div>
+      <h1>One symbol carries the whole brand. <em>Treat it carefully.</em></h1>
+      <p class="lede">
+        The Copia leaf mark is the brand's smallest expression and its hardest-working asset. It is the favicon,
+        the app icon, the watermark, the loading state, the chip on a button. These are the rules that keep it
+        recognizable at 16 pixels and at a billboard.
+      </p>
+      <div class="mark-hero">
+        <svg aria-label="Copia leaf mark, primary"><use href="#copia-mark"/></svg>
+      </div>
+    </div>
+
+    <!-- COLOR VARIANTS -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">02 — Variants</div>
+          <h2 class="sec-title">Four approved colorways. No others.</h2>
+        </div>
+        <p class="sec-intro">
+          Each variant maps to a specific surface. Use the one that matches the background you're rendering on.
+          The mark is single-color, always &mdash; no gradients, no shadows, no fills inside the negative space.
+        </p>
+      </div>
+
+      <div class="variants">
+        <div class="variant" style="background: var(--cream); color: var(--forest);">
+          <svg aria-label="Forest on cream"><use href="#copia-mark"/></svg>
+          <div class="v-label">Forest<br>on Cream</div>
+        </div>
+        <div class="variant" style="background: var(--mint); color: var(--deepest-forest);">
+          <svg aria-label="Deepest forest on mint"><use href="#copia-mark"/></svg>
+          <div class="v-label">Deepest Forest<br>on Mint</div>
+        </div>
+        <div class="variant" style="background: var(--forest); color: var(--cream);">
+          <svg aria-label="Cream on forest"><use href="#copia-mark"/></svg>
+          <div class="v-label">Cream<br>on Forest</div>
+        </div>
+        <div class="variant" style="background: var(--charcoal); color: var(--mint);">
+          <svg aria-label="Mint on charcoal"><use href="#copia-mark"/></svg>
+          <div class="v-label">Mint<br>on Charcoal</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIZE LADDER -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">03 — Size</div>
+          <h2 class="sec-title">Built to read from 16 pixels to a billboard.</h2>
+        </div>
+        <p class="sec-intro">
+          The mark is engineered to hold its silhouette at small sizes. <strong style="color: var(--deepest-forest);">Minimum size is 16&times;22 px digital, 8 mm print.</strong>
+          Below that, the negative space between paths collapses and the mark stops reading as a leaf.
+        </p>
+      </div>
+
+      <div class="sizes">
+        <div class="size-item">
+          <svg width="16" height="22"><use href="#copia-mark"/></svg>
+          <div class="size-cap"><strong>16 × 22 px</strong>Favicon · minimum</div>
+        </div>
+        <div class="size-item">
+          <svg width="24" height="33"><use href="#copia-mark"/></svg>
+          <div class="size-cap"><strong>24 × 33 px</strong>In-app nav</div>
+        </div>
+        <div class="size-item">
+          <svg width="40" height="55"><use href="#copia-mark"/></svg>
+          <div class="size-cap"><strong>40 × 55 px</strong>Badge · chip</div>
+        </div>
+        <div class="size-item">
+          <svg width="64" height="89"><use href="#copia-mark"/></svg>
+          <div class="size-cap"><strong>64 × 89 px</strong>Empty-state · marketing</div>
+        </div>
+        <div class="size-item">
+          <svg width="96" height="134"><use href="#copia-mark"/></svg>
+          <div class="size-cap"><strong>96 × 134 px</strong>Hero · splash</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLEAR SPACE -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">04 — Clear Space</div>
+          <h2 class="sec-title">Give the mark room to breathe.</h2>
+        </div>
+        <p class="sec-intro">
+          Maintain a minimum of <code style="font-family: var(--mono); background: color-mix(in oklab, var(--forest) 8%, transparent); padding: 1px 6px; border-radius: 4px; color: var(--deepest-forest);">0.35 &times; mark height</code> of clear space on every side. No type, no other marks, no UI chrome inside this safe area. The dashed frame below shows the minimum.
+        </p>
+      </div>
+
+      <div class="clear-space-demo">
+        <div class="clear-frame">
+          <svg class="mark-fig" aria-label="Copia mark with clear-space frame"><use href="#copia-mark"/></svg>
+        </div>
+      </div>
+      <div class="clear-caption">The safe area equals 0.35 × the mark's height on all sides.</div>
+    </section>
+
+    <!-- APP ICONS -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">05 — App Icon</div>
+          <h2 class="sec-title">The icon is always centered on forest.</h2>
+        </div>
+        <p class="sec-intro">
+          Across iOS, Android, watchOS, and web favicons, the app icon is the same: the leaf in mint, centered on
+          a forest tile. Platform-specific corner radius is the only variable. Never use the cream-on-forest
+          variant for the icon &mdash; cream blends with system chrome on light mode.
+        </p>
+      </div>
+
+      <div class="app-icons">
+        <div class="app-icon">
+          <div class="app-tile" style="background: var(--forest); border-radius: 30%;">
+            <svg style="color: var(--mint);"><use href="#copia-mark"/></svg>
+          </div>
+          <div class="app-cap"><strong>iOS</strong>30% corner radius</div>
+        </div>
+        <div class="app-icon">
+          <div class="app-tile" style="background: var(--forest); border-radius: 22%;">
+            <svg style="color: var(--mint);"><use href="#copia-mark"/></svg>
+          </div>
+          <div class="app-cap"><strong>Android</strong>22% (adaptive safe)</div>
+        </div>
+        <div class="app-icon">
+          <div class="app-tile" style="background: var(--forest); border-radius: 50%;">
+            <svg style="color: var(--mint);"><use href="#copia-mark"/></svg>
+          </div>
+          <div class="app-cap"><strong>watchOS</strong>circular</div>
+        </div>
+        <div class="app-icon">
+          <div class="app-tile" style="background: var(--forest); border-radius: 4px;">
+            <svg style="color: var(--mint);"><use href="#copia-mark"/></svg>
+          </div>
+          <div class="app-cap"><strong>Favicon · 32 px</strong>4 px corner radius</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCKUP -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">06 — Lockup</div>
+          <h2 class="sec-title">When the mark and wordmark appear together.</h2>
+        </div>
+        <p class="sec-intro">
+          Use the wordmark alone in marketing and on the splash screen. Use the mark alone for the icon, watermark,
+          and any small context. Use the horizontal lockup for app headers and email signatures. The stacked
+          lockup is for square contexts only &mdash; profile photos, share cards, packaging.
+        </p>
+      </div>
+
+      <div class="lockup-stack">
+        <div class="lockup">
+          <div class="pair-row">
+            <svg aria-label="Copia mark"><use href="#copia-mark"/></svg>
+            <div class="wordmark-text">Copia</div>
+          </div>
+          <div class="lockup-cap">Horizontal · app header default</div>
+        </div>
+        <div class="lockup">
+          <div class="pair-row stacked">
+            <svg aria-label="Copia mark"><use href="#copia-mark"/></svg>
+            <div class="wordmark-text">Copia</div>
+          </div>
+          <div class="lockup-cap">Stacked · square contexts only</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DON'TS -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">07 — Don't</div>
+          <h2 class="sec-title">Six ways to break the mark.</h2>
+        </div>
+        <p class="sec-intro">
+          The mark only works when it's left alone. Each of these is a real failure mode we want to design out
+          before it happens. The terracotta dot in the corner says: not this.
+        </p>
+      </div>
+
+      <div class="dont-grid">
+        <div class="dont">
+          <div class="x">×</div>
+          <svg width="60" height="84" style="transform: rotate(28deg);"><use href="#copia-mark"/></svg>
+          <div class="dont-cap"><strong>Don't rotate</strong>The mark has a fixed orientation.</div>
+        </div>
+        <div class="dont">
+          <div class="x">×</div>
+          <svg viewBox="0 0 634.53 883.74" width="90" height="60" preserveAspectRatio="none"><use href="#copia-mark"/></svg>
+          <div class="dont-cap"><strong>Don't stretch</strong>Preserve the aspect ratio.</div>
+        </div>
+        <div class="dont">
+          <div class="x">×</div>
+          <svg width="60" height="84" style="color: var(--terracotta);"><use href="#copia-mark"/></svg>
+          <div class="dont-cap"><strong>Don't recolor</strong>Use only the four approved variants.</div>
+        </div>
+        <div class="dont">
+          <div class="x">×</div>
+          <div style="position: relative; width: 60px; height: 84px;">
+            <svg width="60" height="84" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));"><use href="#copia-mark"/></svg>
+          </div>
+          <div class="dont-cap"><strong>Don't add effects</strong>No shadows, glows, or bevels.</div>
+        </div>
+        <div class="dont" style="background: var(--light-sage);">
+          <div class="x">×</div>
+          <svg width="60" height="84" style="color: var(--sage);"><use href="#copia-mark"/></svg>
+          <div class="dont-cap"><strong>Don't pair tonal greens</strong>Low contrast = invisible mark.</div>
+        </div>
+        <div class="dont">
+          <div class="x">×</div>
+          <div style="width: 70px; height: 60px; overflow: hidden; display: flex; align-items: flex-start; justify-content: center;">
+            <svg width="80" height="112"><use href="#copia-mark"/></svg>
+          </div>
+          <div class="dont-cap"><strong>Don't crop</strong>Always show the full mark.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RULES -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">08 — Rules</div>
+          <h2 class="sec-title">The principles behind the mechanics.</h2>
+        </div>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h3>The mark is single-color, always.</h3>
+          <p>No gradients, no inner shadows, no two-tone treatments. The wordmark can be gummy; the mark stays flat. This is how the system separates "brand moment" (wordmark) from "brand presence" (mark).</p>
+        </div>
+        <div class="rule">
+          <h3>The orientation is fixed.</h3>
+          <p>The mark is drawn to read at this specific orientation. Rotating it for "design interest" breaks the visual logic of the form &mdash; the paths only resolve into a leaf at this angle.</p>
+        </div>
+        <div class="rule">
+          <h3>App icon is mint on forest, no exceptions.</h3>
+          <p>Reads correctly on every OS theme (light, dark, system-tinted). The cream-on-forest variant fails on iOS large-icon contexts where iOS applies its own background tinting. Mint on forest is always safe.</p>
+        </div>
+        <div class="rule">
+          <h3>Below 16 px, use a flat dot.</h3>
+          <p>For 12 px and smaller contexts (system tray, ultra-dense lists), substitute a 4 px forest dot rather than a crushed mark. A dot says <em>"Copia"</em>; a crushed mark says <em>"broken Copia"</em>.</p>
+        </div>
+        <div class="rule">
+          <h3>Clear space is non-negotiable.</h3>
+          <p>The 0.35 &times; height safe area applies even when space is tight. If the layout can't accommodate it, the mark is too big for that layout &mdash; scale it down, don't compress the breathing room.</p>
+        </div>
+        <div class="rule">
+          <h3>The wordmark and the mark are not the same asset.</h3>
+          <p>The wordmark says the name. The mark <em>is</em> the brand. Don't substitute one for the other &mdash; using the wordmark as a favicon (it will crush) or the mark on a marketing hero (it leaves the name unsaid) both fail.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>Copia · Leaf Mark Usage · v1 · May 2026</div>
+      <div>Source: copia-leaf-mark.svg · 5 paths · viewBox 634.53 × 883.74</div>
+    </footer>
+  </div>
+</body>
+</html>

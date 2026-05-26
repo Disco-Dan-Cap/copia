@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* ─── Copia Design Tokens ─────────────────────────────────────────────────── */
+/* Source of truth: brand/copia-palette-card.html                              */
+/* These CSS variables are the single source for all color, type, and shadow   */
+/* decisions in the app. Tailwind references them via @theme below.            */
+
+:root {
+  /* Greens — seven-step ramp extracted from the wordmark SVG */
+  --deepest-forest: #1E3D30;
+  --forest:         #1C664D;
+  --mid-forest:     #30594A;
+  --sage-shadow:    #4E8472;
+  --sage:           #509982;
+  --light-sage:     #74B5A1;
+  --mint:           #9CE5D0;
+
+  /* Neutrals */
+  --cream:          #FAF6EE;
+  --charcoal:       #1A1A1A;
+
+  /* Accent — the only non-green color in the system */
+  --terracotta:     #C46A4F;
+
+  /* Typography */
+  --font-display: "Aptly Medium", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-body:    "Söhne", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Shadows — warm, derived from deepest-forest, never black */
+  --shadow-sm:  0 1px 2px rgba(30, 61, 48, 0.06);
+  --shadow-md:  0 8px 24px rgba(30, 61, 48, 0.12);
+  --shadow-lg:  0 32px 64px rgba(30, 61, 48, 0.18), 0 8px 24px rgba(30, 61, 48, 0.08);
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+
+/* ─── Tailwind v4 Theme Extension ─────────────────────────────────────────── */
+
+@theme inline {
+  --color-deepest-forest: var(--deepest-forest);
+  --color-forest:         var(--forest);
+  --color-mid-forest:     var(--mid-forest);
+  --color-sage-shadow:    var(--sage-shadow);
+  --color-sage:           var(--sage);
+  --color-light-sage:     var(--light-sage);
+  --color-mint:           var(--mint);
+  --color-cream:          var(--cream);
+  --color-charcoal:       var(--charcoal);
+  --color-terracotta:     var(--terracotta);
+
+  --font-display: var(--font-display);
+  --font-body:    var(--font-body);
+  --font-mono:    var(--font-mono);
+}
+
+/* ─── Base Resets ──────────────────────────────────────────────────────────── */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Prevent pull-to-refresh on the app shell */
+  overscroll-behavior-y: contain;
+}
+
+/* ─── iOS PWA Resets ──────────────────────────────────────────────────────── */
+
+/* Disable the default blue tap highlight — we design custom press states */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent iOS Safari from zooming on input focus */
+input, textarea, select {
+  font-size: 16px;
+}
+
+/* Safe-area padding utilities */
+.safe-top    { padding-top:    env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-left   { padding-left:   env(safe-area-inset-left); }
+.safe-right  { padding-right:  env(safe-area-inset-right); }
+
+/* ─── Typography Utilities ────────────────────────────────────────────────── */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--mid-forest);
+}
+
+/* ─── Motion ──────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

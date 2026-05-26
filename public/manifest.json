@@ -1,0 +1,27 @@
+{
+  "name": "Copia",
+  "short_name": "Copia",
+  "description": "The peer-to-peer marketplace for local fresh produce",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1C664D",
+  "background_color": "#FAF6EE",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

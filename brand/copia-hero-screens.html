@@ -1,0 +1,1576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copia — Hero Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deepest-forest: #1E3D30;
+    --forest:         #1C664D;
+    --mid-forest:     #30594A;
+    --sage-shadow:    #4E8472;
+    --sage:           #509982;
+    --light-sage:     #74B5A1;
+    --mint:           #9CE5D0;
+    --cream:          #FAF6EE;
+    --cream-warm:     #F4EEDF;
+    --charcoal:       #1A1A1A;
+    --terracotta:     #C46A4F;
+    --sans: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --serif: "Fraunces", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #EDE5D2;
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 80px 48px 120px; }
+  @media (max-width: 700px) { .wrap { padding: 48px 20px 80px; } }
+
+  /* ── Doc header ────────────────────────────────────── */
+  header.doc-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; padding-bottom: 32px; border-bottom: 1px solid var(--forest); }
+  .brand-block { display: flex; align-items: center; gap: 18px; }
+  .brand-mark { width: 44px; height: 62px; color: var(--forest); }
+  .brand-name { font-weight: 700; font-size: 22px; letter-spacing: -0.02em; line-height: 1; color: var(--forest); }
+  .brand-sub { font-family: var(--mono); font-size: 11px; color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px; }
+  .doc-meta { font-family: var(--mono); font-size: 11px; color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.12em; text-align: right; }
+  .doc-meta div + div { margin-top: 4px; }
+
+  /* ── Doc hero ─────────────────────────────────────── */
+  .hero { padding: 88px 0 64px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; color: var(--forest); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 24px; }
+  .hero h1 { font-weight: 700; font-size: clamp(40px, 6.5vw, 76px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 24px; color: var(--deepest-forest); max-width: 820px; }
+  .hero h1 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--forest); }
+  .hero p.lede { font-size: 19px; line-height: 1.55; color: var(--charcoal); max-width: 640px; margin: 0; }
+
+  /* ── Spread / screen presentation ─────────────────── */
+  .spread { padding: 96px 0; border-top: 1px solid color-mix(in oklab, var(--forest) 30%, transparent); }
+  .spread-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px; gap: 24px; flex-wrap: wrap; }
+  .spread-num { font-family: var(--mono); font-size: 12px; color: var(--forest); text-transform: uppercase; letter-spacing: 0.18em; }
+  .spread-title { font-weight: 600; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1; letter-spacing: -0.025em; color: var(--deepest-forest); margin: 8px 0 0; max-width: 720px; }
+  .spread-title em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--forest); }
+  .spread-context { font-size: 16px; color: var(--charcoal); max-width: 560px; margin-top: 14px; }
+
+  /* ── Phone frame ──────────────────────────────────── */
+  .phone-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+  }
+  .phone {
+    width: 390px;
+    border-radius: 48px;
+    overflow: hidden;
+    border: 8px solid var(--deepest-forest);
+    box-shadow: 0 32px 64px rgba(30, 61, 48, 0.25), 0 8px 24px rgba(30, 61, 48, 0.12);
+    position: relative;
+    background: var(--cream);
+  }
+  .phone::before {
+    content: "";
+    position: absolute;
+    top: 16px; left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 26px;
+    background: var(--deepest-forest);
+    border-radius: 16px;
+    z-index: 50;
+  }
+  /* iOS home indicator — floats over scrolling content, lives inside the bottom safe area */
+  .phone::after {
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 135px;
+    height: 5px;
+    background: var(--deepest-forest);
+    border-radius: 3px;
+    z-index: 50;
+    opacity: 0.55;
+  }
+  .phone-screen {
+    height: 760px;
+    overflow-y: auto;
+    background: var(--cream);
+    position: relative;
+  }
+
+  /* Mobile status bar */
+  .status-bar {
+    padding: 16px 28px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--deepest-forest);
+    margin-top: 24px;
+  }
+  .status-bar .right { display: flex; gap: 6px; align-items: center; }
+
+  /* ── Browser frame ───────────────────────────────── */
+  .browser {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid color-mix(in oklab, var(--forest) 25%, transparent);
+    box-shadow: 0 32px 64px rgba(30, 61, 48, 0.18), 0 8px 24px rgba(30, 61, 48, 0.08);
+    background: var(--cream);
+    margin-top: 40px;
+  }
+  .browser-chrome {
+    background: #E9E1CE;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid color-mix(in oklab, var(--forest) 15%, transparent);
+  }
+  .browser-dots { display: flex; gap: 7px; }
+  .browser-dots span { width: 12px; height: 12px; border-radius: 50%; background: #C8BFA9; }
+  .browser-dots span:nth-child(1) { background: #E0856B; }
+  .browser-dots span:nth-child(2) { background: #D4B868; }
+  .browser-dots span:nth-child(3) { background: #8FB593; }
+  .browser-url {
+    flex: 1;
+    background: var(--cream);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--mid-forest);
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+
+  /* ── Caption ───────────────────────────────────────── */
+  .caption { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 56px; margin-top: 48px; max-width: 900px; }
+  @media (max-width: 720px) { .caption { grid-template-columns: 1fr; } }
+  .caption-block h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--forest); margin: 0 0 10px; font-weight: 500; }
+  .caption-block p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--charcoal); }
+  .caption-block p + p { margin-top: 10px; }
+  .caption-block em { font-family: var(--serif); font-style: italic; }
+
+  /* ──────────────────────────────────────────────────── */
+  /* ────────── SCREEN 1 — BUYER HOME (mobile) ────────── */
+  /* ──────────────────────────────────────────────────── */
+
+  .s1-nav {
+    padding: 4px 24px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid color-mix(in oklab, var(--forest) 12%, transparent);
+  }
+  .s1-nav .leaf { width: 22px; height: 30px; color: var(--forest); }
+  .s1-nav .wordmark { font-weight: 800; font-size: 19px; letter-spacing: -0.04em; color: var(--forest); margin-left: 9px; }
+  .s1-nav .location { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mid-forest); display: flex; align-items: center; gap: 5px; }
+  .s1-nav .nav-left { display: flex; align-items: center; }
+
+  .s1-masthead {
+    padding: 32px 28px 28px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .s1-masthead .leaf-bg {
+    position: absolute; inset: 0;
+    opacity: 0.4;
+  }
+  .s1-masthead .meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--mid-forest);
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .s1-masthead h2 {
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    color: var(--deepest-forest);
+    margin: 0 0 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .s1-masthead h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--forest); }
+  .s1-masthead p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--charcoal);
+    margin: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .s1-masthead .by-line {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--sage-shadow);
+    margin-top: 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .s1-section {
+    padding: 28px 0 8px;
+  }
+  .s1-section-head {
+    padding: 0 28px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .s1-section-head .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--forest);
+  }
+  .s1-section-head .action {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mid-forest);
+  }
+
+  .s1-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 0 28px 8px;
+    scrollbar-width: none;
+  }
+  .s1-scroll::-webkit-scrollbar { display: none; }
+  .s1-card-season {
+    flex-shrink: 0;
+    width: 130px;
+    background: var(--cream-warm);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid color-mix(in oklab, var(--sage-shadow) 25%, transparent);
+  }
+  .s1-card-season .pic {
+    width: 100%; height: 78px;
+    background: var(--light-sage);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s1-card-season .pic.peach { background: linear-gradient(135deg, #E8927C 0%, #C46A4F 100%); }
+  .s1-card-season .pic.tomato { background: linear-gradient(135deg, #C46A4F 0%, #8B3A28 100%); }
+  .s1-card-season .pic.basil { background: linear-gradient(135deg, #74B5A1 0%, #1C664D 100%); }
+  .s1-card-season .pic.cuke { background: linear-gradient(135deg, #9CE5D0 0%, #509982 100%); }
+  .s1-card-season .name { font-weight: 600; font-size: 14px; color: var(--deepest-forest); line-height: 1.2; letter-spacing: -0.01em; }
+  .s1-card-season .where { font-family: var(--mono); font-size: 9px; color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+  .s1-card-season .price { font-weight: 600; font-size: 13px; color: var(--forest); margin-top: 8px; }
+
+  .s1-map {
+    margin: 0 28px 8px;
+    height: 180px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--cream-warm);
+    position: relative;
+    border: 1px solid color-mix(in oklab, var(--sage-shadow) 25%, transparent);
+  }
+  .s1-map svg { width: 100%; height: 100%; display: block; }
+  .s1-map .pin {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--forest);
+    color: var(--cream);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    border: 2px solid var(--cream);
+    box-shadow: 0 2px 8px rgba(30, 61, 48, 0.25);
+  }
+  .s1-map .pin.you {
+    background: var(--terracotta);
+    width: 14px; height: 14px;
+  }
+
+  .s1-sellers { padding: 0 28px 8px; display: flex; flex-direction: column; gap: 14px; }
+  .s1-seller {
+    display: flex;
+    gap: 14px;
+    padding: 14px;
+    background: var(--cream-warm);
+    border-radius: 14px;
+    border: 1px solid color-mix(in oklab, var(--sage-shadow) 25%, transparent);
+  }
+  .s1-seller .avatar {
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .s1-seller .avatar.a { background: linear-gradient(135deg, #C46A4F 0%, #8B3A28 100%); }
+  .s1-seller .avatar.b { background: linear-gradient(135deg, #74B5A1 0%, #1C664D 100%); }
+  .s1-seller .avatar.c { background: linear-gradient(135deg, #E8B871 0%, #9C6B1F 100%); }
+  .s1-seller .info { flex: 1; min-width: 0; }
+  .s1-seller .name { font-weight: 600; font-size: 14.5px; color: var(--deepest-forest); letter-spacing: -0.01em; }
+  .s1-seller .distance { font-family: var(--mono); font-size: 9.5px; color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+  .s1-seller .what { font-size: 12.5px; color: var(--charcoal); margin-top: 6px; line-height: 1.4; }
+  .s1-seller .new {
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 8px;
+    font-family: var(--mono); font-size: 9px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--terracotta);
+  }
+  .s1-seller .new::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--terracotta);
+  }
+
+  .s1-categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 28px 8px;
+  }
+  .s1-cat {
+    padding: 18px 16px;
+    background: var(--cream-warm);
+    border-radius: 12px;
+    border: 1px solid color-mix(in oklab, var(--sage-shadow) 20%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .s1-cat .ic {
+    width: 22px; height: 22px;
+    color: var(--forest);
+  }
+  .s1-cat .label {
+    font-weight: 600; font-size: 13px;
+    color: var(--deepest-forest);
+    letter-spacing: -0.01em;
+  }
+  .s1-cat .count {
+    font-family: var(--mono); font-size: 9.5px;
+    color: var(--mid-forest);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  .s1-grow {
+    margin: 8px 28px 0;
+    padding: 22px;
+    background: var(--mint);
+    color: var(--deepest-forest);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s1-grow .leaf-bg-grow {
+    position: absolute; inset: 0; opacity: 0.45;
+  }
+  .s1-grow .leaf-ic {
+    width: 32px; height: 44px;
+    color: var(--deepest-forest);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .s1-grow .copy {
+    position: relative; z-index: 2;
+  }
+  .s1-grow .copy .h {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .s1-grow .copy .h em { font-family: var(--serif); font-style: italic; font-weight: 400; }
+  .s1-grow .copy .a {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-top: 6px;
+    color: var(--forest);
+  }
+
+  .s1-tab {
+    margin-top: 16px;
+    padding: 14px 24px 34px;  /* 34px bottom = home-indicator safe area */
+    border-top: 1px solid color-mix(in oklab, var(--forest) 12%, transparent);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: var(--cream);
+  }
+  .s1-tab .item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    color: var(--sage-shadow);
+  }
+  .s1-tab .item.active { color: var(--forest); }
+  .s1-tab .item .ic { width: 22px; height: 22px; }
+  .s1-tab .item .label {
+    font-family: var(--mono); font-size: 8.5px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+  }
+
+  /* ──────────────────────────────────────────────────── */
+  /* ────────── SCREEN 2 — SELLER DASHBOARD (web) ────── */
+  /* ──────────────────────────────────────────────────── */
+
+  .s2-app { display: grid; grid-template-columns: 220px 1fr; min-height: 720px; }
+  .s2-sidebar {
+    background: var(--deepest-forest);
+    color: var(--cream);
+    padding: 24px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .s2-sidebar .leaf-bg-side {
+    position: absolute; inset: 0; opacity: 0.08; color: var(--mint);
+  }
+  .s2-side-brand { padding: 0 22px 28px; display: flex; align-items: center; gap: 10px; position: relative; z-index: 2; }
+  .s2-side-brand .leaf { width: 20px; height: 28px; color: var(--mint); }
+  .s2-side-brand .name { font-weight: 800; font-size: 18px; letter-spacing: -0.04em; color: var(--cream); }
+  .s2-nav { display: flex; flex-direction: column; position: relative; z-index: 2; }
+  .s2-nav .item {
+    padding: 11px 22px;
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 500;
+    color: color-mix(in oklab, var(--cream) 70%, transparent);
+    border-left: 3px solid transparent;
+    display: flex; align-items: center; gap: 10px;
+    transition: all 150ms;
+  }
+  .s2-nav .item.active {
+    color: var(--mint);
+    background: color-mix(in oklab, var(--mint) 8%, transparent);
+    border-left-color: var(--mint);
+  }
+  .s2-nav .item .ic { width: 16px; height: 16px; opacity: 0.85; }
+  .s2-nav .sec {
+    font-family: var(--mono); font-size: 9.5px;
+    color: color-mix(in oklab, var(--cream) 45%, transparent);
+    padding: 24px 22px 8px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+  }
+
+  .s2-main { padding: 36px 44px; background: var(--cream); overflow: hidden; }
+
+  .s2-mainhead { margin-bottom: 36px; }
+  .s2-mainhead .meta {
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--forest); margin-bottom: 14px;
+  }
+  .s2-mainhead h3 {
+    font-weight: 700; font-size: 42px;
+    line-height: 1.0; letter-spacing: -0.035em;
+    color: var(--deepest-forest); margin: 0 0 12px;
+  }
+  .s2-mainhead h3 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--forest); }
+  .s2-mainhead .lede {
+    font-size: 16px; max-width: 520px;
+    color: var(--charcoal); margin: 0;
+  }
+
+  /* The Coach Card — hero element */
+  .s2-coach {
+    background: color-mix(in oklab, var(--light-sage) 20%, var(--cream));
+    border: 1px solid color-mix(in oklab, var(--sage) 35%, transparent);
+    border-left: 3px solid var(--forest);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 36px;
+    display: flex;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s2-coach .leaf-coach { width: 36px; height: 50px; color: var(--forest); flex-shrink: 0; margin-top: 4px; }
+  .s2-coach .body { flex: 1; }
+  .s2-coach .meta {
+    font-family: var(--mono); font-size: 10px;
+    color: var(--forest); text-transform: uppercase; letter-spacing: 0.16em;
+    margin-bottom: 10px;
+  }
+  .s2-coach .quote {
+    font-family: var(--sans); font-weight: 500;
+    font-size: 20px; line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: var(--deepest-forest);
+    margin: 0 0 14px;
+    max-width: 600px;
+  }
+  .s2-coach .quote em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--forest); }
+  .s2-coach .reason {
+    font-size: 14px; line-height: 1.55;
+    color: var(--mid-forest); margin: 0 0 18px;
+    max-width: 580px;
+  }
+  .s2-coach .actions { display: flex; gap: 14px; align-items: center; }
+  .s2-coach .btn {
+    background: var(--forest); color: var(--cream);
+    padding: 9px 18px; border-radius: 6px;
+    font-family: var(--sans); font-weight: 500; font-size: 13px;
+    border: none;
+    letter-spacing: -0.005em;
+  }
+  .s2-coach .link {
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--forest);
+    border-bottom: 1px solid var(--forest);
+    padding-bottom: 1px;
+  }
+
+  /* Today figures — editorial, NOT metric cards */
+  .s2-today {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-bottom: 36px;
+    border-top: 1px solid color-mix(in oklab, var(--forest) 20%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, var(--forest) 20%, transparent);
+  }
+  .s2-fig {
+    padding: 22px 22px 22px 0;
+    border-right: 1px solid color-mix(in oklab, var(--forest) 20%, transparent);
+  }
+  .s2-fig:last-child { border-right: none; padding-right: 0; }
+  .s2-fig:not(:first-child) { padding-left: 22px; }
+  .s2-fig .label {
+    font-family: var(--mono); font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--mid-forest); margin-bottom: 12px;
+  }
+  .s2-fig .big {
+    font-weight: 700; font-size: 32px;
+    line-height: 1.0; letter-spacing: -0.025em;
+    color: var(--deepest-forest);
+  }
+  .s2-fig .big em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--forest); font-size: 28px; }
+  .s2-fig .sub {
+    font-size: 13px; color: var(--mid-forest); margin-top: 10px; line-height: 1.4;
+  }
+  .s2-fig .sub .trend {
+    color: var(--forest); font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Listings strip */
+  .s2-listings-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 16px;
+  }
+  .s2-listings-head .h {
+    font-family: var(--sans); font-weight: 600; font-size: 16px;
+    color: var(--deepest-forest); letter-spacing: -0.015em;
+  }
+  .s2-listings-head .filter {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--mid-forest);
+  }
+  .s2-listings {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .s2-listing {
+    background: var(--cream-warm);
+    border: 1px solid color-mix(in oklab, var(--sage-shadow) 22%, transparent);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .s2-listing .thumb {
+    width: 100%; height: 80px; border-radius: 6px; margin-bottom: 12px;
+  }
+  .s2-listing .thumb.basil { background: linear-gradient(135deg, #74B5A1 0%, #1C664D 100%); }
+  .s2-listing .thumb.tom { background: linear-gradient(135deg, #C46A4F 0%, #8B3A28 100%); }
+  .s2-listing .thumb.egg { background: linear-gradient(135deg, #E8B871 0%, #9C6B1F 100%); }
+  .s2-listing .thumb.lett { background: linear-gradient(135deg, #9CE5D0 0%, #509982 100%); }
+  .s2-listing .nm { font-weight: 600; font-size: 13px; color: var(--deepest-forest); letter-spacing: -0.01em; }
+  .s2-listing .meta-row {
+    display: flex; justify-content: space-between; margin-top: 6px;
+    font-family: var(--mono); font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--mid-forest);
+  }
+  .s2-listing .meta-row .price { color: var(--forest); }
+  .s2-listing .status-dot {
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 8px;
+    font-family: var(--mono); font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--mid-forest);
+  }
+  .s2-listing .status-dot::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--forest);
+  }
+  .s2-listing.sold .status-dot { color: var(--terracotta); }
+  .s2-listing.sold .status-dot::before { background: var(--terracotta); }
+
+  /* Calendar strip */
+  .s2-cal-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .s2-cal-head .h {
+    font-weight: 600; font-size: 16px;
+    color: var(--deepest-forest); letter-spacing: -0.015em;
+  }
+  .s2-cal-head .nav {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--mid-forest);
+  }
+  .s2-cal {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .s2-day {
+    padding: 12px 8px;
+    background: var(--cream-warm);
+    border: 1px solid color-mix(in oklab, var(--sage-shadow) 22%, transparent);
+    border-radius: 8px;
+    min-height: 80px;
+  }
+  .s2-day.today { background: var(--mint); border-color: var(--sage); }
+  .s2-day .num {
+    font-family: var(--mono); font-size: 10px;
+    color: var(--mid-forest);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+  .s2-day.today .num { color: var(--deepest-forest); font-weight: 500; }
+  .s2-day .events {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .s2-day .ev {
+    background: var(--forest); color: var(--cream);
+    font-size: 9.5px; font-weight: 500;
+    padding: 3px 5px; border-radius: 3px;
+    letter-spacing: -0.005em;
+    line-height: 1.2;
+  }
+  .s2-day .ev.harvest { background: var(--terracotta); }
+  .s2-day .ev.plant { background: var(--sage); }
+
+  /* ──────────────────────────────────────────────────── */
+  /* ────────── SCREEN 3 — GROWING COACH (mobile) ─────── */
+  /* ──────────────────────────────────────────────────── */
+
+  .s3-nav {
+    padding: 4px 24px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .s3-nav .back {
+    color: var(--mid-forest);
+    font-family: var(--mono); font-size: 13px;
+  }
+  .s3-nav .title {
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--forest);
+  }
+  .s3-nav .sett { color: var(--mid-forest); width: 18px; height: 18px; }
+
+  .s3-letter {
+    padding: 20px 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .s3-letter .leaf-bg {
+    position: absolute; inset: 0; opacity: 0.3;
+  }
+  .s3-letter .meta {
+    font-family: var(--mono); font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--mid-forest); margin-bottom: 14px;
+    position: relative; z-index: 2;
+  }
+  .s3-letter h2 {
+    font-weight: 700; font-size: 32px;
+    line-height: 1.0; letter-spacing: -0.035em;
+    color: var(--deepest-forest); margin: 0 0 18px;
+    position: relative; z-index: 2;
+  }
+  .s3-letter h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--forest); }
+  .s3-letter p {
+    font-size: 14px; line-height: 1.6;
+    color: var(--charcoal); margin: 0;
+    position: relative; z-index: 2;
+  }
+  .s3-letter .salute {
+    font-family: var(--serif); font-style: italic;
+    color: var(--forest); margin-bottom: 12px;
+    font-size: 16px;
+    position: relative; z-index: 2;
+  }
+
+  /* Two-week calendar strip — the custom visualization */
+  .s3-twoweek {
+    margin: 24px 0 0;
+    padding: 24px 28px;
+    background: var(--deepest-forest);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .s3-twoweek .label {
+    font-family: var(--mono); font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--mint); margin-bottom: 16px;
+  }
+  .s3-tw-list { display: flex; flex-direction: column; gap: 0; }
+  .s3-tw-day {
+    padding: 12px 0;
+    display: flex; gap: 18px;
+    border-bottom: 1px solid color-mix(in oklab, var(--cream) 12%, transparent);
+  }
+  .s3-tw-day:last-child { border-bottom: none; }
+  .s3-tw-day .day {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--mint); text-transform: uppercase; letter-spacing: 0.1em;
+    width: 60px; flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .s3-tw-day .day strong { color: var(--cream); display: block; font-weight: 500; font-size: 13px; }
+  .s3-tw-day.today .day strong { color: var(--mint); }
+  .s3-tw-day .what {
+    font-size: 13.5px; line-height: 1.4;
+    color: color-mix(in oklab, var(--cream) 90%, transparent);
+  }
+  .s3-tw-day .what .tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 8.5px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    padding: 2px 6px; border-radius: 3px;
+    margin-right: 8px;
+    vertical-align: 1px;
+  }
+  .s3-tw-day .what .tag.harvest { background: var(--terracotta); color: var(--cream); }
+  .s3-tw-day .what .tag.plant { background: var(--sage); color: var(--deepest-forest); }
+  .s3-tw-day .what .tag.water { background: var(--light-sage); color: var(--deepest-forest); }
+  .s3-tw-day .what .tag.list { background: var(--mint); color: var(--deepest-forest); }
+  .s3-tw-day .what .tag.rest { background: color-mix(in oklab, var(--cream) 20%, transparent); color: var(--cream); }
+
+  .s3-signal { padding: 28px; }
+  .s3-signal .label {
+    font-family: var(--mono); font-size: 10px;
+    color: var(--forest); text-transform: uppercase; letter-spacing: 0.14em;
+    margin-bottom: 16px;
+  }
+  .s3-signal-list { display: flex; flex-direction: column; gap: 12px; }
+  .s3-signal-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 12px;
+    border-bottom: 1px solid color-mix(in oklab, var(--forest) 12%, transparent);
+  }
+  .s3-signal-item:last-child { border-bottom: none; }
+  .s3-signal-item .item {
+    font-weight: 600; font-size: 15px;
+    color: var(--deepest-forest); letter-spacing: -0.01em;
+  }
+  .s3-signal-item .sub {
+    font-family: var(--mono); font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--mid-forest); margin-top: 3px;
+  }
+  .s3-signal-item .num {
+    font-family: var(--sans); font-weight: 600; font-size: 16px;
+    color: var(--forest);
+    text-align: right;
+  }
+  .s3-signal-item .num small {
+    display: block; font-weight: 400; font-size: 10px;
+    color: var(--terracotta);
+    font-family: var(--mono);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+  .s3-signal-item .num small.new {
+    color: var(--terracotta);
+  }
+
+  /* The Consider card — recommendation */
+  .s3-consider {
+    margin: 0 28px 28px;
+    padding: 22px;
+    background: var(--cream-warm);
+    border-radius: 14px;
+    border: 1px solid color-mix(in oklab, var(--sage-shadow) 30%, transparent);
+  }
+  .s3-consider .label {
+    font-family: var(--mono); font-size: 9.5px;
+    color: var(--forest); text-transform: uppercase; letter-spacing: 0.16em;
+    margin-bottom: 12px;
+  }
+  .s3-consider h4 {
+    font-weight: 600; font-size: 18px;
+    line-height: 1.25; letter-spacing: -0.02em;
+    color: var(--deepest-forest); margin: 0 0 12px;
+  }
+  .s3-consider h4 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--forest); }
+  .s3-consider p {
+    font-size: 13.5px; line-height: 1.55;
+    color: var(--charcoal); margin: 0 0 16px;
+  }
+  .s3-consider .actions { display: flex; gap: 12px; align-items: center; }
+  .s3-consider .btn {
+    background: var(--forest); color: var(--cream);
+    padding: 8px 16px; border-radius: 6px;
+    font-family: var(--sans); font-weight: 500; font-size: 12.5px;
+    border: none;
+    letter-spacing: -0.005em;
+  }
+  .s3-consider .skip {
+    font-family: var(--mono); font-size: 10px;
+    color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.14em;
+  }
+
+  /* Ask input */
+  .s3-ask {
+    margin: 0 28px 32px;
+    padding: 14px 18px;
+    background: var(--cream-warm);
+    border: 1px solid color-mix(in oklab, var(--sage-shadow) 25%, transparent);
+    border-radius: 10px;
+    font-family: var(--sans); font-size: 13px;
+    color: var(--mid-forest);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .s3-ask .ic { width: 16px; height: 16px; color: var(--forest); }
+  .s3-ask .hint {
+    text-align: center;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--sage-shadow); margin: 8px 28px 40px;  /* 40px = home-indicator safe area */
+    text-transform: uppercase; letter-spacing: 0.12em;
+  }
+
+  /* ── Footer ─────────────────────────────────────────── */
+  .doc-footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid color-mix(in oklab, var(--forest) 30%, transparent);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mid-forest);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Leaf mark symbol -->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <symbol id="copia-mark" viewBox="0 0 634.53 883.74">
+      <path fill="currentColor" d="M510.42,182.26c5.32-12.33,10.29-23.1,12.68-36.18-14.8,32.74-31.44,63.95-52.66,93.08-13.8,18.95-27.9,36.37-43.76,53.67-28.09,30.64-57.76,58.9-90.07,85.46-1.7-1.45-.99-3.3-.35-5.03,9.9-26.74,13.49-54.16,11.64-82.52l-5.09-46.65c-2.07-18.98-4.62-37.23-3.72-56.37.95-20.14,5.32-39.27,15.15-56.94,11.6-20.85,29.96-36.59,52.14-44.95l33.42-12.61c17.78-6.71,34.43-14.49,50.9-24.06,20.1-11.69,37.73-25.71,53.24-43.02,2.68-2.99,5.96-5.74,10.04-6.09,5.1-.44,9.79,3.09,11.97,7.68l11.02,23.11c18.95,44.77,33.17,90.96,42.78,138.67,3.25,16.16,5.42,31.57,6.45,47.9,3.03,47.68-12.48,90.61-52.95,117.61-18.18,12.14-37.79,20.34-58.95,26.18-18.27,5.04-36.19,8.56-54.88,11.68l-39.25,6.55c-22.88,3.82-44.87,9.16-67.01,16-1.08.33-2.21.06-2.65-.55-.7-.95-.22-1.9.85-2.94l38.09-37.05c24.14-23.48,45.22-48.92,65.09-76.25,21.98-30.22,40.92-61.75,55.88-96.39Z"/>
+      <path fill="currentColor" d="M121.15,879c-7.12,5.18-15.32,7.85-19.22-1.27-1.81-4.25-2.65-20.37-1.96-31.36,4.78-75.66-4.46-50.45,7.24-106.53l6.91-21.87c5.37-17,10.91-33.04,18.69-49.06,17.55-36.17,43.45-64.62,80-81.78,35.84-16.83,74.88-22.05,114.35-22.1l54.93,1.97,57.67,2.19c22.8.87,44.85-1.34,67.21-5.84,23.35-4.7,45.04-13.03,65.2-25.51l9.18-5.09c2.4-1.33,5.43-1.03,7.42.61,1.79,1.48,3.15,4.85,2.17,7.76-3.28,9.68-7.85,18.42-12.92,27.49-11.95,21.38-25.73,40.95-41.86,59.45-34.28,39.32-76.73,67.81-127.01,82.37-23.18,6.71-46.46,10.29-70.58,11.69l-54.15.77-36.74.11c-18.04.05-36.08.21-52.92,6.63-68.46,26.14-59.2,79.44-64.95,120.24-.68,4.82-4.91,26.39-8.66,29.12Z"/>
+      <path fill="currentColor" d="M303.51,546.52c-45.79,2.46-88.35,12.87-126.13,39.5-1.02.72-2.55-.3-2.86-.93-.53-1.09-.59-2.2.18-4.04,27.56-43.62,60.59-83.85,99.41-118.04,28.86-25.42,62.32-43.96,99.17-54.29,17.24-4.84,33.81-8.14,51.35-11.14l52.95-9.06c21.8-3.73,42.44-9.37,63.01-17.4,34.65-13.5,64.58-33.48,83.84-65.84,1.18-1.98,3.73-2.64,5.36-2.26,1.45.34,4.17,2.03,4.27,4.39,1.5,37.88-.41,75.58-7.95,113.03-9.77,48.55-30.77,88.12-76.22,110.04-20.32,9.8-41.52,15.46-64.05,17.92-23.56,2.58-46.49,2.72-70.18,1.45l-55.49-2.98-56.67-.34Z"/>
+      <path fill="currentColor" d="M207.37,497.21c-12.71,13.59-22.23,27.32-34.43,42.85,5.13-35.53,4.54-69.13-2.75-103.44-5.18-24.38-11.78-47.57-18.81-71.45-8.57-29.12-16.97-62.69-17.06-92.77-.14-47.85,20.95-90.16,63.72-112.64l8.11-4.73c22.84-11.15,46.01-20.24,70.25-28.27,19.52-6.46,38.35-12.64,58.13-17.81,2.72-.71,5.36.26,6.83,2.19,1.38,1.8,1.65,4.66.17,7.11-11.76,19.48-18.27,40.87-20.18,63.63-1.11,13.32-1,25.97.47,39.22l4.47,40.35,3.27,35.11c2.1,46.79-9.9,84.04-41.23,119.04l-31.83,31.68c-16.66,16.58-33.27,32.03-49.15,49.93Z"/>
+      <path fill="currentColor" d="M85.44,726.7c-.57,1.96-4.29.75-4.75-.14-.46-.9-1.45-1.97-1.59-3.79-1.88-26.24-6.71-51.55-14.62-76.77-6.1-19.45-13.91-37.34-21.68-56.12l-20.94-50.62c-7.1-19.64-12.76-38.92-16.71-59.48-12.15-63.26-3.05-125.73,29.35-181.94,20.46-35.5,48.51-65.38,81.93-88.71,2.46-1.72,4.83-2.07,7.1-.97,1.88.92,4.04,4.01,2.98,6.93-17.02,46.86-10.96,93.22,2.26,140.4l14.26,50.89c4.84,17.27,8.66,33.94,11.52,51.67,6.3,39.13,2.61,78.04-10.81,115.47l-21.41,52.69c-14.58,32.82-26.8,65.69-36.9,100.51Z"/>
+    </symbol>
+    <pattern id="leafWave-sparse" x="0" y="0" width="340" height="380" patternUnits="userSpaceOnUse">
+      <g transform="translate(170 120) rotate(-22) scale(0.14) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(0 310) rotate(35) scale(0.14) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(340 310) rotate(35) scale(0.14) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+    </pattern>
+    <pattern id="leafWave-medium" x="0" y="0" width="220" height="250" patternUnits="userSpaceOnUse">
+      <g transform="translate(110 80) rotate(-15) scale(0.11) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(0 205) rotate(28) scale(0.11) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(220 205) rotate(28) scale(0.11) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+    </pattern>
+  </defs>
+</svg>
+
+  <div class="wrap">
+
+    <!-- DOC HEADER -->
+    <header class="doc-header">
+      <div class="brand-block">
+        <svg class="brand-mark" aria-label="Copia leaf mark"><use href="#copia-mark"/></svg>
+        <div>
+          <div class="brand-name">Copia</div>
+          <div class="brand-sub">Brand System</div>
+        </div>
+      </div>
+      <div class="doc-meta">
+        <div>Hero Screens / v1</div>
+        <div>May 2026 · Austin, TX</div>
+      </div>
+    </header>
+
+    <!-- DOC HERO -->
+    <div class="hero">
+      <div class="eyebrow">Stage 2 · Closing artifact · iPhone-first PWA</div>
+      <h1>Three screens. Brand <em>validated</em> at product scale.</h1>
+      <p class="lede">
+        The palette, the leaf mark, the motif, the directive — all of it was preparation for this moment. These
+        three screens prove the Neo-Natural system works not just on a brand sheet but in a buyer's hand, on a
+        seller's desk, and in the conversation that bridges the two. Each picks a different fight: print-magazine
+        editorial vs. dashboard-as-letter vs. AI-as-friend.
+      </p>
+      <p class="lede" style="margin-top: 18px; font-size: 14px; color: var(--mid-forest); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.12em;">
+        Mobile frames: iPhone 14 Pro · 390 × 844 · Dynamic Island + home indicator shown · safe-area gutters baked in
+      </p>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- SCREEN 1 — BUYER HOME / DISCOVER (mobile) -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="spread">
+      <div class="spread-meta">
+        <div>
+          <div class="spread-num">01 — Buyer · Home / Discover · Mobile</div>
+          <h2 class="spread-title">First impression: the cover of a farmers-market <em>newsletter</em>, not the home of an app.</h2>
+          <p class="spread-context">Tuesday morning in Austin. A buyer opens Copia for the first time this week. What they see should feel like a printed object that happens to be on a phone — not a directory of vendors.</p>
+        </div>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-screen">
+
+            <!-- Status -->
+            <div class="status-bar">
+              <span>9:14</span>
+              <span class="right">● ● ● ▮</span>
+            </div>
+
+            <!-- App nav -->
+            <div class="s1-nav">
+              <div class="nav-left">
+                <svg class="leaf"><use href="#copia-mark"/></svg>
+                <span class="wordmark">Copia</span>
+              </div>
+              <div class="location">
+                Austin, TX <span>▾</span>
+              </div>
+            </div>
+
+            <!-- Masthead -->
+            <div class="s1-masthead">
+              <svg class="leaf-bg" preserveAspectRatio="xMidYMid slice" style="color: var(--sage);">
+                <rect width="100%" height="100%" fill="url(#leafWave-sparse)" opacity="0.5"/>
+              </svg>
+              <div class="meta">26 MAY · ZONE 9A · WEEK 22</div>
+              <h2>Peaches are <em>early</em> this year.</h2>
+              <p>The Hill Country saw a warm May. Stone fruit is two weeks ahead of last year, and your sellers are catching up — six new listings in the past day.</p>
+              <div class="by-line">— from your weekly thread</div>
+            </div>
+
+            <!-- In Season -->
+            <div class="s1-section">
+              <div class="s1-section-head">
+                <span class="label">What's ripening this week</span>
+                <span class="action">See all</span>
+              </div>
+              <div class="s1-scroll">
+                <div class="s1-card-season">
+                  <div class="pic peach"></div>
+                  <div class="name">Peaches</div>
+                  <div class="where">Lockhart</div>
+                  <div class="price">$4 / lb</div>
+                </div>
+                <div class="s1-card-season">
+                  <div class="pic tomato"></div>
+                  <div class="name">Cherry tomatoes</div>
+                  <div class="where">East Austin</div>
+                  <div class="price">$5 / pt</div>
+                </div>
+                <div class="s1-card-season">
+                  <div class="pic basil"></div>
+                  <div class="name">Sweet basil</div>
+                  <div class="where">Dripping Sp.</div>
+                  <div class="price">$3 / bunch</div>
+                </div>
+                <div class="s1-card-season">
+                  <div class="pic cuke"></div>
+                  <div class="name">Cucumbers</div>
+                  <div class="where">Round Rock</div>
+                  <div class="price">$2 / lb</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Map -->
+            <div class="s1-section">
+              <div class="s1-section-head">
+                <span class="label">12 sellers near you</span>
+                <span class="action">Map view</span>
+              </div>
+              <div class="s1-map">
+                <svg viewBox="0 0 334 180" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Cream-toned map background -->
+                  <rect width="100%" height="100%" fill="#F4EEDF"/>
+                  <!-- Roads -->
+                  <path d="M0 60 L334 80" stroke="#D4C9AC" stroke-width="2" fill="none"/>
+                  <path d="M0 120 L334 110" stroke="#D4C9AC" stroke-width="2" fill="none"/>
+                  <path d="M80 0 L100 180" stroke="#D4C9AC" stroke-width="2" fill="none"/>
+                  <path d="M200 0 L210 180" stroke="#D4C9AC" stroke-width="2" fill="none"/>
+                  <!-- River -->
+                  <path d="M0 140 Q80 120, 160 150 T334 130" stroke="#9CE5D0" stroke-width="5" fill="none" opacity="0.7"/>
+                  <!-- Parks/green spaces -->
+                  <circle cx="60" cy="40" r="22" fill="#74B5A1" opacity="0.35"/>
+                  <circle cx="260" cy="50" r="18" fill="#74B5A1" opacity="0.35"/>
+                  <circle cx="170" cy="100" r="14" fill="#74B5A1" opacity="0.35"/>
+                </svg>
+                <div class="pin you" style="top: 47%; left: 50%;"></div>
+                <div class="pin" style="top: 28%; left: 22%;">3</div>
+                <div class="pin" style="top: 36%; left: 68%;">2</div>
+                <div class="pin" style="top: 62%; left: 38%;">4</div>
+                <div class="pin" style="top: 70%; left: 76%;">1</div>
+                <div class="pin" style="top: 20%; left: 88%;">2</div>
+              </div>
+            </div>
+
+            <!-- Sellers -->
+            <div class="s1-section">
+              <div class="s1-section-head">
+                <span class="label">Sellers near you</span>
+                <span class="action">All</span>
+              </div>
+              <div class="s1-sellers">
+                <div class="s1-seller">
+                  <div class="avatar a"></div>
+                  <div class="info">
+                    <div class="name">Mira's Half-Acre</div>
+                    <div class="distance">0.8 mi · East Austin</div>
+                    <div class="what">Heirloom tomatoes, basil, eggs from four hens.</div>
+                    <div class="new">2 new listings</div>
+                  </div>
+                </div>
+                <div class="s1-seller">
+                  <div class="avatar b"></div>
+                  <div class="info">
+                    <div class="name">Wimberley Hill Farm</div>
+                    <div class="distance">22 mi · Hill Country</div>
+                    <div class="what">Stone fruit, leafy greens, weekly CSA boxes.</div>
+                  </div>
+                </div>
+                <div class="s1-seller">
+                  <div class="avatar c"></div>
+                  <div class="info">
+                    <div class="name">The Honey & The Comb</div>
+                    <div class="distance">3.4 mi · South Lamar</div>
+                    <div class="what">Wildflower honey, propolis, beeswax candles.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="s1-section">
+              <div class="s1-section-head">
+                <span class="label">Browse by</span>
+                <span class="action"></span>
+              </div>
+              <div class="s1-categories">
+                <div class="s1-cat">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 Q16 6 16 12 Q16 18 12 22 Q8 18 8 12 Q8 6 12 2 Z"/></svg>
+                  <div class="label">Vegetables</div>
+                  <div class="count">82 listings</div>
+                </div>
+                <div class="s1-cat">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="13" rx="6" ry="8"/></svg>
+                  <div class="label">Eggs & Dairy</div>
+                  <div class="count">24 listings</div>
+                </div>
+                <div class="s1-cat">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14 Q12 6 20 14 L20 18 L4 18 Z"/></svg>
+                  <div class="label">Baked & Made</div>
+                  <div class="count">31 listings</div>
+                </div>
+                <div class="s1-cat">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12,3 21,9 21,15 12,21 3,15 3,9"/></svg>
+                  <div class="label">Honey & Preserves</div>
+                  <div class="count">18 listings</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Start growing CTA -->
+            <div class="s1-grow">
+              <svg class="leaf-bg-grow" preserveAspectRatio="xMidYMid slice" style="color: var(--deepest-forest);">
+                <rect width="100%" height="100%" fill="url(#leafWave-medium)" opacity="0.45"/>
+              </svg>
+              <svg class="leaf-ic"><use href="#copia-mark"/></svg>
+              <div class="copy">
+                <div class="h">Got a yard? <em>Start growing to sell.</em></div>
+                <div class="a">A walkthrough →</div>
+              </div>
+            </div>
+
+            <!-- Tab bar -->
+            <div class="s1-tab">
+              <div class="item active">
+                <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 L21 12 L18 12 L18 21 L6 21 L6 12 L3 12 Z"/></svg>
+                <div class="label">Home</div>
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16 16 L21 21"/></svg>
+                <div class="label">Search</div>
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6 L7 6 L10 18 L19 18 L21 10 L8 10"/><circle cx="10" cy="21" r="1.5"/><circle cx="18" cy="21" r="1.5"/></svg>
+                <div class="label">Cart</div>
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21 Q4 14 12 14 Q20 14 20 21"/></svg>
+                <div class="label">Profile</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="caption">
+        <div class="caption-block">
+          <h4>The memorable moment</h4>
+          <p>The masthead reading <em>"Peaches are early this year."</em> A buyer screenshots that. A buyer texts that to a friend. It establishes from the first second that Copia knows what's actually growing, where, and when — and writes about it like a thoughtful editor, not a marketing team.</p>
+        </div>
+        <div class="caption-block">
+          <h4>What we explicitly didn't do</h4>
+          <p>No SaaS hero formula. No purple gradient. No "Sign up for 20% off" pop-up. No trust-badge row. No metric tiles. No emoji icons. The "Start growing to sell" CTA is one editorial banner near the bottom of the scroll, not an interruption.</p>
+        </div>
+        <div class="caption-block">
+          <h4>The system, applied</h4>
+          <p>Cream canvas. Forest carries voice; charcoal carries body; terracotta appears once as the "2 new listings" pulse dot. Leaf Wave sparse motif sits behind the masthead at 50% opacity, doing texture work without competing. The wordmark in nav uses the simplified flat treatment per the leaf-mark spec.</p>
+        </div>
+        <div class="caption-block">
+          <h4>Why iPhone first</h4>
+          <p>Discovery happens on a phone — at a desk Wednesday afternoon, in line at HEB, in bed Sunday morning. Copia is an iPhone-first PWA: 390 px logical width baseline, safe-area-aware (the tab bar sits above the home-indicator gutter you see floating at the bottom of this frame), installable to the home screen via Safari's share sheet. The mint app-icon tile lives on the home screen as a Copia brand moment, not a generic web shortcut.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- SCREEN 2 — SELLER DASHBOARD (desktop) -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="spread">
+      <div class="spread-meta">
+        <div>
+          <div class="spread-num">02 — Seller · Dashboard · Desktop</div>
+          <h2 class="spread-title">A dashboard written like a <em>letter</em>, with one AI insight worth its weight.</h2>
+          <p class="spread-context">Maya is a Suburban Gardener — 200 sq ft of raised beds in East Austin, 9 active listings, second year on the platform. She opens the dashboard with coffee in hand. What she needs is orientation, not analytics.</p>
+        </div>
+      </div>
+
+      <div class="browser">
+        <div class="browser-chrome">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">copia.market / seller / dashboard</div>
+        </div>
+
+        <div class="s2-app">
+
+          <!-- Sidebar -->
+          <aside class="s2-sidebar">
+            <svg class="leaf-bg-side" preserveAspectRatio="xMidYMid slice">
+              <rect width="100%" height="100%" fill="url(#leafWave-sparse)" opacity="0.08"/>
+            </svg>
+            <div class="s2-side-brand">
+              <svg class="leaf"><use href="#copia-mark"/></svg>
+              <span class="name">Copia</span>
+            </div>
+            <nav class="s2-nav">
+              <div class="item active">
+                <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+                Dashboard
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7 L20 7 L18 20 L6 20 Z"/><path d="M9 7 L9 4 L15 4 L15 7"/></svg>
+                Orders
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9 L21 9"/><path d="M9 3 L9 21"/></svg>
+                Listings
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9 L21 9"/><path d="M8 3 L8 7"/><path d="M16 3 L16 7"/></svg>
+                Calendar
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5 L20 5 L20 17 L13 17 L8 21 L8 17 L4 17 Z"/></svg>
+                Messages
+              </div>
+              <div class="sec">Insights</div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19 L4 5"/><path d="M4 19 L20 19"/><path d="M7 15 L11 11 L14 13 L20 7"/></svg>
+                Analytics
+              </div>
+              <div class="item">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19 12 L21 12 M3 12 L5 12 M12 19 L12 21 M12 3 L12 5 M16.95 16.95 L18.36 18.36 M5.64 5.64 L7.05 7.05 M16.95 7.05 L18.36 5.64 M5.64 18.36 L7.05 16.95"/></svg>
+                Settings
+              </div>
+            </nav>
+          </aside>
+
+          <!-- Main -->
+          <main class="s2-main">
+
+            <div class="s2-mainhead">
+              <div class="meta">Tuesday · May 26 · 7:14 AM</div>
+              <h3>Good morning, <em>Maya.</em></h3>
+              <p class="lede">Three pickups today and a basil flush coming Thursday. Here's what to know.</p>
+            </div>
+
+            <!-- COACH CARD -->
+            <div class="s2-coach">
+              <svg class="leaf-coach"><use href="#copia-mark"/></svg>
+              <div class="body">
+                <div class="meta">A note from your Growing Coach</div>
+                <p class="quote">Three buyers near you are searching for basil — and you have a flush coming <em>Thursday.</em></p>
+                <p class="reason">Based on the weather + your last harvest log, your second basil row should peak between Thursday and Sunday. Demand in East Austin is up 40% this month. Consider listing 8–12 bunches Thursday morning at $3.50 each — a slight premium over your usual $3 — and you'll likely sell out by Saturday.</p>
+                <div class="actions">
+                  <button class="btn">Draft Thursday's listing</button>
+                  <span class="link">See demand details</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Today figures -->
+            <div class="s2-today">
+              <div class="s2-fig">
+                <div class="label">Today · pickups</div>
+                <div class="big"><em>Three</em></div>
+                <div class="sub">2 confirmed · 1 awaiting buyer confirmation · first pickup at 4:30 PM</div>
+              </div>
+              <div class="s2-fig">
+                <div class="label">This week · sales</div>
+                <div class="big">$284</div>
+                <div class="sub"><span class="trend">↑ 23%</span> over $231 last week. Driven by the egg-dozen subscribers.</div>
+              </div>
+              <div class="s2-fig">
+                <div class="label">Weather · 7 days</div>
+                <div class="big">76° / 68°</div>
+                <div class="sub">Partly sunny through Wednesday. Heat wave Saturday — water deep Friday night.</div>
+              </div>
+            </div>
+
+            <!-- Listings -->
+            <div class="s2-listings-head">
+              <div class="h">Your listings · 11 total</div>
+              <div class="filter">All · Active · Sold out · Paused</div>
+            </div>
+            <div class="s2-listings">
+              <div class="s2-listing">
+                <div class="thumb basil"></div>
+                <div class="nm">Sweet basil</div>
+                <div class="meta-row"><span>4 bunches</span><span class="price">$3 / ea</span></div>
+                <div class="status-dot">Active</div>
+              </div>
+              <div class="s2-listing">
+                <div class="thumb tom"></div>
+                <div class="nm">Cherokee Purple</div>
+                <div class="meta-row"><span>2 lbs</span><span class="price">$6 / lb</span></div>
+                <div class="status-dot">Active</div>
+              </div>
+              <div class="s2-listing">
+                <div class="thumb egg"></div>
+                <div class="nm">Pastured eggs</div>
+                <div class="meta-row"><span>6 dz</span><span class="price">$8 / dz</span></div>
+                <div class="status-dot">Active</div>
+              </div>
+              <div class="s2-listing sold">
+                <div class="thumb lett"></div>
+                <div class="nm">Butter lettuce mix</div>
+                <div class="meta-row"><span>Sold out</span><span class="price">$4 / bag</span></div>
+                <div class="status-dot">Sold out · 2 hrs ago</div>
+              </div>
+            </div>
+
+            <!-- Calendar -->
+            <div class="s2-cal-head">
+              <div class="h">This week's plan</div>
+              <div class="nav">← May 25 — 31 →</div>
+            </div>
+            <div class="s2-cal">
+              <div class="s2-day"><div class="num">Mon 25</div></div>
+              <div class="s2-day today">
+                <div class="num">Tue 26 · Today</div>
+                <div class="events">
+                  <div class="ev">3 pickups</div>
+                  <div class="ev harvest">Lettuce pull</div>
+                </div>
+              </div>
+              <div class="s2-day">
+                <div class="num">Wed 27</div>
+                <div class="events">
+                  <div class="ev plant">Plant okra</div>
+                </div>
+              </div>
+              <div class="s2-day">
+                <div class="num">Thu 28</div>
+                <div class="events">
+                  <div class="ev harvest">Basil flush</div>
+                  <div class="ev">List 8–12 bunches</div>
+                </div>
+              </div>
+              <div class="s2-day">
+                <div class="num">Fri 29</div>
+                <div class="events">
+                  <div class="ev">Deep water</div>
+                </div>
+              </div>
+              <div class="s2-day">
+                <div class="num">Sat 30</div>
+                <div class="events">
+                  <div class="ev">Heat wave</div>
+                </div>
+              </div>
+              <div class="s2-day"><div class="num">Sun 31</div></div>
+            </div>
+
+          </main>
+        </div>
+      </div>
+
+      <div class="caption">
+        <div class="caption-block">
+          <h4>The memorable moment</h4>
+          <p>The Coach Card. An AI insight written like a knowledgeable friend's note, not a notification. Specific demand signal, specific harvest window, specific price recommendation with reasoning — then a single primary action ("Draft Thursday's listing"). One card. Earns its placement.</p>
+        </div>
+        <div class="caption-block">
+          <h4>The thing it refuses to be</h4>
+          <p>A dashboard. There is no row of metric cards with up-arrows and percentages. The three "today" figures are set as editorial figures with explanatory subtext — a magazine page about Maya's Tuesday, not an analytics screen.</p>
+        </div>
+        <div class="caption-block">
+          <h4>Subtle craft</h4>
+          <p>The sidebar runs on deepest forest with the Leaf Wave motif at 8% opacity — present but not loud. The active state uses mint as the tint and a 3px mint border on the left, never solid mint background. The "Three" in pickups uses the Fraunces italic — one small typographic move that signals editorial, not enterprise.</p>
+        </div>
+        <div class="caption-block">
+          <h4>Why desktop for this one</h4>
+          <p>Sellers do their planning at a table. The calendar strip, the listings grid, and the Coach Card all want horizontal breathing room. A mobile version exists (collapsed sidebar, vertically stacked figures, swipeable calendar), but the dashboard is most itself on a screen wider than your hand.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- SCREEN 3 — GROWING COACH (mobile) -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="spread">
+      <div class="spread-meta">
+        <div>
+          <div class="spread-num">03 — AI Growing Coach · Mobile</div>
+          <h2 class="spread-title">Not a chat. A <em>letter</em> from someone who knows your plot.</h2>
+          <p class="spread-context">The Growing Coach is the structural bridge feature that makes the buyer-to-seller conversion possible. It is also the hero AI moment of the case study. So it gets a format no other AI tool uses: a personalized weekly composition, not a chat thread.</p>
+        </div>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-screen">
+
+            <div class="status-bar">
+              <span>7:42</span>
+              <span class="right">● ● ● ▮</span>
+            </div>
+
+            <div class="s3-nav">
+              <span class="back">← Back</span>
+              <span class="title">Growing Coach</span>
+              <svg class="sett" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12 L21 12 M3 12 L5 12"/></svg>
+            </div>
+
+            <!-- Letter opening -->
+            <div class="s3-letter">
+              <svg class="leaf-bg" preserveAspectRatio="xMidYMid slice" style="color: var(--sage);">
+                <rect width="100%" height="100%" fill="url(#leafWave-sparse)" opacity="0.35"/>
+              </svg>
+              <div class="meta">Tuesday, May 26 · Zone 9a · Your plot: 200 sq ft</div>
+              <h2>This week, plant okra. Harvest your spring <em>lettuce.</em></h2>
+              <p class="salute">Maya —</p>
+              <p>You're entering the transition week. Your spring lettuce won't make it through Saturday's heat wave. Pull it Tuesday or Wednesday and replace with okra and Malabar spinach — both love the heat that's coming, and both are missing from buyer searches in East Austin right now.</p>
+            </div>
+
+            <!-- Two-week calendar strip — THE HERO VISUAL -->
+            <div class="s3-twoweek">
+              <div class="label">Your next seven days</div>
+              <div class="s3-tw-list">
+                <div class="s3-tw-day today">
+                  <div class="day"><strong>Tue 26</strong>Today</div>
+                  <div class="what"><span class="tag harvest">Harvest</span>Pull spring lettuce. Bag for sale.</div>
+                </div>
+                <div class="s3-tw-day">
+                  <div class="day"><strong>Wed 27</strong></div>
+                  <div class="what"><span class="tag plant">Plant</span>Okra (rows 3–4) and Malabar spinach (row 5).</div>
+                </div>
+                <div class="s3-tw-day">
+                  <div class="day"><strong>Thu 28</strong></div>
+                  <div class="what"><span class="tag harvest">Harvest</span>Basil flush. 8–12 bunches.</div>
+                </div>
+                <div class="s3-tw-day">
+                  <div class="day"><strong>Fri 29</strong></div>
+                  <div class="what"><span class="tag water">Water</span>Deep water all beds before Saturday's heat.</div>
+                </div>
+                <div class="s3-tw-day">
+                  <div class="day"><strong>Sat 30</strong></div>
+                  <div class="what"><span class="tag list">List</span>Post basil + lettuce mix bundles by 9 AM.</div>
+                </div>
+                <div class="s3-tw-day">
+                  <div class="day"><strong>Sun 31</strong></div>
+                  <div class="what"><span class="tag rest">Rest</span>Bed mulch check. Otherwise: nothing.</div>
+                </div>
+                <div class="s3-tw-day">
+                  <div class="day"><strong>Mon 01</strong></div>
+                  <div class="what"><span class="tag harvest">Harvest</span>Cherokee Purple tomatoes — first picking.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Buyer signal -->
+            <div class="s3-signal">
+              <div class="label">What your neighbors are searching</div>
+              <div class="s3-signal-list">
+                <div class="s3-signal-item">
+                  <div>
+                    <div class="item">Basil</div>
+                    <div class="sub">East Austin · this week</div>
+                  </div>
+                  <div class="num">12<small class="new">↑ 40% MoM</small></div>
+                </div>
+                <div class="s3-signal-item">
+                  <div>
+                    <div class="item">Heirloom tomatoes</div>
+                    <div class="sub">East Austin · this week</div>
+                  </div>
+                  <div class="num">8<small>steady</small></div>
+                </div>
+                <div class="s3-signal-item">
+                  <div>
+                    <div class="item">Shishito peppers</div>
+                    <div class="sub">East Austin + Hill Country</div>
+                  </div>
+                  <div class="num">6<small class="new">NEW SIGNAL</small></div>
+                </div>
+                <div class="s3-signal-item">
+                  <div>
+                    <div class="item">Pastured eggs</div>
+                    <div class="sub">your existing buyers</div>
+                  </div>
+                  <div class="num">24<small>recurring</small></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- The Consider card -->
+            <div class="s3-consider">
+              <div class="label">Coach's consider</div>
+              <h4>Shishito peppers — easy in your climate, in demand from Hill Country <em>chefs.</em></h4>
+              <p>Three restaurants in East Austin and one in Driftwood have been searching weekly for the past month. Your raised beds + zone 9a climate are well-suited. Seeds are $4 from Johnny's; harvest in 75 days. Want me to walk you through the plan?</p>
+              <div class="actions">
+                <button class="btn">Show me the plan</button>
+                <span class="skip">Maybe later</span>
+              </div>
+            </div>
+
+            <!-- Ask input -->
+            <div class="s3-ask">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5 L20 5 L20 17 L13 17 L8 21 L8 17 L4 17 Z"/></svg>
+              Ask anything about your garden…
+            </div>
+            <div class="s3-ask hint">Try: "when should I prune my tomatoes?"</div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="caption">
+        <div class="caption-block">
+          <h4>The memorable moment</h4>
+          <p>The whole composition reading like a personal letter. The salute <em>"Maya —"</em>, the seven-day strip on a deep-forest panel with color-coded action tags, the closing "Coach's consider" card written as a friend's nudge. There is no chat thread anywhere on this screen.</p>
+        </div>
+        <div class="caption-block">
+          <h4>Why not a chat</h4>
+          <p>Every AI feature ships as a chat thread. That's the default trap. Copia's Growing Coach isn't a Q&A assistant — it's a weekly publication for one. The chat input is still there at the bottom (you can ask "when should I prune my tomatoes?") but it's a tertiary affordance, not the experience.</p>
+        </div>
+        <div class="caption-block">
+          <h4>The strategic role</h4>
+          <p>This screen carries the buyer-to-seller conversion thesis. Without the Growing Coach, the seller cold-start is impossible — anyone with a balcony is intimidated. With it, anyone with a balcony has a friend who tells them exactly what to plant, when to harvest, what to list. The case study points here.</p>
+        </div>
+        <div class="caption-block">
+          <h4>Type & color choices</h4>
+          <p>Fraunces italic for "lettuce" and "chefs" — the only place we use a serif, and only for emphasis the brand wants the reader to feel. The seven-day strip inverts to deepest-forest with mint accents, which gives the page a strong second register and lets the action tags (harvest, plant, water, list, rest) read as color-coded chips without crowding the cream above.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- CLOSING -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <section class="spread">
+      <div class="spread-meta">
+        <div>
+          <div class="spread-num">04 — Stage 2 · Closed</div>
+          <h2 class="spread-title">The brand works at screen scale. <em>Stage 3 begins.</em></h2>
+          <p class="spread-context">Five brand artifacts plus three hero screens. Neo-Natural holds up not just on a palette card but in a real product context, on real devices, with real content. The system is ready to scale into the full app build.</p>
+        </div>
+      </div>
+      <div class="caption">
+        <div class="caption-block">
+          <h4>What just shipped</h4>
+          <p>Buyer Home as an editorial first impression. Seller Dashboard as a letter, not a control panel. AI Growing Coach as a weekly composition, not a chatbot. Three distinct contexts, one coherent brand voice. The diagnostic questions from the design directive (1972 co-op? 2026 studio? memorable moment?) all answer yes.</p>
+        </div>
+        <div class="caption-block">
+          <h4>What's next: Stage 3, Claude Code</h4>
+          <p>Move the project into Claude Code. Install the frontend-design plugin alongside this project's design directive. Scaffold the Next.js + Tailwind + Supabase + Mapbox + Anthropic SDK stack with `next-pwa` for the iPhone install path. Build the buyer flow against seeded Austin data first. Then seller flow. Then wire AI features against the Claude API. Then ship the PWA splash screens + app icon tile. Then deploy to Vercel. Then write the case study. Roughly two weeks of focused work.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="doc-footer">
+      <div>Copia · Hero Screens · v1 · May 2026</div>
+      <div>3 screens · 2 mobile + 1 desktop · cream canvas system applied</div>
+    </footer>
+
+  </div>
+</body>
+</html>

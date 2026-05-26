@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copia — Motif System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deepest-forest: #1E3D30;
+    --forest:         #1C664D;
+    --mid-forest:     #30594A;
+    --sage-shadow:    #4E8472;
+    --sage:           #509982;
+    --light-sage:     #74B5A1;
+    --mint:           #9CE5D0;
+    --cream:          #FAF6EE;
+    --charcoal:       #1A1A1A;
+    --terracotta:     #C46A4F;
+    --sans: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 80px 48px 120px; }
+  @media (max-width: 700px) { .wrap { padding: 48px 24px 80px; } }
+
+  header { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; padding-bottom: 32px; border-bottom: 1px solid var(--forest); }
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .brand-mark { width: 44px; height: 62px; color: var(--forest); }
+  .brand-name { font-family: var(--sans); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; line-height: 1; color: var(--forest); }
+  .brand-sub { font-family: var(--mono); font-size: 11px; color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px; }
+  .doc-meta { font-family: var(--mono); font-size: 11px; color: var(--mid-forest); text-transform: uppercase; letter-spacing: 0.12em; text-align: right; }
+  .doc-meta div + div { margin-top: 4px; }
+
+  .hero { padding: 88px 0 64px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; color: var(--forest); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 24px; }
+  .hero h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(40px, 6.5vw, 76px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 24px; color: var(--deepest-forest); max-width: 820px; }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--forest); }
+  .hero p.lede { font-size: 19px; line-height: 1.55; color: var(--charcoal); max-width: 640px; margin: 0; }
+
+  section { padding: 72px 0; border-top: 1px solid color-mix(in oklab, var(--forest) 30%, transparent); }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px; gap: 24px; flex-wrap: wrap; }
+  .sec-num { font-family: var(--mono); font-size: 12px; color: var(--forest); text-transform: uppercase; letter-spacing: 0.18em; }
+  .sec-title { font-family: var(--sans); font-weight: 600; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1; letter-spacing: -0.025em; color: var(--deepest-forest); margin: 8px 0 0; }
+  .sec-intro { max-width: 580px; color: var(--charcoal); font-size: 16px; }
+
+  /* ── Pattern demo containers ────────────────────────── */
+  .pattern-hero {
+    height: 360px;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-top: 32px;
+    position: relative;
+  }
+  .pattern-hero .hero-tag {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background: var(--cream);
+    color: var(--deepest-forest);
+    padding: 6px 10px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+
+  .density-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-radius: 14px; overflow: hidden; }
+  @media (max-width: 800px) { .density-grid { grid-template-columns: 1fr; } }
+  .density-cell {
+    aspect-ratio: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 18px;
+    overflow: hidden;
+  }
+  .density-cell .d-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background: var(--cream);
+    color: var(--deepest-forest);
+    padding: 5px 9px;
+    border-radius: 4px;
+    display: inline-block;
+    width: fit-content;
+    position: relative;
+    z-index: 2;
+  }
+  .density-cell .d-stats {
+    margin-top: 6px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--mid-forest);
+    background: var(--cream);
+    padding: 3px 8px;
+    border-radius: 3px;
+    width: fit-content;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Color combinations ─────────────────────────────── */
+  .combos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 700px) { .combos { grid-template-columns: 1fr; } }
+  .combo {
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+  }
+  .combo .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background: var(--cream);
+    color: var(--deepest-forest);
+    padding: 6px 10px;
+    border-radius: 4px;
+    width: fit-content;
+    position: relative;
+    z-index: 2;
+  }
+  .combo .role {
+    margin-top: 8px;
+    font-family: var(--sans);
+    font-size: 12.5px;
+    background: var(--cream);
+    color: var(--mid-forest);
+    padding: 4px 10px;
+    border-radius: 4px;
+    width: fit-content;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Code block ─────────────────────────────────────── */
+  .code-block {
+    background: var(--deepest-forest);
+    color: var(--mint);
+    padding: 28px 28px;
+    border-radius: 14px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+    overflow-x: auto;
+    margin-top: 24px;
+  }
+  .code-block .c { color: var(--sage); }
+  .code-block .k { color: var(--mint); font-weight: 500; }
+  .code-block .s { color: var(--cream); }
+
+  /* ── Rules ──────────────────────────────────────────── */
+  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 56px; }
+  @media (max-width: 720px) { .rules { grid-template-columns: 1fr; } }
+  .rule h3 { font-family: var(--sans); font-weight: 600; font-size: 17px; margin: 0 0 10px; color: var(--deepest-forest); letter-spacing: -0.01em; }
+  .rule p { font-size: 15px; line-height: 1.6; margin: 0; color: var(--charcoal); }
+  .rule code { font-family: var(--mono); font-size: 12.5px; background: color-mix(in oklab, var(--forest) 8%, transparent); padding: 1px 6px; border-radius: 4px; color: var(--deepest-forest); }
+
+  /* ── Don'ts ─────────────────────────────────────────── */
+  .dont-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 760px) { .dont-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .dont-grid { grid-template-columns: 1fr; } }
+  .dont {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 18px;
+  }
+  .dont .x {
+    position: absolute;
+    top: 12px; right: 14px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    z-index: 3;
+  }
+  .dont .dont-cap {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: var(--cream);
+    color: var(--mid-forest);
+    line-height: 1.4;
+    padding: 7px 10px;
+    border-radius: 4px;
+    width: fit-content;
+    position: relative;
+    z-index: 2;
+  }
+  .dont .dont-cap strong { color: var(--deepest-forest); display: block; font-weight: 500; font-size: 11px; margin-bottom: 2px; }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid color-mix(in oklab, var(--forest) 30%, transparent);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--mid-forest);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Reusable leaf-mark symbol ────────────────────── -->
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <symbol id="copia-mark" viewBox="0 0 634.53 883.74">
+      <path fill="currentColor" d="M510.42,182.26c5.32-12.33,10.29-23.1,12.68-36.18-14.8,32.74-31.44,63.95-52.66,93.08-13.8,18.95-27.9,36.37-43.76,53.67-28.09,30.64-57.76,58.9-90.07,85.46-1.7-1.45-.99-3.3-.35-5.03,9.9-26.74,13.49-54.16,11.64-82.52l-5.09-46.65c-2.07-18.98-4.62-37.23-3.72-56.37.95-20.14,5.32-39.27,15.15-56.94,11.6-20.85,29.96-36.59,52.14-44.95l33.42-12.61c17.78-6.71,34.43-14.49,50.9-24.06,20.1-11.69,37.73-25.71,53.24-43.02,2.68-2.99,5.96-5.74,10.04-6.09,5.1-.44,9.79,3.09,11.97,7.68l11.02,23.11c18.95,44.77,33.17,90.96,42.78,138.67,3.25,16.16,5.42,31.57,6.45,47.9,3.03,47.68-12.48,90.61-52.95,117.61-18.18,12.14-37.79,20.34-58.95,26.18-18.27,5.04-36.19,8.56-54.88,11.68l-39.25,6.55c-22.88,3.82-44.87,9.16-67.01,16-1.08.33-2.21.06-2.65-.55-.7-.95-.22-1.9.85-2.94l38.09-37.05c24.14-23.48,45.22-48.92,65.09-76.25,21.98-30.22,40.92-61.75,55.88-96.39Z"/>
+      <path fill="currentColor" d="M121.15,879c-7.12,5.18-15.32,7.85-19.22-1.27-1.81-4.25-2.65-20.37-1.96-31.36,4.78-75.66-4.46-50.45,7.24-106.53l6.91-21.87c5.37-17,10.91-33.04,18.69-49.06,17.55-36.17,43.45-64.62,80-81.78,35.84-16.83,74.88-22.05,114.35-22.1l54.93,1.97,57.67,2.19c22.8.87,44.85-1.34,67.21-5.84,23.35-4.7,45.04-13.03,65.2-25.51l9.18-5.09c2.4-1.33,5.43-1.03,7.42.61,1.79,1.48,3.15,4.85,2.17,7.76-3.28,9.68-7.85,18.42-12.92,27.49-11.95,21.38-25.73,40.95-41.86,59.45-34.28,39.32-76.73,67.81-127.01,82.37-23.18,6.71-46.46,10.29-70.58,11.69l-54.15.77-36.74.11c-18.04.05-36.08.21-52.92,6.63-68.46,26.14-59.2,79.44-64.95,120.24-.68,4.82-4.91,26.39-8.66,29.12Z"/>
+      <path fill="currentColor" d="M303.51,546.52c-45.79,2.46-88.35,12.87-126.13,39.5-1.02.72-2.55-.3-2.86-.93-.53-1.09-.59-2.2.18-4.04,27.56-43.62,60.59-83.85,99.41-118.04,28.86-25.42,62.32-43.96,99.17-54.29,17.24-4.84,33.81-8.14,51.35-11.14l52.95-9.06c21.8-3.73,42.44-9.37,63.01-17.4,34.65-13.5,64.58-33.48,83.84-65.84,1.18-1.98,3.73-2.64,5.36-2.26,1.45.34,4.17,2.03,4.27,4.39,1.5,37.88-.41,75.58-7.95,113.03-9.77,48.55-30.77,88.12-76.22,110.04-20.32,9.8-41.52,15.46-64.05,17.92-23.56,2.58-46.49,2.72-70.18,1.45l-55.49-2.98-56.67-.34Z"/>
+      <path fill="currentColor" d="M207.37,497.21c-12.71,13.59-22.23,27.32-34.43,42.85,5.13-35.53,4.54-69.13-2.75-103.44-5.18-24.38-11.78-47.57-18.81-71.45-8.57-29.12-16.97-62.69-17.06-92.77-.14-47.85,20.95-90.16,63.72-112.64l8.11-4.73c22.84-11.15,46.01-20.24,70.25-28.27,19.52-6.46,38.35-12.64,58.13-17.81,2.72-.71,5.36.26,6.83,2.19,1.38,1.8,1.65,4.66.17,7.11-11.76,19.48-18.27,40.87-20.18,63.63-1.11,13.32-1,25.97.47,39.22l4.47,40.35,3.27,35.11c2.1,46.79-9.9,84.04-41.23,119.04l-31.83,31.68c-16.66,16.58-33.27,32.03-49.15,49.93Z"/>
+      <path fill="currentColor" d="M85.44,726.7c-.57,1.96-4.29.75-4.75-.14-.46-.9-1.45-1.97-1.59-3.79-1.88-26.24-6.71-51.55-14.62-76.77-6.1-19.45-13.91-37.34-21.68-56.12l-20.94-50.62c-7.1-19.64-12.76-38.92-16.71-59.48-12.15-63.26-3.05-125.73,29.35-181.94,20.46-35.5,48.51-65.38,81.93-88.71,2.46-1.72,4.83-2.07,7.1-.97,1.88.92,4.04,4.01,2.98,6.93-17.02,46.86-10.96,93.22,2.26,140.4l14.26,50.89c4.84,17.27,8.66,33.94,11.52,51.67,6.3,39.13,2.61,78.04-10.81,115.47l-21.41,52.69c-14.58,32.82-26.8,65.69-36.9,100.51Z"/>
+    </symbol>
+
+    <!-- ── DENSE pattern: ~140px cell, leaves rotated, hex-offset ──────── -->
+    <pattern id="leafWave-dense" x="0" y="0" width="140" height="160" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">
+      <g transform="translate(70 50) rotate(-18) scale(0.085) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(0 130) rotate(22) scale(0.085) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(140 130) rotate(22) scale(0.085) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+    </pattern>
+
+    <!-- ── MEDIUM pattern: ~220px cell ─────────────────────────────────── -->
+    <pattern id="leafWave-medium" x="0" y="0" width="220" height="250" patternUnits="userSpaceOnUse">
+      <g transform="translate(110 80) rotate(-15) scale(0.11) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(0 205) rotate(28) scale(0.11) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(220 205) rotate(28) scale(0.11) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+    </pattern>
+
+    <!-- ── SPARSE pattern: ~340px cell ─────────────────────────────────── -->
+    <pattern id="leafWave-sparse" x="0" y="0" width="340" height="380" patternUnits="userSpaceOnUse">
+      <g transform="translate(170 120) rotate(-22) scale(0.14) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(0 310) rotate(35) scale(0.14) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+      <g transform="translate(340 310) rotate(35) scale(0.14) translate(-317 -442)" fill="currentColor"><use href="#copia-mark"/></g>
+    </pattern>
+  </defs>
+</svg>
+
+  <div class="wrap">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <svg class="brand-mark" aria-label="Copia leaf mark"><use href="#copia-mark"/></svg>
+        <div>
+          <div class="brand-name">Copia</div>
+          <div class="brand-sub">Brand System</div>
+        </div>
+      </div>
+      <div class="doc-meta">
+        <div>Motif System / v1</div>
+        <div>May 2026 · Austin, TX</div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="eyebrow">01 — The Motif</div>
+      <h1>One shape, tiled with intention. <em>That's the whole motif system.</em></h1>
+      <p class="lede">
+        Copia doesn't get a separate decorative pattern, a separate texture, and a separate brand wallpaper.
+        It gets one motif &mdash; the <strong style="color: var(--deepest-forest);">Leaf Wave</strong> &mdash; built from the same leaf-mark paths that carry every other tier of
+        the logo system. Three densities. A handful of color pairings. Strict rules for when it shows up.
+      </p>
+
+      <div class="pattern-hero" style="background: var(--mint); color: var(--deepest-forest); position: relative;">
+        <div class="hero-tag">Leaf Wave · Dense · Deepest Forest on Mint</div>
+        <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="display:block; position:absolute; inset:0;">
+          <rect width="100%" height="100%" fill="url(#leafWave-dense)" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- DENSITY -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">02 — Density</div>
+          <h2 class="sec-title">Three intensities. Each one has a job.</h2>
+        </div>
+        <p class="sec-intro">
+          The same motif at three densities, each tuned for a different surface. Dense for hero canvases that
+          earn the busy. Medium for marketing surfaces where the pattern is the room. Sparse for in-product
+          contexts where the pattern is the wallpaper, not the message.
+        </p>
+      </div>
+
+      <div class="density-grid">
+        <div class="density-cell" style="background: var(--mint); color: var(--deepest-forest);">
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-dense)" />
+          </svg>
+          <div class="d-label">Dense</div>
+          <div class="d-stats">140 × 160 cell · scale 0.085</div>
+        </div>
+        <div class="density-cell" style="background: var(--mint); color: var(--deepest-forest);">
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <div class="d-label">Medium</div>
+          <div class="d-stats">220 × 250 cell · scale 0.11</div>
+        </div>
+        <div class="density-cell" style="background: var(--mint); color: var(--deepest-forest);">
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-sparse)" />
+          </svg>
+          <div class="d-label">Sparse</div>
+          <div class="d-stats">340 × 380 cell · scale 0.14</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR COMBINATIONS -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">03 — Pairings</div>
+          <h2 class="sec-title">Four approved colorways for the motif.</h2>
+        </div>
+        <p class="sec-intro">
+          The motif is single-color, always. Use one of the four approved pairings below. Mixing tones inside
+          the pattern is forbidden &mdash; gradients, multi-color leaves, or pattern-on-pattern stacking
+          all violate the system.
+        </p>
+      </div>
+
+      <div class="combos">
+        <div class="combo" style="background: var(--mint); color: var(--deepest-forest);">
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <div class="label">Deepest Forest on Mint</div>
+          <div class="role">Hero · marketing splash · packaging</div>
+        </div>
+        <div class="combo" style="background: var(--forest); color: var(--mint);">
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <div class="label">Mint on Forest</div>
+          <div class="role">Loading state · seller dashboard hero</div>
+        </div>
+        <div class="combo" style="background: var(--cream); color: var(--sage);">
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-sparse)" />
+          </svg>
+          <div class="label">Sage on Cream</div>
+          <div class="role">In-product · empty states · soft surfaces</div>
+        </div>
+        <div class="combo" style="background: var(--charcoal); color: var(--sage);">
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <div class="label">Sage on Charcoal</div>
+          <div class="role">Premium packaging · editorial · case study cover</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES IN CONTEXT -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">04 — In Context</div>
+          <h2 class="sec-title">How the motif lives on real surfaces.</h2>
+        </div>
+        <p class="sec-intro">
+          The motif is a backdrop, never a foreground. The product, the wordmark, and the message always sit on top
+          &mdash; the pattern's job is to give them a place to live.
+        </p>
+      </div>
+
+      <!-- Phone splash mockup -->
+      <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px; align-items: stretch;">
+        <div style="background: var(--mint); color: var(--deepest-forest); border-radius: 28px; aspect-ratio: 9/16; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px;">
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; opacity: 0.55;">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <svg width="64" height="89" style="color: var(--deepest-forest); position: relative; z-index: 2; margin-bottom: 18px;"><use href="#copia-mark"/></svg>
+          <div style="font-weight: 700; font-size: 30px; letter-spacing: -0.04em; color: var(--deepest-forest); position: relative; z-index: 2;">Copia</div>
+          <div style="font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--mid-forest); margin-top: 12px; position: relative; z-index: 2;">Welcome to Austin</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="background: var(--forest); color: var(--mint); border-radius: 14px; padding: 28px; position: relative; overflow: hidden; min-height: 180px; display: flex; flex-direction: column; justify-content: flex-end;">
+            <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; opacity: 0.45;">
+              <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+            </svg>
+            <div style="position: relative; z-index: 2;">
+              <div style="font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; opacity: 0.85; margin-bottom: 8px;">Marketing Banner</div>
+              <div style="font-weight: 600; font-size: 26px; letter-spacing: -0.025em; line-height: 1.1;">Local, ripe, today.</div>
+            </div>
+          </div>
+          <div style="background: var(--cream); color: var(--deepest-forest); border-radius: 14px; padding: 24px; position: relative; overflow: hidden; min-height: 160px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid color-mix(in oklab, var(--forest) 15%, transparent);">
+            <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; opacity: 0.5; color: var(--sage);">
+              <rect width="100%" height="100%" fill="url(#leafWave-sparse)" />
+            </svg>
+            <div style="position: relative; z-index: 2;">
+              <div style="font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--mid-forest); margin-bottom: 8px;">In-product Empty State</div>
+              <div style="font-weight: 600; font-size: 18px; letter-spacing: -0.015em; line-height: 1.25;">Your basket is empty &mdash; let's go find what's in season.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REUSABLE PATTERN CODE -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">05 — Implementation</div>
+          <h2 class="sec-title">The pattern as production-ready SVG.</h2>
+        </div>
+        <p class="sec-intro">
+          A copy-and-paste <code style="font-family: var(--mono); background: color-mix(in oklab, var(--forest) 8%, transparent); padding: 1px 6px; border-radius: 4px; color: var(--deepest-forest);">&lt;pattern&gt;</code> definition. Drop it into any SVG context, set <code style="font-family: var(--mono); background: color-mix(in oklab, var(--forest) 8%, transparent); padding: 1px 6px; border-radius: 4px; color: var(--deepest-forest);">fill="currentColor"</code> and CSS <code style="font-family: var(--mono); background: color-mix(in oklab, var(--forest) 8%, transparent); padding: 1px 6px; border-radius: 4px; color: var(--deepest-forest);">color</code> controls the leaf tone. Includes the leaf-mark <code style="font-family: var(--mono); background: color-mix(in oklab, var(--forest) 8%, transparent); padding: 1px 6px; border-radius: 4px; color: var(--deepest-forest);">&lt;symbol&gt;</code> &mdash; if you've already inlined the mark elsewhere, you can drop that part.
+        </p>
+      </div>
+
+      <div class="code-block"><span class="c">&lt;!-- Defs: paste once per document --&gt;</span>
+&lt;<span class="k">svg</span> width=<span class="s">"0"</span> height=<span class="s">"0"</span> style=<span class="s">"position:absolute"</span>&gt;
+  &lt;<span class="k">defs</span>&gt;
+    &lt;<span class="k">symbol</span> id=<span class="s">"copia-mark"</span> viewBox=<span class="s">"0 0 634.53 883.74"</span>&gt;
+      <span class="c">&lt;!-- 5 leaf paths — full data in copia-leaf-mark.svg --&gt;</span>
+    &lt;/<span class="k">symbol</span>&gt;
+    &lt;<span class="k">pattern</span> id=<span class="s">"leafWave-medium"</span> width=<span class="s">"220"</span> height=<span class="s">"250"</span>
+             patternUnits=<span class="s">"userSpaceOnUse"</span>&gt;
+      &lt;<span class="k">g</span> transform=<span class="s">"translate(110 80) rotate(-15) scale(0.11) translate(-317 -442)"</span>
+         fill=<span class="s">"currentColor"</span>&gt;
+        &lt;<span class="k">use</span> href=<span class="s">"#copia-mark"</span>/&gt;
+      &lt;/<span class="k">g</span>&gt;
+      &lt;<span class="k">g</span> transform=<span class="s">"translate(0 205) rotate(28) scale(0.11) translate(-317 -442)"</span>
+         fill=<span class="s">"currentColor"</span>&gt;
+        &lt;<span class="k">use</span> href=<span class="s">"#copia-mark"</span>/&gt;
+      &lt;/<span class="k">g</span>&gt;
+      &lt;<span class="k">g</span> transform=<span class="s">"translate(220 205) rotate(28) scale(0.11) translate(-317 -442)"</span>
+         fill=<span class="s">"currentColor"</span>&gt;
+        &lt;<span class="k">use</span> href=<span class="s">"#copia-mark"</span>/&gt;
+      &lt;/<span class="k">g</span>&gt;
+    &lt;/<span class="k">pattern</span>&gt;
+  &lt;/<span class="k">defs</span>&gt;
+&lt;/<span class="k">svg</span>&gt;
+
+<span class="c">&lt;!-- Usage: any SVG, sized to whatever surface --&gt;</span>
+&lt;<span class="k">svg</span> width=<span class="s">"100%"</span> height=<span class="s">"360"</span> style=<span class="s">"color: #1E3D30; background: #9CE5D0"</span>&gt;
+  &lt;<span class="k">rect</span> width=<span class="s">"100%"</span> height=<span class="s">"100%"</span> fill=<span class="s">"url(#leafWave-medium)"</span>/&gt;
+&lt;/<span class="k">svg</span>&gt;
+
+<span class="c">&lt;!-- Density variants: leafWave-dense, leafWave-medium, leafWave-sparse --&gt;</span></div>
+    </section>
+
+    <!-- DONTS -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">06 — Don't</div>
+          <h2 class="sec-title">How to break the motif.</h2>
+        </div>
+        <p class="sec-intro">
+          Six failure modes the system explicitly forbids. Each carries a real risk &mdash; either visual
+          (the brand gets noisy) or semantic (the motif starts saying something it shouldn't).
+        </p>
+      </div>
+
+      <div class="dont-grid">
+        <div class="dont" style="background: linear-gradient(135deg, var(--terracotta), var(--mint)); color: var(--deepest-forest);">
+          <div class="x">×</div>
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <div class="dont-cap"><strong>No gradients behind</strong>Pattern background must be a single brand color.</div>
+        </div>
+        <div class="dont" style="background: var(--mint); color: var(--terracotta);">
+          <div class="x">×</div>
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <div class="dont-cap"><strong>Don't recolor</strong>Only the four approved pairings.</div>
+        </div>
+        <div class="dont" style="background: var(--mint); color: var(--deepest-forest);">
+          <div class="x">×</div>
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-dense)" />
+          </svg>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
+            <svg width="60" height="84" style="color: var(--forest);"><use href="#copia-mark"/></svg>
+          </div>
+          <div class="dont-cap"><strong>No mark on motif</strong>Don't stack the leaf over its own pattern.</div>
+        </div>
+        <div class="dont" style="background: var(--light-sage); color: var(--sage);">
+          <div class="x">×</div>
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <div class="dont-cap"><strong>No tonal greens</strong>Pattern and bg need real contrast.</div>
+        </div>
+        <div class="dont" style="background: var(--mint); color: var(--deepest-forest);">
+          <div class="x">×</div>
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0;">
+            <rect width="100%" height="100%" fill="url(#leafWave-dense)" />
+          </svg>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; background: var(--cream); padding: 14px 18px; border-radius: 6px; max-width: 75%;">
+            <div style="font-size: 12px; line-height: 1.4; color: var(--charcoal);">Body copy should not sit directly on the dense motif at any density. Use a cream card or a knockout panel underneath.</div>
+          </div>
+          <div class="dont-cap"><strong>No body type on pattern</strong>Headlines OK; body needs a panel.</div>
+        </div>
+        <div class="dont" style="background: var(--mint); color: var(--deepest-forest);">
+          <div class="x">×</div>
+          <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; transform: rotate(45deg) scale(1.5);">
+            <rect width="100%" height="100%" fill="url(#leafWave-medium)" />
+          </svg>
+          <div class="dont-cap"><strong>Don't transform the tile</strong>No rotation, skew, or pattern-on-pattern.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RULES -->
+    <section>
+      <div class="sec-head">
+        <div>
+          <div class="sec-num">07 — Rules</div>
+          <h2 class="sec-title">The principles behind the motif.</h2>
+        </div>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h3>One motif, three densities. No fourth.</h3>
+          <p>The system is intentionally small: <code>dense</code> for hero, <code>medium</code> for marketing surfaces, <code>sparse</code> for in-product backdrops. Resist the urge to add a fourth density &mdash; the more variants, the less recognizable the pattern.</p>
+        </div>
+        <div class="rule">
+          <h3>The motif is a backdrop, never a subject.</h3>
+          <p>The pattern's job is to give product and message a place to live. The product, the wordmark, the headline always sit on top. If the motif is competing for attention with the content, it's at the wrong density &mdash; step it down.</p>
+        </div>
+        <div class="rule">
+          <h3>Dense + busy content = forbidden.</h3>
+          <p>The dense pattern only works behind quiet content (the wordmark, a single big headline, a logo lockup). If the surface has cards, lists, or paragraphs, drop to medium or sparse, or knock the pattern out entirely beneath the content block.</p>
+        </div>
+        <div class="rule">
+          <h3>Sparse is the in-product default.</h3>
+          <p>For empty states, splash screens inside the app, and any product surface that wants warmth without busy-ness, use <code>leafWave-sparse</code> at <code>opacity: 0.5</code> or lower. The pattern should feel like grain, not wallpaper.</p>
+        </div>
+        <div class="rule">
+          <h3>Single-color only.</h3>
+          <p>The motif is one color of leaf on one color of background. No multi-tone leaves, no gradients inside the pattern, no patterned-leaves-on-patterned-background. The leaf mark is single-color by rule; the pattern inherits that rule.</p>
+        </div>
+        <div class="rule">
+          <h3>Body text needs a panel.</h3>
+          <p>Headlines and the wordmark can sit directly on any density. Body type cannot &mdash; the negative spaces in the leaves create reading friction. If body type lives on a motif surface, give it a cream card with a 16 px+ corner radius.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>Copia · Motif System · v1 · May 2026</div>
+      <div>Built from: copia-leaf-mark.svg · 3 densities · 4 color pairings</div>
+    </footer>
+  </div>
+</body>
+</html>
