@@ -23,7 +23,7 @@
   --terracotta:     #C46A4F;
 
   /* Typography */
-  --font-display: "Aptly Medium", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-display: "aptly", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-body:    "Söhne", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
