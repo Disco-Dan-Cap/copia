@@ -1,10 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono-loaded",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Fraunces italic — sanctioned editorial-emphasis face only (see brand directive override).
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["italic"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -44,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jetbrainsMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${jetbrainsMono.variable} ${fraunces.variable} h-full antialiased`}>
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/itz7grm.css" />
       </head>
