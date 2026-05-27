@@ -18,6 +18,7 @@ import {
 } from "@/lib/data/labels";
 import { activeFilterCount, defaultFilters, type SearchFilters } from "@/lib/search/query";
 import { Pill } from "./pill";
+import { SegmentedControl } from "./segmented-control";
 
 function toggleIn<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value];
@@ -104,32 +105,36 @@ export function FilterSheet({ open, onClose, filters, setFilters, resultCount }:
               </Section>
 
               <Section title="Price">
-                {priceTierOrder.map((t) => (
-                  <Pill
-                    key={t}
-                    active={filters.priceTier === t}
-                    onClick={() => set({ priceTier: filters.priceTier === t ? null : t })}
-                  >
-                    {priceTierLabels[t]}
-                  </Pill>
-                ))}
+                <SegmentedControl
+                  ariaLabel="Price range"
+                  segments={priceTierOrder.map((t) => ({
+                    key: t,
+                    label: priceTierLabels[t],
+                    selected: filters.priceTier === t,
+                    onActivate: () => set({ priceTier: filters.priceTier === t ? null : t }),
+                  }))}
+                />
               </Section>
 
               <Section title="Distance">
-                <Pill active={filters.maxDistanceMi === null} onClick={() => set({ maxDistanceMi: null })}>
-                  Any
-                </Pill>
-                {distancePresets.map((d) => (
-                  <Pill
-                    key={d.value}
-                    active={filters.maxDistanceMi === d.value}
-                    onClick={() =>
-                      set({ maxDistanceMi: filters.maxDistanceMi === d.value ? null : d.value })
-                    }
-                  >
-                    {d.label}
-                  </Pill>
-                ))}
+                <SegmentedControl
+                  ariaLabel="Maximum distance"
+                  segments={[
+                    {
+                      key: "any",
+                      label: "Any",
+                      selected: filters.maxDistanceMi === null,
+                      onActivate: () => set({ maxDistanceMi: null }),
+                    },
+                    ...distancePresets.map((d) => ({
+                      key: String(d.value),
+                      label: d.label,
+                      selected: filters.maxDistanceMi === d.value,
+                      onActivate: () =>
+                        set({ maxDistanceMi: filters.maxDistanceMi === d.value ? null : d.value }),
+                    })),
+                  ]}
+                />
               </Section>
 
               <Section title="Fulfillment">
