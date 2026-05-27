@@ -1,3 +1,4 @@
+import { AppHeader } from "@/components/app/app-header";
 import { Masthead } from "@/components/home/masthead";
 import { SeasonScroller } from "@/components/home/season-scroller";
 import { SellerMap } from "@/components/home/seller-map";
@@ -7,7 +8,8 @@ import { GrowCta } from "@/components/home/grow-cta";
 
 export default function HomePage() {
   return (
-    <>
+    <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+      <AppHeader />
       <Masthead />
       <SeasonScroller />
       <SellerMap />
@@ -16,6 +18,6 @@ export default function HomePage() {
       <GrowCta />
       {/* breathing room before the pinned tab bar */}
       <div className="h-[24px]" />
-    </>
+    </main>
   );
 }

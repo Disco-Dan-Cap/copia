@@ -20,7 +20,7 @@ type Tab = {
 
 const tabs: Tab[] = [
   { label: "Home", href: "/", Icon: HomeIcon, ready: true },
-  { label: "Search", href: "/search", Icon: SearchIcon, ready: false },
+  { label: "Search", href: "/search", Icon: SearchIcon, ready: true },
   { label: "Cart", href: "/cart", Icon: CartIcon, ready: false },
   { label: "Profile", href: "/profile", Icon: ProfileIcon, ready: false },
 ];

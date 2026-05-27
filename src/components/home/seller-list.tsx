@@ -1,4 +1,6 @@
 import { featuredSellers } from "@/lib/data/sellers";
+import { buyerLocation } from "@/lib/data/location";
+import { formatDistance, haversineMi } from "@/lib/geo";
 import { SectionHead } from "./section-head";
 
 export function SellerList() {
@@ -22,7 +24,7 @@ export function SellerList() {
                 {seller.name}
               </div>
               <div className="mt-[2px] font-mono text-[9.5px] uppercase tracking-[0.1em] text-mid-forest">
-                {seller.distance} · {seller.area}
+                {formatDistance(haversineMi(buyerLocation, seller.location))} · {seller.area}
               </div>
               <p className="mt-[6px] text-[12.5px] leading-[1.4] text-charcoal">
                 {seller.blurb}

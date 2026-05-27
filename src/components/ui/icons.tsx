@@ -85,3 +85,52 @@ export function ProfileIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+/* ── Search / map chrome ─────────────────────────────────────────────────── */
+
+export function SlidersIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M4 7 L20 7 M4 12 L20 12 M4 17 L20 17" strokeLinecap="round" />
+      <circle cx={9} cy={7} r={2.4} fill="currentColor" stroke="none" />
+      <circle cx={15} cy={12} r={2.4} fill="currentColor" stroke="none" />
+      <circle cx={8} cy={17} r={2.4} fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function MapIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M9 4 L3 6 L3 20 L9 18 L15 20 L21 18 L21 4 L15 6 Z" strokeLinejoin="round" />
+      <path d="M9 4 L9 18 M15 6 L15 20" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ListIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M8 6 L20 6 M8 12 L20 12 M8 18 L20 18" strokeLinecap="round" />
+      <circle cx={4} cy={6} r={1.2} fill="currentColor" stroke="none" />
+      <circle cx={4} cy={12} r={1.2} fill="currentColor" stroke="none" />
+      <circle cx={4} cy={18} r={1.2} fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function CloseIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+      <path d="M6 6 L18 18 M18 6 L6 18" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function StarIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 3 L14.6 8.6 L20.5 9.3 L16.2 13.4 L17.3 19.3 L12 16.4 L6.7 19.3 L7.8 13.4 L3.5 9.3 L9.4 8.6 Z" />
+    </svg>
+  );
+}

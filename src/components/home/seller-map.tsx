@@ -11,7 +11,11 @@ const PIN_SHADOW = "0 2px 8px rgba(30, 61, 48, 0.25)";
 export function SellerMap() {
   return (
     <section className="pt-[28px] pb-[8px]">
-      <SectionHead label={`${nearbySellerCount} sellers near you`} action="Map view" />
+      <SectionHead
+        label={`${nearbySellerCount} sellers near you`}
+        action="Map view"
+        actionHref="/search?view=map"
+      />
       <div className="relative mx-[28px] h-[180px] overflow-hidden rounded-[14px] border border-sage-shadow/25 bg-cream-warm">
         <svg
           viewBox="0 0 334 180"
