@@ -32,7 +32,7 @@ function NewBadge() {
 function DietChip({ listing }: { listing: Listing }) {
   if (!listing.diet[0]) return null;
   return (
-    <span className="rounded-full bg-light-sage/25 px-[7px] py-[2px] text-sage">
+    <span className="whitespace-nowrap rounded-full bg-light-sage/25 px-[7px] py-[2px] text-sage">
       {dietLabels[listing.diet[0]]}
     </span>
   );
@@ -70,12 +70,14 @@ export function ListingCard({
         <div className="text-[13.5px] font-semibold leading-[1.2] tracking-[-0.01em] text-deepest-forest">
           {listing.name}
         </div>
-        <div className="mt-[6px] flex items-center justify-between gap-[8px]">
-          <span className="text-[13px] font-semibold text-forest">{priceLabel(listing)}</span>
-          <span className="font-mono text-[9px] uppercase tracking-[0.1em]">
+        {/* Grid stacks: image → title → price → chip. The chip gets its own row
+            because at 2-column width it can't share one with the price. */}
+        <div className="mt-[6px] text-[13px] font-semibold text-forest">{priceLabel(listing)}</div>
+        {listing.diet[0] ? (
+          <div className="mt-[8px] font-mono text-[9px] uppercase tracking-[0.1em]">
             <DietChip listing={listing} />
-          </span>
-        </div>
+          </div>
+        ) : null}
       </article>
     );
   }
