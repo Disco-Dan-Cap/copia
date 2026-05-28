@@ -1,23 +1,24 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { formatDistance } from "@/lib/geo";
+import { reviewStats } from "@/lib/data/reviews";
 import { StarIcon } from "@/components/ui/icons";
 import type { SellerResult } from "@/lib/search/query";
 
 interface SellerCarouselProps {
   sellers: SellerResult[];
   selectedSellerId: string | null;
-  onSelect: (id: string | null) => void;
 }
 
 /**
- * Bottom card rail for the map view. Tapping a card selects its seller (the map
- * eases to the pin); selecting a pin scrolls the matching card into view. Same
- * query as the list — two ways to read it.
+ * Bottom card rail for the map view. A map pin selects its seller (driven by
+ * `selectedSellerId`): the matching card highlights and scrolls into view.
+ * Tapping a card navigates to that seller's profile — pins select, cards open.
  */
-export function SellerCarousel({ sellers, selectedSellerId, onSelect }: SellerCarouselProps) {
+export function SellerCarousel({ sellers, selectedSellerId }: SellerCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,12 +37,12 @@ export function SellerCarousel({ sellers, selectedSellerId, onSelect }: SellerCa
       >
         {sellers.map(({ seller, distanceMi, matchCount }) => {
           const selected = seller.id === selectedSellerId;
+          const { average, count } = reviewStats(seller.id);
           return (
-            <button
+            <Link
               key={seller.id}
               data-id={seller.id}
-              type="button"
-              onClick={() => onSelect(selected ? null : seller.id)}
+              href={`/sellers/${seller.id}`}
               className={cn(
                 "flex w-[262px] shrink-0 snap-center items-center gap-[12px] rounded-[16px] border bg-cream p-[13px] text-left shadow-[var(--shadow-md)] transition-colors active:scale-[0.99]",
                 selected ? "border-forest" : "border-sage-shadow/25",
@@ -61,10 +62,10 @@ export function SellerCarousel({ sellers, selectedSellerId, onSelect }: SellerCa
                   {formatDistance(distanceMi)} · {seller.area}
                 </div>
                 <div className="mt-[6px] flex items-center gap-[6px] font-mono text-[9px] uppercase tracking-[0.1em] text-sage-shadow">
-                  {seller.rating ? (
+                  {count > 0 ? (
                     <span className="flex items-center gap-[3px] text-forest">
                       <StarIcon className="h-[10px] w-[10px]" />
-                      {seller.rating.toFixed(1)}
+                      {average.toFixed(1)}
                     </span>
                   ) : null}
                   <span aria-hidden>·</span>
@@ -73,7 +74,7 @@ export function SellerCarousel({ sellers, selectedSellerId, onSelect }: SellerCa
                   </span>
                 </div>
               </div>
-            </button>
+            </Link>
           );
         })}
       </div>

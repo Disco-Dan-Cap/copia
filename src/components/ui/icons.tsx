@@ -134,3 +134,45 @@ export function StarIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+/* ── Seller profile chrome ───────────────────────────────────────────────── */
+
+export function ChevronLeftIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+      <path d="M15 5 L8 12 L15 19" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function HeartIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path
+        d="M12 20 C12 20 3.5 14.5 3.5 8.8 C3.5 6.1 5.6 4 8.2 4 C9.9 4 11.3 4.9 12 6.3 C12.7 4.9 14.1 4 15.8 4 C18.4 4 20.5 6.1 20.5 8.8 C20.5 14.5 12 20 12 20 Z"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function GridIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <rect x={4} y={4} width={7} height={7} rx={1.6} />
+      <rect x={13} y={4} width={7} height={7} rx={1.6} />
+      <rect x={4} y={13} width={7} height={7} rx={1.6} />
+      <rect x={13} y={13} width={7} height={7} rx={1.6} />
+    </svg>
+  );
+}
+
+/** Stacked rows — the "list density" glyph for the seller listings toggle. */
+export function RowsIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <rect x={4} y={5} width={16} height={5} rx={1.6} />
+      <rect x={4} y={14} width={16} height={5} rx={1.6} />
+    </svg>
+  );
+}

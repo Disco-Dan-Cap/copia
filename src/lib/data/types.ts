@@ -69,9 +69,25 @@ export interface Seller {
   diet: DietTag[];
   /** Count of listings added recently; omit/0 if none. */
   newListings?: number;
-  /** 0–5, one decimal. Optional. */
-  rating?: number;
   avatarGradient: Gradient;
+  // ── Profile fields (Day 4) ──────────────────────────────────────────────
+  /**
+   * The vignette that introduces the seller on their profile — 2–3 sentences
+   * in the brand voice. Carries `<em>` for the single Fraunces-italic accent.
+   */
+  story: string;
+  /** Year the operation started — the "SINCE" in the facts row. */
+  since: number;
+  /** Curated one-liner for the facts row, e.g. "No pesticides". Uppercased on render. */
+  philosophy: string;
+  /**
+   * Who you address when you reach out — drives the "Ask {contactName}" CTA.
+   * A first name where the brand is a person ("Mira"), a warm role noun where
+   * it's a place ("the baker", "the beekeeper").
+   */
+  contactName: string;
+  // Note: rating is no longer stored — it's computed from `reviews` via
+  // `reviewStats()` so the star average reflects real seeded reviews.
 }
 
 export interface Listing {
@@ -87,6 +103,32 @@ export interface Listing {
   gradient: Gradient;
   /** Recently listed — drives "new" markers. */
   isNew?: boolean;
+  /**
+   * Months (1–12) this item is at peak in Austin's zone 8b/9a — real growing
+   * knowledge, not category guesses (basil isn't in season in January). Drives
+   * the "Ready at {seller} now" strip. Preserved foods (jam, bread, pickles)
+   * and year-round laying are [1..12]; an empty array means it never surfaces
+   * as "in season".
+   */
+  peakMonths: number[];
+}
+
+/**
+ * A buyer review on a seller profile. The star average is computed from these
+ * (see `reviewStats`) rather than stored on the seller.
+ */
+export interface Review {
+  id: string;
+  sellerId: string;
+  /** Display name, e.g. "Dana R." */
+  author: string;
+  /** Reviewer's Austin neighborhood, for the mono-caps eyebrow. */
+  neighborhood: string;
+  /** ISO date, e.g. "2026-05-17". */
+  date: string;
+  body: string;
+  /** Whole stars, 1–5. */
+  rating: number;
 }
 
 export interface Category {

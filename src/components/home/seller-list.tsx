@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { featuredSellers } from "@/lib/data/sellers";
 import { buyerLocation } from "@/lib/data/location";
 import { formatDistance, haversineMi } from "@/lib/geo";
@@ -9,9 +10,10 @@ export function SellerList() {
       <SectionHead label="Sellers near you" action="All" />
       <div className="flex flex-col gap-[14px] px-[28px] pb-[8px]">
         {featuredSellers.map((seller) => (
-          <article
+          <Link
             key={seller.id}
-            className="flex gap-[14px] rounded-[14px] border border-sage-shadow/25 bg-cream-warm p-[14px]"
+            href={`/sellers/${seller.id}`}
+            className="flex gap-[14px] rounded-[14px] border border-sage-shadow/25 bg-cream-warm p-[14px] transition-transform active:scale-[0.99]"
           >
             <div
               className="h-[56px] w-[56px] shrink-0 rounded-[12px]"
@@ -36,7 +38,7 @@ export function SellerList() {
                 </div>
               ) : null}
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

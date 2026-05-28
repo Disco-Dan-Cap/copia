@@ -1,6 +1,7 @@
+import Link from "next/link";
 import type { SearchResult } from "@/lib/search/query";
 import { LeafWave } from "@/components/ui/leaf-wave";
-import { ListingCard } from "./listing-card";
+import { ListingCard } from "@/components/cards/listing-card";
 
 interface ResultsListProps {
   result: SearchResult | null;
@@ -43,7 +44,13 @@ export function ResultsList({ result, onClearFilters }: ResultsListProps) {
       ) : (
         <div className="flex flex-col gap-[12px] px-[24px] pb-[130px]">
           {items.map((r) => (
-            <ListingCard key={r.listing.id} {...r} />
+            <Link
+              key={r.listing.id}
+              href={`/sellers/${r.seller.id}`}
+              className="block rounded-[14px] transition-transform active:scale-[0.99]"
+            >
+              <ListingCard {...r} />
+            </Link>
           ))}
         </div>
       )}

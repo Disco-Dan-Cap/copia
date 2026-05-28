@@ -4,6 +4,9 @@ import type { MapPin, Seller } from "./types";
 // and Mueller, mid-range South Austin, and the Hill Country / outlying farms.
 // Distance is never stored: it's computed from `location` against the buyer
 // (see `lib/geo`), so every "0.8 mi" on screen is real haversine math.
+//
+// `story` is the profile vignette (brand voice, one <em> Fraunces-italic accent
+// each). Ratings are NOT stored — they're computed from `reviews`.
 export const sellers: Seller[] = [
   {
     id: "miras-half-acre",
@@ -15,8 +18,12 @@ export const sellers: Seller[] = [
     fulfillment: ["pickup", "meetup", "bicycle"],
     diet: ["organic", "pesticide-free"],
     newListings: 2,
-    rating: 4.9,
     avatarGradient: ["#C46A4F", "#8B3A28"],
+    since: 2019,
+    philosophy: "No pesticides",
+    contactName: "Mira",
+    story:
+      "The deer are real, which is why the tomatoes grow behind chicken wire Mira strung herself the spring she started. Four plants, four hens, and a hunch that the neighbors would rather walk over than drive out — <em>the hunch held</em>. There's a waitlist for the eggs now.",
   },
   {
     id: "honey-and-the-comb",
@@ -27,8 +34,12 @@ export const sellers: Seller[] = [
     location: { lng: -97.767, lat: 30.248 },
     fulfillment: ["pickup", "meetup", "bicycle", "motorcycle"],
     diet: ["raw"],
-    rating: 4.8,
     avatarGradient: ["#E8B871", "#9C6B1F"],
+    since: 2016,
+    philosophy: "Raw + unfiltered",
+    contactName: "the beekeeper",
+    story:
+      "The hives sit on a friend's acre off Manchaca, close enough that the bees work the greenbelt wildflowers all spring. Nothing is heated, nothing is filtered — what's in the jar is what the bees made, <em>crystals and all</em>. The candles are the same wax, rolled by hand once the hives go quiet for winter.",
   },
   {
     id: "wimberley-hill-farm",
@@ -39,8 +50,12 @@ export const sellers: Seller[] = [
     location: { lng: -98.099, lat: 29.997 },
     fulfillment: ["pickup", "motorcycle", "drone"],
     diet: ["organic"],
-    rating: 4.7,
     avatarGradient: ["#74B5A1", "#1C664D"],
+    since: 2009,
+    philosophy: "Certified organic",
+    contactName: "the farm",
+    story:
+      "The planting calendar tacked to the barn door is still in her grandmother's hand, and most of it still holds. Peaches come first, then the chard that shrugs off the heat, then whatever the CSA boxes need filling. <em>A drought year tells the truth</em> — the box gets smaller, the flavor gets bigger.",
   },
   {
     id: "cherrywood-backyard",
@@ -52,8 +67,12 @@ export const sellers: Seller[] = [
     fulfillment: ["pickup", "meetup"],
     diet: ["pesticide-free"],
     newListings: 1,
-    rating: 4.6,
     avatarGradient: ["#9CE5D0", "#509982"],
+    since: 2021,
+    philosophy: "No spray",
+    contactName: "the grower",
+    story:
+      "Two raised beds and a coop that started as a 2021 project and somehow never wound down. Most weeks it's a few pints of cherry tomatoes and whatever herbs got ahead of the kitchen. <em>No promises on the eggs</em> — the hens put it to a vote.",
   },
   {
     id: "dripping-market-garden",
@@ -64,8 +83,12 @@ export const sellers: Seller[] = [
     location: { lng: -98.087, lat: 30.19 },
     fulfillment: ["pickup", "motorcycle", "drone", "zipline"],
     diet: ["organic"],
-    rating: 4.8,
     avatarGradient: ["#509982", "#1C664D"],
+    since: 2014,
+    philosophy: "Certified organic",
+    contactName: "the growers",
+    story:
+      "Two acres off the highway that were pasture until 2014, now rows of peppers and squash that run right up to the fence line. The melons get planted last and picked warm, the way they're meant to be. <em>If it's on the stand, it came off the vine that morning</em>.",
   },
   {
     id: "mueller-microgreens",
@@ -77,8 +100,12 @@ export const sellers: Seller[] = [
     fulfillment: ["pickup", "bicycle", "meetup"],
     diet: ["organic", "vegan"],
     newListings: 3,
-    rating: 4.9,
     avatarGradient: ["#9CE5D0", "#74B5A1"],
+    since: 2020,
+    philosophy: "Cut to order",
+    contactName: "the grower",
+    story:
+      "It started on a single rack of grow lights in a Mueller garage and took over the room by the second winter. Trays of peas, sunflower, and radish get cut the morning you pick them up — <em>nothing sits</em>. The lettuces come and go with the cool weather; the greens don't keep a calendar.",
   },
   {
     id: "lockhart-orchard",
@@ -89,8 +116,12 @@ export const sellers: Seller[] = [
     location: { lng: -97.67, lat: 29.884 },
     fulfillment: ["pickup", "motorcycle", "drone"],
     diet: ["organic"],
-    rating: 4.7,
     avatarGradient: ["#E8927C", "#C46A4F"],
+    since: 1998,
+    philosophy: "Tree-ripened",
+    contactName: "the orchard",
+    story:
+      "The oldest trees were planted before the family bought the place, and they still set the heaviest fruit. Everything is picked ripe and sold within the week, because a tree-ripened peach won't wait for anyone. <em>The June drop is the best week of the year</em> — and it's over fast.",
   },
   {
     id: "hyde-park-hens",
@@ -101,8 +132,12 @@ export const sellers: Seller[] = [
     location: { lng: -97.729, lat: 30.305 },
     fulfillment: ["pickup", "meetup", "bicycle"],
     diet: ["pasture-raised"],
-    rating: 4.8,
     avatarGradient: ["#74B5A1", "#30594A"],
+    since: 2018,
+    philosophy: "Pasture-raised",
+    contactName: "the keeper",
+    story:
+      "A dozen hens range the back lot under the pecans, and the eggs shift color with whatever they've gotten into that week. There's a garden too, but it's the eggs people come back for. <em>Bring the carton back</em> and the next dozen's a dollar less.",
   },
   {
     id: "buda-sourdough",
@@ -114,8 +149,12 @@ export const sellers: Seller[] = [
     fulfillment: ["pickup", "meetup", "motorcycle"],
     diet: ["vegan"],
     newListings: 1,
-    rating: 4.9,
     avatarGradient: ["#D8A86A", "#9C6B1F"],
+    since: 2020,
+    philosophy: "Naturally leavened",
+    contactName: "the baker",
+    story:
+      "The starter is older than the bakery — it came from a friend's jar in the spring of 2020 and hasn't missed a feeding since. Loaves go in the oven Thursday night and come out Friday, and Friday is the only day they're sold. <em>When they're gone, they're gone</em>.",
   },
   {
     id: "bastrop-berry-patch",
@@ -126,8 +165,12 @@ export const sellers: Seller[] = [
     location: { lng: -97.315, lat: 30.11 },
     fulfillment: ["pickup", "motorcycle", "drone"],
     diet: ["organic", "pesticide-free"],
-    rating: 4.6,
     avatarGradient: ["#C46A4F", "#6B2235"],
+    since: 2013,
+    philosophy: "Spray-free",
+    contactName: "the growers",
+    story:
+      "The canes run in long rows out past the pines, and for three weeks in late spring they're heavy enough to bend. What doesn't sell fresh goes straight into the jam pot that afternoon. <em>The fresh season is short</em> — the jam is how you keep it past June.",
   },
   {
     id: "round-rock-roots",
@@ -138,8 +181,12 @@ export const sellers: Seller[] = [
     location: { lng: -97.679, lat: 30.508 },
     fulfillment: ["pickup", "motorcycle", "meetup"],
     diet: ["organic"],
-    rating: 4.5,
     avatarGradient: ["#B5874F", "#6B4A1F"],
+    since: 2017,
+    philosophy: "Soil first",
+    contactName: "the grower",
+    story:
+      "Roots don't photograph well and this grower has made peace with it. Carrots come out forked, beets come out dusty, and both taste like something the bagged kind forgot how to. <em>The cold months are the good months</em> — sweetness is what a frost does to a carrot.",
   },
   {
     id: "soco-preserves",
@@ -151,8 +198,12 @@ export const sellers: Seller[] = [
     fulfillment: ["pickup", "meetup", "bicycle", "motorcycle"],
     diet: ["vegan", "gluten-free"],
     newListings: 2,
-    rating: 4.7,
     avatarGradient: ["#D2674A", "#9C3F2A"],
+    since: 2015,
+    philosophy: "Small batch",
+    contactName: "the maker",
+    story:
+      "Everything is made on a South Congress stovetop in runs of forty jars, labeled by hand the same night. The salsa recipe came off a grandmother's index card; the pickles were the maker's own stubbornness. <em>Each batch tastes a little different</em> — that's the part you can't buy off a shelf.",
   },
 ];
 

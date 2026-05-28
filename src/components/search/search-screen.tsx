@@ -91,7 +91,6 @@ export function SearchScreen() {
             <SellerCarousel
               sellers={result?.sellers ?? []}
               selectedSellerId={activeSelection}
-              onSelect={setSelectedSellerId}
             />
           </>
         )}
