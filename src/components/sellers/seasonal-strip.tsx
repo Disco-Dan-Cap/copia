@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Listing, Seller } from "@/lib/data/types";
 import { possessive } from "@/lib/data/seller-bySlug";
 import { ListingCard } from "@/components/cards/listing-card";
@@ -25,9 +26,13 @@ export function SeasonalStrip({
       </div>
       <div className="scroll-x-momentum flex gap-[12px] overflow-x-auto px-[24px] pb-[4px]">
         {listings.map((listing) => (
-          <div key={listing.id} className="w-[150px] shrink-0">
+          <Link
+            key={listing.id}
+            href={`/listings/${listing.id}`}
+            className="block w-[150px] shrink-0 rounded-[14px] transition-transform active:scale-[0.98]"
+          >
             <ListingCard listing={listing} seller={seller} variant="grid" showSeller={false} />
-          </div>
+          </Link>
         ))}
       </div>
     </section>

@@ -51,6 +51,8 @@ export interface SeasonalItem {
   /** Display price, e.g. "$4 / lb". */
   price: string;
   gradient: Gradient;
+  /** The real listing this Home "ripening" card opens. All four genuinely peak in May. */
+  listingId: string;
 }
 
 export interface Seller {
@@ -111,6 +113,20 @@ export interface Listing {
    * as "in season".
    */
   peakMonths: number[];
+  // ── Product-detail fields (Day 5) ────────────────────────────────────────
+  /**
+   * The single editorial moment — one sentence in the seller voice that names a
+   * constraint, a sensory specific, or a memorable beat. Carries one `<em>` for
+   * the Fraunces-italic accent. The product page tells facts; this is its only
+   * prose. (The seller page tells the stories.)
+   */
+  anchor: string;
+  /** How it's grown / made, e.g. "Open-pollinated, no spray". Structured fact. */
+  growingMethod: string;
+  /** When it's picked / baked / collected, e.g. "Cut to order". Structured fact. */
+  harvestCadence: string;
+  /** A short list of what it pairs with — rendered as hairline Söhne chips. */
+  pairsWith: string[];
 }
 
 /**

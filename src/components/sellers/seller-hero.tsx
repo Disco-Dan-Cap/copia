@@ -4,7 +4,7 @@ import { formatDistance, haversineMi } from "@/lib/geo";
 import { archetypeLabels } from "@/lib/data/labels";
 import { LeafWave } from "@/components/ui/leaf-wave";
 import { HeartIcon } from "@/components/ui/icons";
-import { BackButton } from "./back-button";
+import { BackButton } from "@/components/app/back-button";
 
 /**
  * Substack/Etsy-pattern hero: a full-bleed banner in the seller's identity

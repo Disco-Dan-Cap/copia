@@ -46,7 +46,7 @@ export function ResultsList({ result, onClearFilters }: ResultsListProps) {
           {items.map((r) => (
             <Link
               key={r.listing.id}
-              href={`/sellers/${r.seller.id}`}
+              href={`/listings/${r.listing.id}`}
               className="block rounded-[14px] transition-transform active:scale-[0.99]"
             >
               <ListingCard {...r} />

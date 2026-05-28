@@ -1,10 +1,14 @@
+import Link from "next/link";
 import type { SeasonalItem } from "@/lib/data/types";
 import { seasonalItems } from "@/lib/data/seasonal";
 import { SectionHead } from "./section-head";
 
 function SeasonCard({ item }: { item: SeasonalItem }) {
   return (
-    <article className="flex w-[130px] shrink-0 flex-col rounded-[14px] border border-sage-shadow/25 bg-cream-warm p-[14px]">
+    <Link
+      href={`/listings/${item.listingId}`}
+      className="flex w-[130px] shrink-0 flex-col rounded-[14px] border border-sage-shadow/25 bg-cream-warm p-[14px] transition-transform active:scale-[0.98]"
+    >
       <div
         className="mb-[12px] h-[78px] w-full rounded-[8px]"
         style={{
@@ -20,7 +24,7 @@ function SeasonCard({ item }: { item: SeasonalItem }) {
       <div className="mt-[8px] text-[13px] font-semibold text-forest">
         {item.price}
       </div>
-    </article>
+    </Link>
   );
 }
 

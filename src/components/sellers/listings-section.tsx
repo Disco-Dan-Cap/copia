@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import Link from "next/link";
 import type { Listing, Seller } from "@/lib/data/types";
 import { ListingCard } from "@/components/cards/listing-card";
 import { GridListToggle, type ListingsView } from "./grid-list-toggle";
@@ -58,25 +59,25 @@ export function ListingsSection({
       {view === "grid" ? (
         <div className="grid grid-cols-2 gap-[12px] px-[24px]">
           {listings.map((listing) => (
-            <ListingCard
+            <Link
               key={listing.id}
-              listing={listing}
-              seller={seller}
-              variant="grid"
-              showSeller={false}
-            />
+              href={`/listings/${listing.id}`}
+              className="block rounded-[14px] transition-transform active:scale-[0.98]"
+            >
+              <ListingCard listing={listing} seller={seller} variant="grid" showSeller={false} />
+            </Link>
           ))}
         </div>
       ) : (
         <div className="flex flex-col gap-[12px] px-[24px]">
           {listings.map((listing) => (
-            <ListingCard
+            <Link
               key={listing.id}
-              listing={listing}
-              seller={seller}
-              variant="list"
-              showSeller={false}
-            />
+              href={`/listings/${listing.id}`}
+              className="block rounded-[14px] transition-transform active:scale-[0.99]"
+            >
+              <ListingCard listing={listing} seller={seller} variant="list" showSeller={false} />
+            </Link>
           ))}
         </div>
       )}
