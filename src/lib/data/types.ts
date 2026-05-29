@@ -44,8 +44,11 @@ export type PriceTier = "budget" | "mid" | "premium";
 /** Seller-side listing state. Buyer queries ignore this; the dashboard uses it. */
 export type ListingStatus = "active" | "sold-out" | "paused";
 
-/** Order lifecycle — mirrors the brief's incoming → accepted → completed. */
-export type OrderStatus = "awaiting" | "confirmed" | "completed";
+/** Order lifecycle — mirrors the brief's incoming → accepted → completed,
+ * plus a terminal `canceled` (called off before fulfillment; never counted
+ * as sales). Completed orders are never canceled — money is stubbed, so a
+ * refund path is out of scope. */
+export type OrderStatus = "awaiting" | "confirmed" | "completed" | "canceled";
 
 // ─── Entities ───────────────────────────────────────────────────────────────
 

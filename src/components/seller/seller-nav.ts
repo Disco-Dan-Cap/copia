@@ -23,7 +23,7 @@ export interface SellerNavItem {
 // placeholders (same pattern as the buyer tab bar's Cart/Profile).
 export const sellerNavItems: SellerNavItem[] = [
   { label: "Dashboard", href: "/seller/dashboard", Icon: GridIcon, ready: true, section: "main" },
-  { label: "Orders", href: "/seller/orders", Icon: OrdersIcon, ready: false, section: "main" },
+  { label: "Orders", href: "/seller/orders", Icon: OrdersIcon, ready: true, section: "main" },
   { label: "Listings", href: "/seller/listings", Icon: ListingsIcon, ready: false, section: "main" },
   { label: "Calendar", href: "/seller/calendar", Icon: CalendarIcon, ready: false, section: "main" },
   { label: "Messages", href: "/seller/messages", Icon: MessagesIcon, ready: false, section: "main" },

@@ -85,7 +85,7 @@ export default async function SellerDashboardPage({ searchParams }: SearchParams
       <CoachCard note={coachNoteFor(seller.id)} secondaryHref={`/seller/searches?as=${seller.id}`} />
 
       <TodayFigures
-        pickups={{ count: today.length, sub: pickupSub }}
+        pickups={{ count: today.length, sub: pickupSub, href: `/seller/orders?as=${seller.id}&when=today` }}
         sales={{ amount: sales.thisWeek, trendPct: sales.trendPct, lastWeek: sales.lastWeek, driver }}
         weather={{
           hi: weather.hi,

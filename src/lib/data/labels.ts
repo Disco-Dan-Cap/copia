@@ -2,6 +2,7 @@ import type {
   CategoryKey,
   DietTag,
   FulfillmentMode,
+  OrderStatus,
   PriceTier,
   SellerArchetype,
 } from "./types";
@@ -30,6 +31,13 @@ export const fulfillmentLabels: Record<FulfillmentMode, string> = {
   motorcycle: "Motorcycle / car",
   drone: "Drone",
   zipline: "Zipline drop",
+};
+
+export const orderStatusLabels: Record<OrderStatus, string> = {
+  awaiting: "Awaiting confirmation",
+  confirmed: "Confirmed",
+  completed: "Completed",
+  canceled: "Canceled",
 };
 
 export const dietLabels: Record<DietTag, string> = {

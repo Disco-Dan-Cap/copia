@@ -1,9 +1,11 @@
+import Link from "next/link";
 import type { WeatherDay } from "@/lib/data/dashboard";
 import { formatEditorialCount } from "@/lib/format";
 import { WeatherStrip } from "./weather-strip";
 
 interface TodayFiguresProps {
-  pickups: { count: number; sub: string };
+  /** `href` makes the pickups figure the entry point to the Orders log. */
+  pickups: { count: number; sub: string; href?: string };
   sales: { amount: number; trendPct: number | null; lastWeek: number; driver: string | null };
   weather: { hi: number; lo: number; summary: string; days: WeatherDay[]; dayLabels: string[] };
 }
@@ -23,13 +25,30 @@ export function TodayFigures({ pickups, sales, weather }: TodayFiguresProps) {
   return (
     <section className="border-y border-forest/20">
       <div className="grid grid-cols-1 lg:grid-cols-3">
-        {/* Pickups — the big number is the editorial Fraunces word */}
+        {/* Pickups — the big number is the editorial Fraunces word. When a
+            href is given, the whole figure is the entry point to the Orders
+            log (today pre-filtered); a quiet mono-caps cue earns the tap. */}
         <div className="border-b border-forest/20 py-[20px] lg:border-b-0 lg:border-r lg:border-forest/20 lg:pr-[22px]">
-          <div className={LABEL}>Today · pickups</div>
-          <div className={`${BIG} [&_em]:font-emphasis [&_em]:text-[28px] [&_em]:font-normal [&_em]:italic [&_em]:text-forest`}>
-            {pickups.count === 0 ? "None" : <em>{formatEditorialCount(pickups.count)}</em>}
-          </div>
-          <div className={SUB}>{pickups.sub}</div>
+          {pickups.href ? (
+            <Link href={pickups.href} className="group block transition-opacity active:opacity-60">
+              <div className={LABEL}>Today · pickups</div>
+              <div className={`${BIG} [&_em]:font-emphasis [&_em]:text-[28px] [&_em]:font-normal [&_em]:italic [&_em]:text-forest`}>
+                {pickups.count === 0 ? "None" : <em>{formatEditorialCount(pickups.count)}</em>}
+              </div>
+              <div className={SUB}>{pickups.sub}</div>
+              <div className="mt-[10px] font-mono text-[9.5px] uppercase tracking-[0.14em] text-forest underline decoration-forest/30 underline-offset-[3px] transition-colors group-hover:decoration-forest">
+                View orders →
+              </div>
+            </Link>
+          ) : (
+            <>
+              <div className={LABEL}>Today · pickups</div>
+              <div className={`${BIG} [&_em]:font-emphasis [&_em]:text-[28px] [&_em]:font-normal [&_em]:italic [&_em]:text-forest`}>
+                {pickups.count === 0 ? "None" : <em>{formatEditorialCount(pickups.count)}</em>}
+              </div>
+              <div className={SUB}>{pickups.sub}</div>
+            </>
+          )}
         </div>
 
         {/* Sales — the one figure that carries a trend */}

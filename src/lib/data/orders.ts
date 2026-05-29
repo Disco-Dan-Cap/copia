@@ -21,6 +21,9 @@ export const orders: Order[] = [
   { id: "o-mira-6", listingId: "l-miras-zinnias", buyer: "Tomás G.", quantity: 2, fulfillment: "pickup", status: "completed", dayOffset: -1 },
   { id: "o-mira-7", listingId: "l-miras-peas", buyer: "Dana R.", quantity: 3, fulfillment: "meetup", status: "completed", dayOffset: -4 },
   { id: "o-mira-8", listingId: "l-miras-squash", buyer: "Sela K.", quantity: 2, fulfillment: "pickup", status: "completed", dayOffset: -6 },
+  // Canceled (past) — demonstrates the muted/struck render without polluting
+  // today's pickups or the upcoming plan. Excluded from sales by construction.
+  { id: "o-mira-c", listingId: "l-miras-tomatoes", buyer: "Owen B.", quantity: 2, fulfillment: "meetup", status: "canceled", dayOffset: -3, note: "Something came up — sorry, I'll catch you next week." },
   // Last week (for the trend comparison)
   { id: "o-mira-9", listingId: "l-miras-eggs", buyer: "Marcus T.", quantity: 3, fulfillment: "pickup", status: "completed", dayOffset: -8 },
   { id: "o-mira-10", listingId: "l-miras-eggs", buyer: "Priya N.", quantity: 4, fulfillment: "pickup", status: "completed", dayOffset: -9 },
@@ -64,11 +67,67 @@ export function ordersBySeller(sellerId: string): Order[] {
   return orders.filter((o) => listingById(o.listingId)?.sellerId === sellerId);
 }
 
-/** A seller's orders scheduled for today (dayOffset 0), earliest pickup first. */
+/**
+ * A seller's live pickups for today (dayOffset 0), earliest pickup first.
+ * Canceled orders are excluded — they're called off, not pending — so the
+ * dashboard's pickup count never counts a canceled order.
+ */
 export function todaysOrders(sellerId: string): Order[] {
   return ordersBySeller(sellerId)
-    .filter((o) => o.dayOffset === 0)
+    .filter((o) => o.dayOffset === 0 && o.status !== "canceled")
     .sort((a, b) => (a.pickupTime ?? "~").localeCompare(b.pickupTime ?? "~"));
+}
+
+/** A single order by id, or undefined (the detail route 404s on undefined). */
+export function orderById(id: string): Order | undefined {
+  return orders.find((o) => o.id === id);
+}
+
+export interface OrderGroup {
+  /** Mono-caps editorial header, e.g. "Today". */
+  key: "today" | "upcoming" | "thisWeek" | "earlier";
+  label: string;
+  orders: Order[];
+}
+
+/**
+ * A seller's orders bucketed the way a seller actually thinks about the week —
+ * NOT sorted into a sortable table. Boundaries (stated once, here):
+ *   Today    = dayOffset 0
+ *   Upcoming = dayOffset ≥ 1   (soonest first)
+ *   This week= dayOffset −1…−6 (past 7 days, most recent first)
+ *   Earlier  = dayOffset ≤ −7  (most recent first)
+ * Within Today, earliest pickup leads. Empty groups are dropped.
+ */
+export function sellerOrderGroups(sellerId: string): OrderGroup[] {
+  const own = ordersBySeller(sellerId);
+  const byPickup = (a: Order, b: Order) =>
+    (a.pickupTime ?? "~").localeCompare(b.pickupTime ?? "~");
+
+  const groups: OrderGroup[] = [
+    {
+      key: "today",
+      label: "Today",
+      orders: own.filter((o) => o.dayOffset === 0).sort(byPickup),
+    },
+    {
+      key: "upcoming",
+      label: "Upcoming",
+      orders: own.filter((o) => o.dayOffset >= 1).sort((a, b) => a.dayOffset - b.dayOffset),
+    },
+    {
+      key: "thisWeek",
+      label: "This week",
+      orders: own.filter((o) => o.dayOffset <= -1 && o.dayOffset >= -6).sort((a, b) => b.dayOffset - a.dayOffset),
+    },
+    {
+      key: "earlier",
+      label: "Earlier",
+      orders: own.filter((o) => o.dayOffset <= -7).sort((a, b) => b.dayOffset - a.dayOffset),
+    },
+  ];
+
+  return groups.filter((g) => g.orders.length > 0);
 }
 
 export interface SalesStats {
