@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 import { sellerBySlug } from "@/lib/data/seller-bySlug";
 import { inSeasonListings, listingsBySeller } from "@/lib/data/listings";
 import { reviewStats, reviewsBySeller } from "@/lib/data/reviews";
-import { SellerHero } from "@/components/sellers/seller-hero";
-import { SellerStory } from "@/components/sellers/seller-story";
-import { SeasonalStrip } from "@/components/sellers/seasonal-strip";
-import { ListingsSection } from "@/components/sellers/listings-section";
-import { ReviewsSection } from "@/components/sellers/reviews-section";
+import { SellerHero } from "@/components/seller-profile/seller-hero";
+import { SellerStory } from "@/components/seller-profile/seller-story";
+import { SeasonalStrip } from "@/components/seller-profile/seasonal-strip";
+import { ListingsSection } from "@/components/seller-profile/listings-section";
+import { ReviewsSection } from "@/components/seller-profile/reviews-section";
 
 // Rendered per request so the "what's in season" strip is honest to the
 // visitor's actual month — a recruiter opening this in August sees August.

@@ -41,6 +41,12 @@ export type CategoryKey = "vegetables" | "eggs" | "baked" | "honey";
 /** Coarse price buckets for the filter sheet. */
 export type PriceTier = "budget" | "mid" | "premium";
 
+/** Seller-side listing state. Buyer queries ignore this; the dashboard uses it. */
+export type ListingStatus = "active" | "sold-out" | "paused";
+
+/** Order lifecycle — mirrors the brief's incoming → accepted → completed. */
+export type OrderStatus = "awaiting" | "confirmed" | "completed";
+
 // ─── Entities ───────────────────────────────────────────────────────────────
 
 export interface SeasonalItem {
@@ -127,6 +133,30 @@ export interface Listing {
   harvestCadence: string;
   /** A short list of what it pairs with — rendered as hairline Söhne chips. */
   pairsWith: string[];
+  /** Seller-side state. Omitted = "active". Drives the dashboard listings filter. */
+  status?: ListingStatus;
+}
+
+/**
+ * An order placed against a listing — the seller dashboard's core data.
+ * `dayOffset` is relative to today (negative past, 0 today, positive upcoming)
+ * so the dashboard is always alive whenever it's opened; absolute dates are
+ * computed at render. Totals are computed (price × quantity), never stored.
+ */
+export interface Order {
+  id: string;
+  listingId: string;
+  /** Buyer display name, e.g. "Dana R." */
+  buyer: string;
+  quantity: number;
+  fulfillment: FulfillmentMode;
+  status: OrderStatus;
+  /** Days relative to today. */
+  dayOffset: number;
+  /** Pickup time for today's orders, e.g. "4:30 PM". */
+  pickupTime?: string;
+  /** Optional buyer note shown on the order. */
+  note?: string;
 }
 
 /**

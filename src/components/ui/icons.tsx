@@ -176,3 +176,96 @@ export function RowsIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+/* ── Seller nav glyphs (ported from the validated dashboard hero) ─────────── */
+
+export function OrdersIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M4 7 L20 7 L18 20 L6 20 Z" strokeLinejoin="round" />
+      <path d="M9 7 L9 4 L15 4 L15 7" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ListingsIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <rect x={3} y={3} width={18} height={18} rx={2} />
+      <path d="M3 9 L21 9 M9 3 L9 21" />
+    </svg>
+  );
+}
+
+export function CalendarIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <rect x={3} y={5} width={18} height={16} rx={2} />
+      <path d="M3 9 L21 9 M8 3 L8 7 M16 3 L16 7" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function MessagesIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M4 5 L20 5 L20 17 L13 17 L8 21 L8 17 L4 17 Z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function AnalyticsIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M4 19 L4 5 M4 19 L20 19" strokeLinecap="round" />
+      <path d="M7 15 L11 11 L14 13 L20 7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function SettingsIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <circle cx={12} cy={12} r={3} />
+      <path d="M19 12 L21 12 M3 12 L5 12 M12 19 L12 21 M12 3 L12 5 M16.95 16.95 L18.36 18.36 M5.64 5.64 L7.05 7.05 M16.95 7.05 L18.36 5.64 M5.64 18.36 L7.05 16.95" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* ── Weather glyphs (dashboard 7-day strip) ───────────────────────────────── */
+
+export function SunIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <circle cx={12} cy={12} r={4} />
+      <path d="M12 3 L12 5 M12 19 L12 21 M3 12 L5 12 M19 12 L21 12 M5.6 5.6 L7 7 M17 17 L18.4 18.4 M18.4 5.6 L17 7 M7 17 L5.6 18.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function PartlyCloudyIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <circle cx={9} cy={8} r={3} />
+      <path d="M9 2.5 L9 4 M3.5 8 L5 8 M5.1 4.1 L6.1 5.1" strokeLinecap="round" />
+      <path d="M8 19 Q5 19 5 16.5 Q5 14 7.5 14 Q8 11.5 11 11.5 Q14 11.5 14.5 14 Q18 14 18 16.5 Q18 19 15 19 Z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function CloudIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M7 18 Q3.5 18 3.5 14.8 Q3.5 11.8 6.8 11.8 Q7.4 8 11.5 8 Q15.6 8 16.2 11.8 Q20.5 11.8 20.5 15 Q20.5 18 17 18 Z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function RainIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M7 14 Q3.5 14 3.5 10.8 Q3.5 7.8 6.8 7.8 Q7.4 4 11.5 4 Q15.6 4 16.2 7.8 Q20.5 7.8 20.5 11 Q20.5 14 17 14 Z" strokeLinejoin="round" />
+      <path d="M8 17 L7 20 M12 17 L11 20 M16 17 L15 20" strokeLinecap="round" />
+    </svg>
+  );
+}

@@ -39,6 +39,48 @@ export const listings: Listing[] = [
     growingMethod: "Pasture-raised, soy-free feed", harvestCadence: "Collected daily",
     pairsWith: ["Good butter", "Chives", "Cracked pepper"],
   },
+  {
+    id: "l-miras-cherry", sellerId: "miras-half-acre", name: "Cherry tomatoes", category: "vegetables", price: 5, unit: "pt",
+    diet: ["pesticide-free"], gradient: ["#C46A4F", "#8B3A28"], peakMonths: [5, 6, 7, 8, 9],
+    anchor: "The deer leave the cherries alone — too much reaching for too little — so these are the one tomato Mira doesn't fence, <em>and the first ripe every year</em>.",
+    growingMethod: "Open-pollinated, no spray", harvestCadence: "Picked as they color",
+    pairsWith: ["Snacking", "Blistered", "Salads"],
+  },
+  {
+    id: "l-miras-lettuce", sellerId: "miras-half-acre", name: "Butter lettuce", category: "vegetables", price: 4, unit: "head",
+    diet: ["pesticide-free"], gradient: ["#9CE5D0", "#509982"], peakMonths: [3, 4, 5, 10, 11], status: "sold-out",
+    anchor: "Fast in the cool of the raised beds and gone the second it turns hot — <em>spring and fall only</em>, then it bolts.",
+    growingMethod: "No spray, cut whole", harvestCadence: "Cut cool seasons",
+    pairsWith: ["Soft herbs", "A light vinaigrette"],
+  },
+  {
+    id: "l-miras-peas", sellerId: "miras-half-acre", name: "Sugar snap peas", category: "vegetables", price: 4, unit: "lb",
+    diet: ["pesticide-free"], gradient: ["#74B5A1", "#1C664D"], peakMonths: [3, 4, 5],
+    anchor: "Trellised up the back fence where the deer can't be bothered to look, sweet enough to <em>eat standing in the bed</em>.",
+    growingMethod: "No spray", harvestCadence: "Picked every other morning",
+    pairsWith: ["Raw", "Stir-fry", "Crudité"],
+  },
+  {
+    id: "l-miras-squash", sellerId: "miras-half-acre", name: "Summer squash", category: "vegetables", price: 3, unit: "lb",
+    diet: ["organic", "pesticide-free"], gradient: ["#E8C36A", "#C49A3F"], peakMonths: [5, 6, 7, 8],
+    anchor: "Two plants is plenty — a thing every gardener learns <em>exactly once</em> — so it's picked small and sold the same day.",
+    growingMethod: "Open-pollinated, no spray", harvestCadence: "Picked small, daily",
+    pairsWith: ["Grilled", "Ribboned", "Skillet"],
+  },
+  {
+    id: "l-miras-zinnias", sellerId: "miras-half-acre", name: "Cut zinnias", category: "vegetables", price: 8, unit: "bunch",
+    diet: ["pesticide-free"], gradient: ["#E8927C", "#C46A4F"], peakMonths: [5, 6, 7, 8, 9, 10],
+    anchor: "Planted along the tomato row to pull the bees in, then earned a row of their own — <em>cut them and they only make more</em>.",
+    growingMethod: "No spray, cut at dawn", harvestCadence: "Cut to order",
+    pairsWith: ["A jar on the table", "The porch"],
+  },
+  {
+    id: "l-miras-jalapenos", sellerId: "miras-half-acre", name: "Jalapeños", category: "vegetables", price: 4, unit: "pt",
+    diet: ["pesticide-free"], gradient: ["#509982", "#1C664D"], peakMonths: [6, 7, 8, 9, 10], status: "paused",
+    anchor: "Paused until the nights stop cooling off, because a pepper won't bother getting hot <em>until summer means it</em>.",
+    growingMethod: "No spray", harvestCadence: "Picked green or red",
+    pairsWith: ["Salsa", "Pickled", "Cornbread"],
+  },
 
   // The Honey & The Comb — South Lamar (specialty)
   {
@@ -281,6 +323,11 @@ export function inSeasonListings(sellerId: string, month: number): Listing[] {
 /** Slug = id (already URL-safe). The product-detail route's one resolver seam. */
 export function listingById(id: string): Listing | undefined {
   return listings.find((l) => l.id === id);
+}
+
+/** A listing's seller-side status, defaulting to active when unset. */
+export function listingStatus(listing: Listing): NonNullable<Listing["status"]> {
+  return listing.status ?? "active";
 }
 
 const MONTH_ABBR = [

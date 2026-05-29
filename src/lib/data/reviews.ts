@@ -11,6 +11,9 @@ export const reviews: Review[] = [
   { id: "r-miras-2", sellerId: "miras-half-acre", author: "Marcus T.", neighborhood: "Mueller", date: "2026-05-09", rating: 5, body: "Eggs were still warm when I got home. Yolks orange like marigolds." },
   { id: "r-miras-3", sellerId: "miras-half-acre", author: "Priya N.", neighborhood: "Hyde Park", date: "2026-04-28", rating: 5, body: "Asked about the chicken wire and got the whole deer saga back over text. Best tomatoes on the east side, and I've tried them all." },
   { id: "r-miras-4", sellerId: "miras-half-acre", author: "Will C.", neighborhood: "East Austin", date: "2026-04-12", rating: 4, body: "Basil and eggs were great. Tomatoes weren't ready yet in April — worth the wait though." },
+  { id: "r-miras-5", sellerId: "miras-half-acre", author: "Jess R.", neighborhood: "Cherrywood", date: "2026-05-22", rating: 5, body: "The zinnias lasted two weeks on my counter. Didn't expect to be buying flowers from a tomato lady." },
+  { id: "r-miras-6", sellerId: "miras-half-acre", author: "Sela K.", neighborhood: "Mueller", date: "2026-05-14", rating: 5, body: "Snap peas never made it home. The kids ate the whole bag in the car." },
+  { id: "r-miras-7", sellerId: "miras-half-acre", author: "Tomás G.", neighborhood: "East Austin", date: "2026-05-04", rating: 4, body: "Lettuce sells out fast — set an alarm for her Saturday list. Worth it though." },
 
   // The Honey & The Comb → 4.6
   { id: "r-honey-1", sellerId: "honey-and-the-comb", author: "Sofia M.", neighborhood: "Bouldin Creek", date: "2026-05-20", rating: 5, body: "The comb honey is unreal on toast. You can taste the wildflowers, whatever that means — but you can." },
