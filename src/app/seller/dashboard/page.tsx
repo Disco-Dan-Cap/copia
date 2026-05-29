@@ -82,7 +82,7 @@ export default async function SellerDashboardPage({ searchParams }: SearchParams
 
       <DashboardHead greeting={greeting} name={seller.contactName} meta={meta} todayPickups={today.length} />
 
-      <CoachCard note={coachNoteFor(seller.id)} />
+      <CoachCard note={coachNoteFor(seller.id)} secondaryHref={`/seller/searches?as=${seller.id}`} />
 
       <TodayFigures
         pickups={{ count: today.length, sub: pickupSub }}

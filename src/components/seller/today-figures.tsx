@@ -11,6 +11,7 @@ interface TodayFiguresProps {
 const LABEL = "mb-[12px] font-mono text-[9.5px] uppercase tracking-[0.14em] text-mid-forest";
 const BIG = "text-[30px] font-bold leading-none tracking-[-0.025em] text-deepest-forest lg:text-[32px]";
 const SUB = "mt-[10px] text-[13px] leading-[1.4] text-mid-forest";
+const CLARIFIER = "ml-[5px] font-mono text-[10px] font-normal uppercase tracking-[0.14em] text-mid-forest";
 
 /**
  * Three "today" figures set as editorial figures — label, big number, and
@@ -55,7 +56,9 @@ export function TodayFigures({ pickups, sales, weather }: TodayFiguresProps) {
         <div className="py-[20px] lg:pl-[22px]">
           <div className={LABEL}>Weather · 7 days</div>
           <div className={BIG}>
-            {weather.hi}° / {weather.lo}°
+            {weather.hi}°<span className={CLARIFIER}>High</span>
+            <span className="mx-[8px] text-[24px] font-normal text-sage-shadow">·</span>
+            {weather.lo}°<span className={CLARIFIER}>Low</span>
           </div>
           <div className={SUB}>{weather.summary}</div>
           <WeatherStrip days={weather.days} labels={weather.dayLabels} />

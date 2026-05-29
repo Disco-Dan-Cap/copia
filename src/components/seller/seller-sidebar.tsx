@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { LeafMark } from "@/components/ui/leaf-mark";
 import { LeafWave } from "@/components/ui/leaf-wave";
+import { DemoViewChip } from "@/components/app/demo-view-chip";
 import { sellerNavItems } from "./seller-nav";
 
 /**
@@ -23,7 +24,7 @@ export function SellerSidebar() {
         opacity={0.5}
         className="absolute inset-0 h-full w-full text-mint opacity-[0.08]"
       />
-      <div className="relative z-[2] flex flex-col py-[24px]">
+      <div className="relative z-[2] flex h-full flex-col py-[24px]">
         <div className="flex items-center gap-[10px] px-[22px] pb-[28px]">
           <LeafMark className="h-[28px] w-[20px] text-mint" />
           <span className="text-[18px] font-bold tracking-[-0.04em] text-cream">Copia</span>
@@ -67,6 +68,10 @@ export function SellerSidebar() {
             );
           })}
         </nav>
+
+        <div className="mt-auto px-[22px] pt-[28px]">
+          <DemoViewChip href="/" label="Buyer view" dir="back" tone="dark" />
+        </div>
       </div>
     </aside>
   );

@@ -1,5 +1,6 @@
 import { LeafMark } from "@/components/ui/leaf-mark";
 import { LeafWaveDefs } from "@/components/ui/leaf-wave-defs";
+import { DemoViewChip } from "@/components/app/demo-view-chip";
 import { SellerSidebar } from "@/components/seller/seller-sidebar";
 import { SellerTabBar } from "@/components/seller/seller-tabbar";
 
@@ -24,9 +25,7 @@ export default function SellerLayout({ children }: { children: React.ReactNode }
                 Copia
               </span>
             </div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-mid-forest">
-              Seller
-            </span>
+            <DemoViewChip href="/" label="Buyer view" dir="back" tone="light" />
           </div>
         </header>
         <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">{children}</main>
