@@ -92,6 +92,10 @@ const MIRA_PLAN: PlanEvent[] = [
   { dayOffset: 1, label: "Deep water", kind: "water" },
   { dayOffset: 2, label: "Heat wave", kind: "weather" },
   { dayOffset: 6, label: "Sow fall tomatoes", kind: "plant" },
+  // Far-out plot tasks — give the 4-week horizon's weeks 3–4 an anchor each
+  // without overstuffing. Both real early-June Austin tasks for Mira's plot.
+  { dayOffset: 10, label: "Side-dress tomatoes", kind: "plant" },
+  { dayOffset: 18, label: "Pull spring lettuce", kind: "harvest" },
 ];
 
 export function planEventsFor(sellerId: string): PlanEvent[] {

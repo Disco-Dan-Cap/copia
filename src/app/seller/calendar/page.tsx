@@ -3,7 +3,7 @@ import { sellerBySlug } from "@/lib/data/seller-bySlug";
 import { sellersById } from "@/lib/data/sellers";
 import { ordersBySeller } from "@/lib/data/orders";
 import { planEventsFor, weather } from "@/lib/data/dashboard";
-import { buildWeeks, daySummaries, marketDaysFor } from "@/lib/data/calendar";
+import { buildWeeks, daySummaries, marketDaysFor, weekSectionLabels } from "@/lib/data/calendar";
 import { CalendarPlanner } from "@/components/seller/calendar/calendar-planner";
 
 // Per-request so the two-week range and the forward weather window track the
@@ -21,7 +21,10 @@ export default async function CalendarPage({ searchParams }: SearchParams) {
   const seller = (as ? sellerBySlug(as) : undefined) ?? sellersById[DEMO_SELLER];
 
   const now = new Date();
-  const weeks = buildWeeks(now, 2);
+  // Four weeks is the upper bound — fresh produce has a short forward-buy
+  // horizon, and more agenda (not a month grid) is the right way to see further.
+  const weeks = buildWeeks(now, 4);
+  const weekLabels = weekSectionLabels(now, weeks.length);
   const seedEvents = [...planEventsFor(seller.id), ...marketDaysFor(seller.id, weeks)];
 
   return (
@@ -39,6 +42,7 @@ export default async function CalendarPage({ searchParams }: SearchParams) {
       <CalendarPlanner
         sellerId={seller.id}
         weeks={weeks}
+        weekLabels={weekLabels}
         seedEvents={seedEvents}
         orders={ordersBySeller(seller.id)}
         weatherWeek={weather.week}

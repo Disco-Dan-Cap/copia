@@ -14,6 +14,7 @@ import { addPlanEvent, removePlanEvent, resolvePlanEvents, usePlanOverrides } fr
 export function CalendarPlanner({
   sellerId,
   weeks,
+  weekLabels,
   seedEvents,
   orders,
   weatherWeek,
@@ -21,6 +22,7 @@ export function CalendarPlanner({
 }: {
   sellerId: string;
   weeks: WeekDay[][];
+  weekLabels: string[];
   seedEvents: PlanEvent[];
   orders: Order[];
   weatherWeek: WeatherDay[];
@@ -28,20 +30,16 @@ export function CalendarPlanner({
 }) {
   const overrides = usePlanOverrides();
   const events = resolvePlanEvents(seedEvents, overrides);
-  const sections = [
-    { key: "this", label: "This week", week: weeks[0] },
-    { key: "next", label: "Next week", week: weeks[1] },
-  ].filter((s) => s.week);
 
   return (
     <div className="flex flex-col gap-[30px]">
-      {sections.map((section) => (
-        <section key={section.key}>
+      {weeks.map((week, i) => (
+        <section key={i}>
           <div className="mb-[6px] font-mono text-[10px] uppercase tracking-[0.16em] text-mid-forest">
-            {section.label}
+            {weekLabels[i]}
           </div>
           <div>
-            {section.week.map((day) => (
+            {week.map((day) => (
               <CalendarDay
                 key={day.offset}
                 day={day}

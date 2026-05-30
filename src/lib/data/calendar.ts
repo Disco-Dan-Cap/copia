@@ -7,6 +7,29 @@ import type { PlanEvent, WeekDay } from "./dashboard";
 // dayOffset, which couldn't pin itself to "Saturday").
 
 const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/**
+ * Mono-caps section labels for the agenda: "This week" / "Next week", then
+ * "Week of MMM D" computed from each later week's Monday. (CSS uppercases them
+ * to match the THIS WEEK register.)
+ */
+export function weekSectionLabels(now: Date, count: number): string[] {
+  const mondayIndex = (now.getDay() + 6) % 7;
+  const labels: string[] = [];
+  for (let w = 0; w < count; w++) {
+    if (w === 0) {
+      labels.push("This week");
+    } else if (w === 1) {
+      labels.push("Next week");
+    } else {
+      const d = new Date(now);
+      d.setDate(now.getDate() + w * 7 - mondayIndex);
+      labels.push(`Week of ${MONTH_ABBR[d.getMonth()]} ${d.getDate()}`);
+    }
+  }
+  return labels;
+}
 
 /** `count` consecutive Mon–Sun weeks starting from the Monday of this week. */
 export function buildWeeks(now: Date, count: number): WeekDay[][] {
