@@ -74,7 +74,7 @@ export function ListingsBoard({
               key={l.id}
               listing={l}
               month={month}
-              href={l.id.startsWith("l-new-") ? undefined : `/seller/listings/${l.id}?as=${sellerId}`}
+              href={`/seller/listings/${l.id}?as=${sellerId}`}
               onStatus={(status) => applyEdit(l.id, { status })}
             />
           ))}

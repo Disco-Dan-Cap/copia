@@ -10,8 +10,8 @@ import { StatusWord } from "./status-word";
  * not a spreadsheet cell. The left block (swatch + name + meta) links to the
  * edit surface; the status word sits outside that link as its own control, so
  * the row carries a quick verb without an action column and without nesting a
- * button inside an anchor. Session-created rows pass no href (they live only on
- * the board) and render unlinked.
+ * button inside an anchor. Seed and session-created listings both link — the
+ * edit route resolves either from the store. (`href` stays optional as a guard.)
  */
 export function ListingBoardRow({
   listing,

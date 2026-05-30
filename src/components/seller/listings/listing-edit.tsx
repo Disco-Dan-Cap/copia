@@ -67,11 +67,14 @@ export function ListingEdit({
   listing,
   demand,
   backAs,
+  isCreated = false,
 }: {
   mode: "edit" | "new";
   listing: Listing;
   demand?: SearchDemand | null;
   backAs: string;
+  /** True when this is a session-created listing (lives only in the store). */
+  isCreated?: boolean;
 }) {
   const router = useRouter();
   const [original] = useState(() => draftFrom(listing));
@@ -117,7 +120,24 @@ export function ListingEdit({
       return;
     }
     applyEdit(listing.id, patch());
-    setSaved(true);
+    // A session-created listing routes back to its board with the change; a
+    // seed listing stays put with an inline closure line (today's behavior).
+    if (isCreated) {
+      leaveWith(closureLine(listing.id, draft.status));
+    } else {
+      setSaved(true);
+    }
+  }
+
+  function onDiscard() {
+    // For a created listing, Discard abandons it — removed from the store,
+    // routed back to the board. For a seed listing, it just resets the draft.
+    if (isCreated) {
+      deleteListing(listing.id);
+      leaveWith("Discarded — it's off the board.");
+      return;
+    }
+    setDraft(original);
   }
 
   function onDelete() {
@@ -216,17 +236,19 @@ export function ListingEdit({
 
       {demand ? <DemandLine demand={demand} /> : null}
 
-      {(mode === "new" || dirty) && (
+      {(mode === "new" || isCreated || dirty) && (
         <div className="flex flex-wrap items-center gap-x-[18px] gap-y-[14px]">
           <button type="button" className={PRIMARY} onClick={onSave}>
             {mode === "new" ? "Create listing" : "Save changes"}
           </button>
           {mode === "edit" ? (
-            <button type="button" className={SECONDARY} onClick={() => setDraft(original)}>
+            <button type="button" className={SECONDARY} onClick={onDiscard}>
               Discard
             </button>
           ) : null}
-          {mode === "edit" ? (
+          {/* Created listings remove via Discard; only seed listings carry the
+              separate destructive link. */}
+          {mode === "edit" && !isCreated ? (
             <button type="button" className={DESTRUCTIVE} onClick={onDelete}>
               Delete listing
             </button>

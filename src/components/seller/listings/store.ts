@@ -68,6 +68,27 @@ export function createListing(listing: Listing) {
 }
 
 /**
+ * Resolve a single listing for the edit route, store-first: a session-created
+ * listing (if any) wins, otherwise the server seed, with edits patched on top.
+ * Returns null when neither exists — e.g. a hard reload onto a created
+ * listing's URL after the store has reset, which is correct (it's gone).
+ */
+export function resolveListing(
+  id: string,
+  seed: Listing | undefined,
+  snap: BoardOverrides,
+): Listing | null {
+  const base = snap.created.find((l) => l.id === id) ?? seed;
+  if (!base) return null;
+  return snap.edits[id] ? { ...base, ...snap.edits[id] } : base;
+}
+
+/** Whether an id belongs to a listing created this session (vs. the seed). */
+export function isCreatedListing(id: string, snap: BoardOverrides): boolean {
+  return snap.created.some((l) => l.id === id);
+}
+
+/**
  * Merge the seed with this session's overrides for one seller: created listings
  * lead (so a new one lands at the top), deletes drop out, edits patch in.
  */
