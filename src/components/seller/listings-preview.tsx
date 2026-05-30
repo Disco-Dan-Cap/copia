@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { Listing } from "@/lib/data/types";
 import { listingStatus } from "@/lib/data/listings";
 import { formatEditorialCount } from "@/lib/format";
@@ -21,16 +22,38 @@ const TABS: { key: Filter; label: string }[] = [
  * static screenshot). The full management view is a later route; this is the
  * preview with a working All · Active · Sold out · Paused filter.
  */
-export function ListingsPreview({ listings, month }: { listings: Listing[]; month: number }) {
+export function ListingsPreview({
+  listings,
+  month,
+  manageHref,
+}: {
+  listings: Listing[];
+  month: number;
+  manageHref?: string;
+}) {
   const [filter, setFilter] = useState<Filter>("all");
   const shown = filter === "all" ? listings : listings.filter((l) => listingStatus(l) === filter);
+
+  const heading = `Your listings · ${formatEditorialCount(listings.length)} total`;
 
   return (
     <section>
       <div className="mb-[16px] flex flex-wrap items-baseline justify-between gap-y-[8px]">
-        <h2 className="text-[16px] font-semibold tracking-[-0.015em] text-deepest-forest">
-          Your listings · {formatEditorialCount(listings.length)} total
-        </h2>
+        {manageHref ? (
+          <Link
+            href={manageHref}
+            className="group inline-flex items-baseline gap-[8px] text-[16px] font-semibold tracking-[-0.015em] text-deepest-forest transition-opacity active:opacity-60"
+          >
+            {heading}
+            <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-forest underline decoration-forest/30 underline-offset-[3px] transition-colors group-hover:decoration-forest">
+              Manage →
+            </span>
+          </Link>
+        ) : (
+          <h2 className="text-[16px] font-semibold tracking-[-0.015em] text-deepest-forest">
+            {heading}
+          </h2>
+        )}
         <div className="flex gap-[4px]">
           {TABS.map((t) => (
             <button

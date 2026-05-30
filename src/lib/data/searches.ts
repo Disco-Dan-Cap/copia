@@ -11,6 +11,8 @@ export interface SearchDemand {
   trend: "rising" | "steady" | "fading" | "new";
   /** One editorial line of context; may carry a single Fraunces-italic <em>. */
   note: string;
+  /** The seller's listing this demand maps to — drives the per-listing signal. */
+  listingId?: string;
 }
 
 const MIRA_SEARCHES: SearchDemand[] = [
@@ -20,6 +22,7 @@ const MIRA_SEARCHES: SearchDemand[] = [
     nearbyCount: 5,
     trend: "rising",
     note: "Your butter lettuce is <em>listed as sold out</em> — relisting even a few heads would catch this.",
+    listingId: "l-miras-lettuce",
   },
   {
     query: "Heirloom tomatoes",
@@ -27,6 +30,7 @@ const MIRA_SEARCHES: SearchDemand[] = [
     nearbyCount: 6,
     trend: "rising",
     note: "Your strongest match. They peak here in July — a “coming soon” note now would lock in these buyers.",
+    listingId: "l-miras-tomatoes",
   },
   {
     query: "Local eggs",
@@ -34,6 +38,7 @@ const MIRA_SEARCHES: SearchDemand[] = [
     nearbyCount: 4,
     trend: "steady",
     note: "You sell out most weeks — there's a <em>waitlist</em> forming you could open.",
+    listingId: "l-miras-eggs",
   },
   {
     query: "Fresh basil",
@@ -41,6 +46,7 @@ const MIRA_SEARCHES: SearchDemand[] = [
     nearbyCount: 3,
     trend: "rising",
     note: "Your sweet basil answers this directly — it isn't surfacing high in results yet.",
+    listingId: "l-miras-basil",
   },
   {
     query: "Cut flowers",
@@ -48,6 +54,7 @@ const MIRA_SEARCHES: SearchDemand[] = [
     nearbyCount: 2,
     trend: "new",
     note: "New this week. Your zinnias are <em>just starting</em> — early to a small, loyal crowd.",
+    listingId: "l-miras-zinnias",
   },
   {
     query: "Snap peas",
@@ -55,6 +62,7 @@ const MIRA_SEARCHES: SearchDemand[] = [
     nearbyCount: 2,
     trend: "fading",
     note: "Winding down as the heat comes — your peas have a week or two left.",
+    listingId: "l-miras-peas",
   },
   {
     query: "Hot peppers",
@@ -62,9 +70,15 @@ const MIRA_SEARCHES: SearchDemand[] = [
     nearbyCount: 1,
     trend: "steady",
     note: "Quiet now, climbing toward summer — your jalapeños are <em>paused</em>; unpause when the heat sets in.",
+    listingId: "l-miras-jalapenos",
   },
 ];
 
 export function searchDemandFor(sellerId: string): SearchDemand[] {
   return sellerId === "miras-half-acre" ? MIRA_SEARCHES : [];
+}
+
+/** The demand signal tied to a single listing, or null when there isn't one. */
+export function demandForListing(listingId: string): SearchDemand | null {
+  return MIRA_SEARCHES.find((s) => s.listingId === listingId) ?? null;
 }
