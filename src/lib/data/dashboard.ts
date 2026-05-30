@@ -17,7 +17,7 @@ export interface CoachNote {
 export interface PlanEvent {
   dayOffset: number;
   label: string;
-  kind: "harvest" | "plant" | "default";
+  kind: "harvest" | "plant" | "water" | "market" | "weather" | "note";
 }
 
 export interface WeatherDay {
@@ -38,6 +38,8 @@ export interface WeekDay {
   dayLabel: string;
   dateLabel: string;
   isToday: boolean;
+  /** offset < 0 — drives the calendar's muted past-day styling. */
+  isPast: boolean;
 }
 
 const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -87,8 +89,9 @@ const MIRA_PLAN: PlanEvent[] = [
   { dayOffset: -2, label: "Plant okra", kind: "plant" },
   { dayOffset: -1, label: "Lettuce pull", kind: "harvest" },
   { dayOffset: 0, label: "Cut zinnias", kind: "harvest" },
-  { dayOffset: 1, label: "Deep water", kind: "default" },
-  { dayOffset: 2, label: "Heat wave", kind: "default" },
+  { dayOffset: 1, label: "Deep water", kind: "water" },
+  { dayOffset: 2, label: "Heat wave", kind: "weather" },
+  { dayOffset: 6, label: "Sow fall tomatoes", kind: "plant" },
 ];
 
 export function planEventsFor(sellerId: string): PlanEvent[] {
@@ -108,6 +111,7 @@ export function buildWeek(now: Date): WeekDay[] {
       dayLabel: DOW[d.getDay()],
       dateLabel: String(d.getDate()),
       isToday: offset === 0,
+      isPast: offset < 0,
     });
   }
   return out;

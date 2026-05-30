@@ -2,7 +2,8 @@ import type { WeatherDay } from "@/lib/data/dashboard";
 import { cn } from "@/lib/utils";
 import { SunIcon, PartlyCloudyIcon, CloudIcon, RainIcon } from "@/components/ui/icons";
 
-function Glyph({ icon, className }: { icon: WeatherDay["icon"]; className?: string }) {
+/** The forecast glyph for a day's `icon` — shared by the strip and the calendar. */
+export function WeatherGlyph({ icon, className }: { icon: WeatherDay["icon"]; className?: string }) {
   if (icon === "sun") return <SunIcon className={className} />;
   if (icon === "partly") return <PartlyCloudyIcon className={className} />;
   if (icon === "cloud") return <CloudIcon className={className} />;
@@ -24,7 +25,7 @@ export function WeatherStrip({ days, labels }: { days: WeatherDay[]; labels: str
           <span className="font-mono text-[8px] uppercase tracking-[0.06em] text-mid-forest">
             {labels[i]}
           </span>
-          <Glyph icon={d.icon} className="h-[15px] w-[15px] text-forest" />
+          <WeatherGlyph icon={d.icon} className="h-[15px] w-[15px] text-forest" />
           <span className="text-[10px] font-medium tabular-nums text-deepest-forest">{d.hi}°</span>
         </div>
       ))}

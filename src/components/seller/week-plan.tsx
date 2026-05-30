@@ -1,13 +1,15 @@
+import Link from "next/link";
 import type { WeekDay, PlanEvent } from "@/lib/data/dashboard";
 import type { Order } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
+import { PLAN_EVENT_STYLE } from "./plan-event-style";
 
 function Ev({ kind, children }: { kind: PlanEvent["kind"] | "pickup"; children: React.ReactNode }) {
   return (
     <div
       className={cn(
         "rounded-[3px] px-[5px] py-[3px] text-[9.5px] font-medium leading-[1.2] text-cream",
-        kind === "harvest" ? "bg-terracotta" : kind === "plant" ? "bg-sage" : "bg-forest",
+        kind === "pickup" ? "bg-forest" : PLAN_EVENT_STYLE[kind].bg,
       )}
     >
       {children}
@@ -25,19 +27,33 @@ export function WeekPlan({
   events,
   orders,
   rangeLabel,
+  calendarHref,
 }: {
   week: WeekDay[];
   events: PlanEvent[];
   orders: Order[];
   rangeLabel: string;
+  calendarHref?: string;
 }) {
   return (
     <section>
-      <div className="mb-[12px] flex items-baseline justify-between">
-        <h2 className="text-[16px] font-semibold tracking-[-0.015em] text-deepest-forest">
-          This week&rsquo;s plan
-        </h2>
-        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-mid-forest">
+      <div className="mb-[12px] flex items-baseline justify-between gap-[12px]">
+        {calendarHref ? (
+          <Link
+            href={calendarHref}
+            className="group inline-flex items-baseline gap-[8px] text-[16px] font-semibold tracking-[-0.015em] text-deepest-forest transition-opacity active:opacity-60"
+          >
+            This week&rsquo;s plan
+            <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-forest underline decoration-forest/30 underline-offset-[3px] transition-colors group-hover:decoration-forest">
+              Calendar →
+            </span>
+          </Link>
+        ) : (
+          <h2 className="text-[16px] font-semibold tracking-[-0.015em] text-deepest-forest">
+            This week&rsquo;s plan
+          </h2>
+        )}
+        <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-mid-forest">
           {rangeLabel}
         </span>
       </div>

@@ -98,7 +98,7 @@ export default async function SellerDashboardPage({ searchParams }: SearchParams
 
       <ListingsPreview listings={listings} month={month} manageHref={`/seller/listings?as=${seller.id}`} />
 
-      <WeekPlan week={week} events={planEventsFor(seller.id)} orders={ordersBySeller(seller.id)} rangeLabel={rangeLabel} />
+      <WeekPlan week={week} events={planEventsFor(seller.id)} orders={ordersBySeller(seller.id)} rangeLabel={rangeLabel} calendarHref={`/seller/calendar?as=${seller.id}`} />
     </div>
   );
 }
