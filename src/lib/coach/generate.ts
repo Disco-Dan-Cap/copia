@@ -34,11 +34,35 @@ function getClient(): Anthropic | null {
   return client;
 }
 
-// The weekly reading is generated once per (seller, week) and served from this
-// module-level cache after — recruiter visits within the same week don't re-bill.
-// Resets on server restart (fine for the demo); a real build would back this with
-// a KV store. Fallbacks are never cached, so a transient failure retries next load.
-const readingCache = new Map<string, Reading>();
+// The weekly reading is generated once per (seller, week) and served from cache
+// after — recruiter visits within the same week don't re-bill. Resets on server
+// restart (fine for the demo); a real build would back this with a KV store.
+// Fallbacks are never cached, so a transient failure retries next load.
+//
+// Backed by globalThis, NOT a plain module const: the cold-week path fetches the
+// reading through a route handler while the page reads it back via peekReading,
+// and App Router can resolve this module in two separate graphs (the route-
+// handler layer vs the RSC layer). A globalThis singleton is the one instance
+// both see within a process — and it also survives dev HMR.
+const g = globalThis as unknown as {
+  __coachReadingCache?: Map<string, Reading>;
+  __coachInFlight?: Map<string, Promise<ReadingResult>>;
+};
+const readingCache = (g.__coachReadingCache ??= new Map<string, Reading>());
+// In-flight generations, keyed the same way. A cold (seller, week) takes ~16s to
+// compose; without this, concurrent first-visitors would each fire their own
+// generation (and double-bill). They now share the one promise.
+const inFlight = (g.__coachInFlight ??= new Map<string, Promise<ReadingResult>>());
+
+/**
+ * The cached reading for a (seller, week) if one exists — NEVER triggers a
+ * generation. The page calls this to decide its first paint: a warm week
+ * server-renders the whole letter instantly; a cold week renders the scaffold
+ * and lets the client fetch the reading behind the leaf-draw.
+ */
+export function peekReading(sellerId: string, now: Date): Reading | null {
+  return readingCache.get(`${sellerId}:${weekKey(now)}`) ?? null;
+}
 
 interface ComposeInput {
   salutation: string;
@@ -56,33 +80,45 @@ function toReading(input: ComposeInput): Reading | null {
   return { salutation: input.salutation.trim(), paragraphs: input.paragraphs, consider, signoff: SIGNOFF };
 }
 
-/** This week's reading — from cache, then the live model, then the seeded letter. */
+/** This week's reading — from cache, then the live model, then the seeded letter.
+ *  Concurrent callers on a cold (seller, week) share one in-flight generation. */
 export async function getReading(sellerId: string, now: Date): Promise<ReadingResult> {
   const key = `${sellerId}:${weekKey(now)}`;
   const cached = readingCache.get(key);
   if (cached) return { reading: cached, source: "live" };
 
-  const anthropic = getClient();
-  if (!anthropic) return { reading: fallbackReading(sellerId), source: "fallback" };
+  const existing = inFlight.get(key);
+  if (existing) return existing;
 
+  const job = (async (): Promise<ReadingResult> => {
+    const anthropic = getClient();
+    if (!anthropic) return { reading: fallbackReading(sellerId), source: "fallback" };
+    try {
+      const res = await anthropic.messages.create({
+        model: COACH_MODEL,
+        max_tokens: 1024,
+        system: systemBlocks(sellerId, now),
+        tools: [COMPOSE_READING_TOOL],
+        tool_choice: { type: "tool", name: "compose_reading" },
+        messages: [
+          { role: "user", content: `Write this week's reading for ${coachDateline(sellerId, now)}.` },
+        ],
+      });
+      const block = res.content.find((b) => b.type === "tool_use");
+      const reading = block?.type === "tool_use" ? toReading(block.input as ComposeInput) : null;
+      if (!reading) return { reading: fallbackReading(sellerId), source: "fallback" };
+      readingCache.set(key, reading);
+      return { reading, source: "live" };
+    } catch {
+      return { reading: fallbackReading(sellerId), source: "fallback" };
+    }
+  })();
+
+  inFlight.set(key, job);
   try {
-    const res = await anthropic.messages.create({
-      model: COACH_MODEL,
-      max_tokens: 1024,
-      system: systemBlocks(sellerId, now),
-      tools: [COMPOSE_READING_TOOL],
-      tool_choice: { type: "tool", name: "compose_reading" },
-      messages: [
-        { role: "user", content: `Write this week's reading for ${coachDateline(sellerId, now)}.` },
-      ],
-    });
-    const block = res.content.find((b) => b.type === "tool_use");
-    const reading = block?.type === "tool_use" ? toReading(block.input as ComposeInput) : null;
-    if (!reading) return { reading: fallbackReading(sellerId), source: "fallback" };
-    readingCache.set(key, reading);
-    return { reading, source: "live" };
-  } catch {
-    return { reading: fallbackReading(sellerId), source: "fallback" };
+    return await job;
+  } finally {
+    inFlight.delete(key);
   }
 }
 

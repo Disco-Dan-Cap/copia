@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import { sellerBySlug } from "@/lib/data/seller-bySlug";
 import { sellersById } from "@/lib/data/sellers";
 import { searchDemandFor } from "@/lib/data/searches";
-import { buildCoachWeek, coachDateline } from "@/lib/coach/context";
-import { getReading } from "@/lib/coach/generate";
+import { buildCoachWeek, coachDateline, coachSalutationName } from "@/lib/coach/context";
+import { peekReading } from "@/lib/coach/generate";
 import { IdentityChip } from "@/components/seller/identity-chip";
 import { CoachLetter } from "@/components/seller/coach/coach-letter";
 
 // Rendered per request so "this week," the seven-day strip, and the reading all
 // track the visitor's real date — the same honesty pattern as the dashboard.
-// The reading is composed server-side and arrives whole: there is no loading
-// state on first paint (D4). The weekly cache means the first visit of the week
-// pays the latency; the rest are instant. No key / a failed call falls back to
-// the seeded letter inside getReading, so the page always renders a real letter.
+// The page never blocks on Claude: it PEEKS the weekly cache. A warm week passes
+// the cached reading to CoachLetter and the whole letter server-renders at once;
+// a cold week passes null, and CoachLetter fetches the reading client-side behind
+// the leaf-draw so first paint is immediate. The masthead (dateline + salutation)
+// is deterministic and shows on first paint either way.
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = { title: "Growing Coach" };
@@ -27,9 +28,11 @@ export default async function GrowingCoachPage({ searchParams }: SearchParams) {
 
   const now = new Date();
   const dateline = coachDateline(seller.id, now);
+  const name = coachSalutationName(seller.id);
+  const salutation = name ? `${name} —` : "Friend —";
   const days = buildCoachWeek(seller.id, now);
   const demand = searchDemandFor(seller.id);
-  const { reading } = await getReading(seller.id, now);
+  const initialReading = peekReading(seller.id, now);
 
   return (
     <div className="flex flex-col gap-[28px] px-[24px] pb-[40px] pt-[16px] lg:gap-[32px] lg:px-[44px] lg:pt-[28px]">
@@ -43,7 +46,8 @@ export default async function GrowingCoachPage({ searchParams }: SearchParams) {
       <CoachLetter
         sellerId={seller.id}
         dateline={dateline}
-        reading={reading}
+        salutation={salutation}
+        initialReading={initialReading}
         days={days}
         demand={demand}
         area={seller.area}
