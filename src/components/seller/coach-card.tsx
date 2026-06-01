@@ -7,12 +7,20 @@ const SECONDARY_CLS =
 
 /**
  * The memorable moment — an AI insight written like a knowledgeable friend's
- * note, not a notification. Stubbed for now: the content is a static seeded
- * note and the actions are inert (the real Growing Coach wires to Claude on a
- * later day). The primary action label is specific and in voice, tied to the
- * note's content — never "Open coach."
+ * note, not a notification. The note itself is a seeded preview; its primary
+ * action is the dashboard's door into the full Growing Coach (Day 13), where
+ * the live letter is composed. The label stays specific and in voice, tied to
+ * the note's content — never "Open coach."
  */
-export function CoachCard({ note, secondaryHref }: { note: CoachNote; secondaryHref?: string }) {
+export function CoachCard({
+  note,
+  primaryHref,
+  secondaryHref,
+}: {
+  note: CoachNote;
+  primaryHref?: string;
+  secondaryHref?: string;
+}) {
   return (
     <div className="relative flex gap-[16px] overflow-hidden rounded-[14px] border border-sage/35 border-l-[3px] border-l-forest bg-[color-mix(in_oklab,var(--light-sage)_20%,var(--cream))] p-[22px] lg:gap-[24px] lg:p-[28px]">
       <LeafMark className="mt-[4px] h-[44px] w-[32px] shrink-0 text-forest" />
@@ -28,12 +36,21 @@ export function CoachCard({ note, secondaryHref }: { note: CoachNote; secondaryH
           {note.reason}
         </p>
         <div className="flex flex-wrap items-center gap-[14px]">
-          <button
-            type="button"
-            className="rounded-[8px] bg-forest px-[18px] py-[10px] text-[13px] font-medium text-cream transition-transform active:scale-[0.98]"
-          >
-            {note.action}
-          </button>
+          {primaryHref ? (
+            <Link
+              href={primaryHref}
+              className="rounded-[8px] bg-forest px-[18px] py-[10px] text-[13px] font-medium text-cream transition-transform active:scale-[0.98]"
+            >
+              {note.action}
+            </Link>
+          ) : (
+            <button
+              type="button"
+              className="rounded-[8px] bg-forest px-[18px] py-[10px] text-[13px] font-medium text-cream transition-transform active:scale-[0.98]"
+            >
+              {note.action}
+            </button>
+          )}
           {note.secondary ? (
             secondaryHref ? (
               <Link href={secondaryHref} className={SECONDARY_CLS}>

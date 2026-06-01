@@ -232,6 +232,15 @@ export function SettingsIcon({ className }: IconProps) {
   );
 }
 
+export function CoachIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <path d="M12 3 C7 8 7 15 12 21 C17 15 17 8 12 3 Z" strokeLinejoin="round" />
+      <path d="M12 5.5 L12 20" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 /* ── Weather glyphs (dashboard 7-day strip) ───────────────────────────────── */
 
 export function SunIcon({ className }: IconProps) {

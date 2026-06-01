@@ -5,6 +5,7 @@ import {
   ListingsIcon,
   CalendarIcon,
   MessagesIcon,
+  CoachIcon,
   AnalyticsIcon,
   SettingsIcon,
 } from "@/components/ui/icons";
@@ -27,6 +28,7 @@ export const sellerNavItems: SellerNavItem[] = [
   { label: "Listings", href: "/seller/listings", Icon: ListingsIcon, ready: true, section: "main" },
   { label: "Calendar", href: "/seller/calendar", Icon: CalendarIcon, ready: true, section: "main" },
   { label: "Messages", href: "/seller/messages", Icon: MessagesIcon, ready: true, section: "main" },
+  { label: "Coach", href: "/seller/coach", Icon: CoachIcon, ready: true, section: "insights" },
   { label: "Analytics", href: "/seller/analytics", Icon: AnalyticsIcon, ready: true, section: "insights" },
   { label: "Settings", href: "/seller/settings", Icon: SettingsIcon, ready: true, section: "insights" },
 ];
