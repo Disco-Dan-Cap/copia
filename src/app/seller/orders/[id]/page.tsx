@@ -5,6 +5,7 @@ import { orderById, orderTotal } from "@/lib/data/orders";
 import { listingById } from "@/lib/data/listings";
 import { fulfillmentLabels } from "@/lib/data/labels";
 import { relativeDayLabel, scheduledWhen } from "@/lib/order-format";
+import { conversationForBuyer, conversationForOrder } from "@/lib/data/messages";
 import { OrderLifecycle } from "@/components/seller/orders/order-lifecycle";
 
 // Per-request: the timeline's day labels track the visitor's real date.
@@ -34,6 +35,13 @@ export default async function OrderDetailPage({ params, searchParams }: Params) 
   const buyerFirst = order.buyer.split(" ")[0];
   const dayLabel = relativeDayLabel(now, order.dayOffset);
   const when = scheduledWhen(now, order.dayOffset, order.pickupTime);
+
+  // Closes the broken "Message {buyer}" link: the buyer's seeded thread when one
+  // exists, otherwise a thread keyed to this order (resolved as an empty
+  // correspondence on the messages route).
+  const thread =
+    conversationForOrder(order.id) ?? conversationForBuyer(listing?.sellerId ?? "", order.buyer);
+  const messageHref = `/seller/messages/${thread?.id ?? `order-${order.id}`}?as=${backAs}`;
 
   return (
     <div className="flex flex-col gap-[28px] px-[24px] pb-[48px] pt-[16px] lg:px-[44px] lg:pt-[28px]">
@@ -85,7 +93,12 @@ export default async function OrderDetailPage({ params, searchParams }: Params) 
         </figure>
       ) : null}
 
-      <OrderLifecycle initialStatus={order.status} buyerFirst={buyerFirst} scheduledWhen={when} />
+      <OrderLifecycle
+        initialStatus={order.status}
+        buyerFirst={buyerFirst}
+        scheduledWhen={when}
+        messageHref={messageHref}
+      />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useHasUnread } from "./messages/messages-store";
 import { sellerTabItems } from "./seller-nav";
 
 /**
@@ -12,6 +13,7 @@ import { sellerTabItems } from "./seller-nav";
  */
 export function SellerTabBar() {
   const pathname = usePathname();
+  const hasUnread = useHasUnread();
 
   return (
     <nav className="safe-bottom flex items-center justify-around bg-deepest-forest px-[14px] pt-[12px] pb-[12px] lg:hidden">
@@ -24,7 +26,12 @@ export function SellerTabBar() {
               active ? "text-mint" : "text-cream/60",
             )}
           >
-            <Icon className="h-[22px] w-[22px]" />
+            <span className="relative">
+              <Icon className="h-[22px] w-[22px]" />
+              {href === "/seller/messages" && hasUnread ? (
+                <span className="absolute -right-[4px] -top-[2px] h-[6px] w-[6px] rounded-full bg-terracotta" />
+              ) : null}
+            </span>
             <span className="font-mono text-[8.5px] uppercase tracking-[0.1em]">{label}</span>
           </span>
         );

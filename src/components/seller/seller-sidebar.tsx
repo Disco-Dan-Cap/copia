@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { LeafMark } from "@/components/ui/leaf-mark";
 import { LeafWave } from "@/components/ui/leaf-wave";
 import { DemoViewChip } from "@/components/app/demo-view-chip";
+import { useHasUnread } from "./messages/messages-store";
 import { sellerNavItems } from "./seller-nav";
 
 /**
@@ -16,6 +17,7 @@ import { sellerNavItems } from "./seller-nav";
  */
 export function SellerSidebar() {
   const pathname = usePathname();
+  const hasUnread = useHasUnread();
 
   return (
     <aside className="relative hidden w-[220px] shrink-0 overflow-hidden bg-deepest-forest lg:block">
@@ -46,6 +48,9 @@ export function SellerSidebar() {
               >
                 <item.Icon className="h-[16px] w-[16px] opacity-85" />
                 {item.label}
+                {item.href === "/seller/messages" && hasUnread ? (
+                  <span className="ml-auto h-[6px] w-[6px] rounded-full bg-terracotta" />
+                ) : null}
               </span>
             );
             return (

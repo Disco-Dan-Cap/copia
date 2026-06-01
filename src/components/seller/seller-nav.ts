@@ -26,7 +26,7 @@ export const sellerNavItems: SellerNavItem[] = [
   { label: "Orders", href: "/seller/orders", Icon: OrdersIcon, ready: true, section: "main" },
   { label: "Listings", href: "/seller/listings", Icon: ListingsIcon, ready: true, section: "main" },
   { label: "Calendar", href: "/seller/calendar", Icon: CalendarIcon, ready: true, section: "main" },
-  { label: "Messages", href: "/seller/messages", Icon: MessagesIcon, ready: false, section: "main" },
+  { label: "Messages", href: "/seller/messages", Icon: MessagesIcon, ready: true, section: "main" },
   { label: "Analytics", href: "/seller/analytics", Icon: AnalyticsIcon, ready: false, section: "insights" },
   { label: "Settings", href: "/seller/settings", Icon: SettingsIcon, ready: false, section: "insights" },
 ];

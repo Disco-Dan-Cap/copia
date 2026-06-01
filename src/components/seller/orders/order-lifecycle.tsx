@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { OrderStatus } from "@/lib/data/types";
 import { OrderStatusTag } from "./order-status-tag";
 import { OrderTimeline } from "./order-timeline";
@@ -10,8 +11,7 @@ import { OrderTimeline } from "./order-timeline";
  * status in local state so the seller's actions feel live (3B): Confirm / Mark
  * completed / Cancel flip the status, the tag, and the timeline immediately. No
  * backend yet, so it's optimistic only and resets on reload — honest about the
- * stub. "Message buyer" is intentionally inert (no route to fill), just a
- * pressable affordance with an :active state, like the Coach Card's actions.
+ * stub. "Message {buyer}" now links to the buyer's correspondence thread.
  */
 const PRIMARY =
   "rounded-[8px] bg-forest px-[18px] py-[10px] text-[13px] font-medium text-cream transition-transform active:scale-[0.98]";
@@ -24,10 +24,12 @@ export function OrderLifecycle({
   initialStatus,
   buyerFirst,
   scheduledWhen,
+  messageHref,
 }: {
   initialStatus: OrderStatus;
   buyerFirst: string;
   scheduledWhen: string;
+  messageHref?: string;
 }) {
   const [status, setStatus] = useState<OrderStatus>(initialStatus);
 
@@ -50,9 +52,15 @@ export function OrderLifecycle({
         ) : null}
 
         {status === "awaiting" || status === "confirmed" ? (
-          <button type="button" className={SECONDARY}>
-            Message {buyerFirst}
-          </button>
+          messageHref ? (
+            <Link href={messageHref} className={SECONDARY}>
+              Message {buyerFirst}
+            </Link>
+          ) : (
+            <button type="button" className={SECONDARY}>
+              Message {buyerFirst}
+            </button>
+          )
         ) : null}
 
         {status === "awaiting" || status === "confirmed" ? (
