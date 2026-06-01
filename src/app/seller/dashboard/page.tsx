@@ -86,7 +86,7 @@ export default async function SellerDashboardPage({ searchParams }: SearchParams
 
       <TodayFigures
         pickups={{ count: today.length, sub: pickupSub, href: `/seller/orders?as=${seller.id}&when=today` }}
-        sales={{ amount: sales.thisWeek, trendPct: sales.trendPct, lastWeek: sales.lastWeek, driver }}
+        sales={{ amount: sales.thisWeek, trendPct: sales.trendPct, lastWeek: sales.lastWeek, driver, href: `/seller/analytics?as=${seller.id}` }}
         weather={{
           hi: weather.hi,
           lo: weather.lo,

@@ -6,7 +6,8 @@ import { WeatherStrip } from "./weather-strip";
 interface TodayFiguresProps {
   /** `href` makes the pickups figure the entry point to the Orders log. */
   pickups: { count: number; sub: string; href?: string };
-  sales: { amount: number; trendPct: number | null; lastWeek: number; driver: string | null };
+  /** `href` makes the sales figure the entry point to the season almanac. */
+  sales: { amount: number; trendPct: number | null; lastWeek: number; driver: string | null; href?: string };
   weather: { hi: number; lo: number; summary: string; days: WeatherDay[]; dayLabels: string[] };
 }
 
@@ -22,6 +23,23 @@ const CLARIFIER = "ml-[5px] font-mono text-[10px] font-normal uppercase tracking
  * pickups and weather get none.
  */
 export function TodayFigures({ pickups, sales, weather }: TodayFiguresProps) {
+  const salesSub = (
+    <>
+      {sales.trendPct != null ? (
+        <>
+          <span className="font-mono text-[11px] tracking-[0.04em] text-forest">
+            {sales.trendPct >= 0 ? "↑" : "↓"}
+            {Math.abs(sales.trendPct)}%
+          </span>{" "}
+          over ${sales.lastWeek} last week.
+        </>
+      ) : (
+        "Your first week of sales."
+      )}
+      {sales.driver ? ` ${sales.driver}` : ""}
+    </>
+  );
+
   return (
     <section className="border-y border-forest/20">
       <div className="grid grid-cols-1 lg:grid-cols-3">
@@ -51,24 +69,25 @@ export function TodayFigures({ pickups, sales, weather }: TodayFiguresProps) {
           )}
         </div>
 
-        {/* Sales — the one figure that carries a trend */}
+        {/* Sales — the one figure that carries a trend. When a href is given,
+            the whole figure opens the season almanac. */}
         <div className="border-b border-forest/20 py-[20px] lg:border-b-0 lg:border-r lg:border-forest/20 lg:px-[22px]">
-          <div className={LABEL}>This week · sales</div>
-          <div className={BIG}>${sales.amount}</div>
-          <div className={SUB}>
-            {sales.trendPct != null ? (
-              <>
-                <span className="font-mono text-[11px] tracking-[0.04em] text-forest">
-                  {sales.trendPct >= 0 ? "↑" : "↓"}
-                  {Math.abs(sales.trendPct)}%
-                </span>{" "}
-                over ${sales.lastWeek} last week.
-              </>
-            ) : (
-              "Your first week of sales."
-            )}
-            {sales.driver ? ` ${sales.driver}` : ""}
-          </div>
+          {sales.href ? (
+            <Link href={sales.href} className="group block transition-opacity active:opacity-60">
+              <div className={LABEL}>This week · sales</div>
+              <div className={BIG}>${sales.amount}</div>
+              <div className={SUB}>{salesSub}</div>
+              <div className="mt-[10px] font-mono text-[9.5px] uppercase tracking-[0.14em] text-forest underline decoration-forest/30 underline-offset-[3px] transition-colors group-hover:decoration-forest">
+                View the season →
+              </div>
+            </Link>
+          ) : (
+            <>
+              <div className={LABEL}>This week · sales</div>
+              <div className={BIG}>${sales.amount}</div>
+              <div className={SUB}>{salesSub}</div>
+            </>
+          )}
         </div>
 
         {/* Weather — the 7-day strip earns the "7 days" label */}
