@@ -16,6 +16,7 @@ import { CoachCard } from "@/components/seller/coach-card";
 import { TodayFigures } from "@/components/seller/today-figures";
 import { ListingsPreview } from "@/components/seller/listings-preview";
 import { WeekPlan } from "@/components/seller/week-plan";
+import { DashboardOutro } from "@/components/seller/dashboard-outro";
 
 // Rendered per request so "today", "this week", and the calendar track the
 // visitor's real date (the same honesty pattern as the rest of the app).
@@ -99,6 +100,13 @@ export default async function SellerDashboardPage({ searchParams }: SearchParams
       <ListingsPreview listings={listings} month={month} manageHref={`/seller/listings?as=${seller.id}`} />
 
       <WeekPlan week={week} events={planEventsFor(seller.id)} orders={ordersBySeller(seller.id)} rangeLabel={rangeLabel} calendarHref={`/seller/calendar?as=${seller.id}`} />
+
+      <DashboardOutro
+        cues={[
+          { label: "View the season", href: `/seller/analytics?as=${seller.id}` },
+          { label: "Manage your stall", href: `/seller/settings?as=${seller.id}` },
+        ]}
+      />
     </div>
   );
 }
