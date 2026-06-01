@@ -28,7 +28,7 @@ export const sellerNavItems: SellerNavItem[] = [
   { label: "Calendar", href: "/seller/calendar", Icon: CalendarIcon, ready: true, section: "main" },
   { label: "Messages", href: "/seller/messages", Icon: MessagesIcon, ready: true, section: "main" },
   { label: "Analytics", href: "/seller/analytics", Icon: AnalyticsIcon, ready: true, section: "insights" },
-  { label: "Settings", href: "/seller/settings", Icon: SettingsIcon, ready: false, section: "insights" },
+  { label: "Settings", href: "/seller/settings", Icon: SettingsIcon, ready: true, section: "insights" },
 ];
 
 /** The five primary destinations carried by the mobile tab bar. */
