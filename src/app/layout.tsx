@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
+import { SwRegister } from "@/components/pwa/sw-register";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono-loaded",
@@ -81,7 +82,10 @@ export default function RootLayout({
           />
         ))}
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <SwRegister />
+      </body>
     </html>
   );
 }
