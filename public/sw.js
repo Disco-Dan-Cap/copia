@@ -25,7 +25,11 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  // Pure pass-through: forward to the network, no caching of any kind.
-  // Present only so the browser registers that a fetch handler exists.
-  event.respondWith(fetch(event.request));
+  const { request } = event;
+  // Non-GET (e.g. /api/coach POSTs) and cross-origin (Mapbox, fonts) pass
+  // through untouched — the SW never sits in their path.
+  if (request.method !== "GET") return;
+  if (new URL(request.url).origin !== self.location.origin) return;
+  // Network-first pass-through. No caching, no offline support (out of scope).
+  event.respondWith(fetch(request));
 });
