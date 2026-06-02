@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# claude code — local editor settings are per-machine, not shared
+.claude/settings.local.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*
