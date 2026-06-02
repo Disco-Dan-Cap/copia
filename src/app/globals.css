@@ -23,6 +23,11 @@
   /* Accent — the only non-green color in the system */
   --terracotta:     #C46A4F;
 
+  /* Splash-only — the retro-mint field behind the gummy wordmark on the iOS
+     launch image. Not an in-product surface (cream is the canvas). Maps to
+     cls-5 in brand/copia-splash-mint.svg. Do not use at screen scale. */
+  --mint-wash:      #b3e0d2;
+
   /* Typography */
   --font-display: "aptly", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-body:    "Söhne", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;

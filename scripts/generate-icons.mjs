@@ -3,10 +3,14 @@
  * Per leaf-mark usage spec: "The icon is always centered on forest."
  *
  * Outputs:
- *   public/apple-touch-icon.png  — 180x180
- *   public/icon-192.png          — 192x192
- *   public/icon-512.png          — 512x512
- *   public/favicon.ico           — 32x32 (as PNG, modern browsers accept it)
+ *   public/apple-touch-icon.png    — 180x180  (full-bleed, flattened — no alpha)
+ *   public/icon-192.png            — 192x192  (full-bleed)
+ *   public/icon-512.png            — 512x512  (full-bleed)
+ *   public/icon-512-maskable.png   — 512x512  (extra padding for the maskable safe zone)
+ *   public/favicon.ico             — 32x32 (as PNG, modern browsers accept it)
+ *
+ * iOS composites transparent icons on black, so every icon is rendered on a
+ * full-bleed forest tile and flattened to strip the alpha channel.
  */
 
 import sharp from "sharp";
@@ -31,9 +35,12 @@ const leafPaths = `
 const vbW = 634.53;
 const vbH = 883.74;
 
-async function generateIcon(size, outputPath) {
-  // The leaf occupies ~50% width and ~70% height of the tile (per leaf-mark usage spec: "50% width, 70% height")
-  const leafScale = 0.55;
+// leafScale = leaf height as a fraction of the tile.
+//   0.55 — full-bleed icons (favicon, touch icon, manifest 192/512).
+//   0.60 — maskable: the leaf bounding box stays well inside the center-80%
+//          safe zone (corners ~190px from center < ~205px safe radius), while
+//          filling more of the circle a launcher mask leaves visible.
+async function generateIcon(size, outputPath, leafScale = 0.55) {
   const svgLeafH = size * leafScale;
   const svgLeafW = svgLeafH * (vbW / vbH);
 
@@ -47,7 +54,8 @@ async function generateIcon(size, outputPath) {
     </g>
   </svg>`;
 
-  await sharp(Buffer.from(svg)).png().toFile(outputPath);
+  // flatten() strips the alpha channel so iOS never composites the tile on black.
+  await sharp(Buffer.from(svg)).flatten({ background: "#1C664D" }).png().toFile(outputPath);
   console.log(`Generated: ${outputPath} (${size}x${size})`);
 }
 
@@ -55,6 +63,7 @@ await Promise.all([
   generateIcon(180, join(publicDir, "apple-touch-icon.png")),
   generateIcon(192, join(publicDir, "icon-192.png")),
   generateIcon(512, join(publicDir, "icon-512.png")),
+  generateIcon(512, join(publicDir, "icon-512-maskable.png"), 0.60),
   generateIcon(32, join(publicDir, "favicon.ico")),
 ]);
 

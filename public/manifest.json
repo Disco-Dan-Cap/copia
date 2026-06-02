@@ -1,9 +1,14 @@
 {
+  "id": "/",
   "name": "Copia",
   "short_name": "Copia",
   "description": "The peer-to-peer marketplace for local fresh produce",
   "start_url": "/",
+  "scope": "/",
+  "lang": "en-US",
   "display": "standalone",
+  "orientation": "portrait",
+  "categories": ["shopping", "food", "lifestyle"],
   "theme_color": "#1C664D",
   "background_color": "#FAF6EE",
   "icons": [
@@ -18,10 +23,54 @@
       "type": "image/png"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/mobile-home.png",
+      "sizes": "780x1688",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Your weekly produce thread — what's ripening near you in Austin"
+    },
+    {
+      "src": "/screenshots/mobile-dashboard.png",
+      "sizes": "780x1688",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "The seller dashboard — a grower's ledger"
+    },
+    {
+      "src": "/screenshots/mobile-coach.png",
+      "sizes": "780x1688",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "The AI Growing Coach — a letter from a neighbor"
+    },
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Your weekly produce thread — what's ripening near you in Austin"
+    },
+    {
+      "src": "/screenshots/desktop-dashboard.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "The seller dashboard — a grower's ledger"
+    },
+    {
+      "src": "/screenshots/desktop-coach.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "The AI Growing Coach — a letter from a neighbor"
     }
   ]
 }
