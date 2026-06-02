@@ -23,6 +23,7 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4",
     "@types/mapbox-gl": "^3.4.1",
     "@types/node": "^20",
@@ -30,6 +31,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "playwright": "^1.60.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5"

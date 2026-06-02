@@ -1,0 +1,130 @@
+{
+  "capturedAt": "2026-06-02T15:35:06.274Z",
+  "viewports": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "height": 844,
+      "deviceScaleFactor": 2
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 900,
+      "deviceScaleFactor": 1
+    }
+  ],
+  "routes": [
+    {
+      "file": "home",
+      "url": "/"
+    },
+    {
+      "file": "seller-profile",
+      "url": "/sellers/miras-half-acre"
+    },
+    {
+      "file": "product-detail",
+      "url": "/listings/l-miras-tomatoes"
+    },
+    {
+      "file": "search",
+      "url": "/search?q=tomatoes"
+    },
+    {
+      "file": "dashboard",
+      "url": "/seller/dashboard?as=miras-half-acre"
+    },
+    {
+      "file": "orders",
+      "url": "/seller/orders?as=miras-half-acre"
+    },
+    {
+      "file": "order-detail",
+      "url": "/seller/orders/o-mira-3?as=miras-half-acre"
+    },
+    {
+      "file": "listings",
+      "url": "/seller/listings?as=miras-half-acre"
+    },
+    {
+      "file": "listing-detail",
+      "url": "/seller/listings/l-miras-lettuce?as=miras-half-acre"
+    },
+    {
+      "file": "searches",
+      "url": "/seller/searches?as=miras-half-acre"
+    },
+    {
+      "file": "calendar",
+      "url": "/seller/calendar?as=miras-half-acre"
+    },
+    {
+      "file": "messages",
+      "url": "/seller/messages?as=miras-half-acre"
+    },
+    {
+      "file": "message-thread",
+      "url": "/seller/messages/t-tomas?as=miras-half-acre"
+    },
+    {
+      "file": "analytics",
+      "url": "/seller/analytics?as=miras-half-acre"
+    },
+    {
+      "file": "settings",
+      "url": "/seller/settings?as=miras-half-acre"
+    },
+    {
+      "file": "coach",
+      "url": "/seller/coach?as=miras-half-acre"
+    },
+    {
+      "file": "design-system",
+      "url": "/design-system"
+    }
+  ],
+  "loadingState": {
+    "file": "coach-loading",
+    "url": "/seller/coach?as=miras-half-acre"
+  },
+  "ok": [
+    "mobile/coach-loading",
+    "desktop/coach-loading",
+    "mobile/home",
+    "mobile/seller-profile",
+    "mobile/product-detail",
+    "mobile/search",
+    "mobile/dashboard",
+    "mobile/orders",
+    "mobile/order-detail",
+    "mobile/listings",
+    "mobile/listing-detail",
+    "mobile/searches",
+    "mobile/calendar",
+    "mobile/messages",
+    "mobile/message-thread",
+    "mobile/analytics",
+    "mobile/settings",
+    "mobile/coach",
+    "mobile/design-system",
+    "desktop/home",
+    "desktop/seller-profile",
+    "desktop/product-detail",
+    "desktop/search",
+    "desktop/dashboard",
+    "desktop/orders",
+    "desktop/order-detail",
+    "desktop/listings",
+    "desktop/listing-detail",
+    "desktop/searches",
+    "desktop/calendar",
+    "desktop/messages",
+    "desktop/message-thread",
+    "desktop/analytics",
+    "desktop/settings",
+    "desktop/coach",
+    "desktop/design-system"
+  ],
+  "failed": []
+}
