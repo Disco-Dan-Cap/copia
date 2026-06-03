@@ -189,6 +189,16 @@ export function InstallInvitation() {
     // invitation reads like a key handed over on the way out, not a popup on the
     // way in. setState lives inside the timeout, never the effect body.
     recordVisit();
+    // Screenshot-only: `?__pwaPreview=invite` force-opens the sheet regardless of
+    // earned-intent so the capture script can shoot both platform branches.
+    // Namespaced + opt-in — invisible to real users.
+    if (
+      typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("__pwaPreview") === "invite"
+    ) {
+      const id = window.setTimeout(() => setOffered(true), 50);
+      return () => window.clearTimeout(id);
+    }
     if (isStandalone() || !shouldOfferInstall()) return;
     const id = window.setTimeout(() => setOffered(true), 1400);
     return () => window.clearTimeout(id);

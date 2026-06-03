@@ -92,10 +92,25 @@ export function SplashOverlay() {
   // verified on an installed icon — DevTools reads false unless you emulate it.
   const standalone = useStandalone();
   const [dismissed, setDismissed] = useState(false);
-  const visible = standalone && !dismissed;
+  const [preview, setPreview] = useState(false);
+  const visible = (standalone || preview) && !dismissed;
 
   useEffect(() => {
-    if (!visible) return;
+    // Screenshot-only: `?__pwaPreview=splash` force-renders the settled overlay in
+    // a normal tab so the capture script can shoot it (the real overlay only plays
+    // in standalone). Namespaced + opt-in — invisible to real users. setState lives
+    // inside the timeout: post-mount (no SSR mismatch) and lint-clean.
+    if (
+      typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("__pwaPreview") === "splash"
+    ) {
+      const id = window.setTimeout(() => setPreview(true), 0);
+      return () => window.clearTimeout(id);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!visible || preview) return; // preview holds the settled frame — never auto-dismiss
     // Hold for the bloom-and-settle, then let AnimatePresence fade us out. Purely
     // time-based, never gated on assets — a grace note, not a gate. `dismissed`
     // latches true after the first play, so client-side navigation (which keeps
@@ -103,7 +118,7 @@ export function SplashOverlay() {
     const hold = reduce ? 360 : 980;
     const id = window.setTimeout(() => setDismissed(true), hold);
     return () => window.clearTimeout(id);
-  }, [visible, reduce]);
+  }, [visible, preview, reduce]);
 
   return (
     <AnimatePresence>

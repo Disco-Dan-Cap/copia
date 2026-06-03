@@ -39,7 +39,9 @@ const startupImages: [number, number, number, string][] = [
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  // No maximumScale — pinch-zoom stays enabled (WCAG 1.4.4). iOS zoom-on-focus is
+  // prevented the directive's way, with 16px+ inputs (globals.css), not by locking
+  // the scale, which would block users who need to magnify.
   viewportFit: "cover",
   themeColor: "#1C664D",
 };
