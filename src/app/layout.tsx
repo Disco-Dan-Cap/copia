@@ -3,6 +3,7 @@ import { JetBrains_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { SwRegister } from "@/components/pwa/sw-register";
 import { SplashOverlay } from "@/components/pwa/splash-overlay";
+import { InstallInvitation } from "@/components/pwa/install-invitation";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono-loaded",
@@ -87,6 +88,7 @@ export default function RootLayout({
         {children}
         <SwRegister />
         <SplashOverlay />
+        <InstallInvitation />
       </body>
     </html>
   );

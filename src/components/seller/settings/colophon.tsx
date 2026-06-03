@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LeafMark } from "@/components/ui/leaf-mark";
+import { InstallAffordance } from "@/components/pwa/install-invitation";
 
 /**
  * The foot of the last seller surface — Copia's colophon, like the printer's
@@ -21,6 +22,8 @@ export function Colophon() {
       <p className="mt-[10px] font-emphasis text-[14px] italic text-mid-forest">
         Heritage outside, future inside.
       </p>
+      {/* The door the dismiss copy promises — always here, in the same place. */}
+      <InstallAffordance />
       <div className="mt-[18px] flex items-center justify-between">
         <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-sage-shadow">
           Edition 12 · Austin, TX
