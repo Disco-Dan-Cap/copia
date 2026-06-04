@@ -18,6 +18,7 @@ Always load these into context before designing, coding, or planning anything fo
 
 1. `EDEN_Rebuild_Brief_v1.md` — master brief (scope, brand, tech stack, schedule, case study structure). Source of truth.
 2. `brand/copia-frontend-design.md` — design directive that encodes the Neo-Natural visual direction, the iPhone-first PWA requirements, and the long list of generic-AI defaults we explicitly forbid. **This file is structured as an installable SKILL.md** — copy it to `.claude/skills/copia-frontend-design/SKILL.md` so it auto-loads alongside the upstream `frontend-design` plugin.
+2b. `brand/copia-voice.md` — the writing-voice directive (added 2026-06-04): the register, the case-study prose rules, and the ban list of AI-prose tells. Governs every sentence the way the frontend directive governs every pixel. **Also structured as an installable SKILL.md** — copy it to `.claude/skills/copia-voice/SKILL.md`.
 3. `brand/copia-palette-card.html` — color system with computed WCAG contrast pairings.
 4. `brand/copia-leaf-mark-usage.html` — leaf mark variants, sizes, app icon, lockups, do/don't.
 5. `brand/copia-motif-system.html` — the Leaf Wave pattern at three densities with production-ready SVG.
@@ -37,8 +38,9 @@ Before doing any frontend work, run:
 Then copy this project's directive into the local skills folder so both plugins activate together:
 
 ```
-mkdir -p .claude/skills/copia-frontend-design
+mkdir -p .claude/skills/copia-frontend-design .claude/skills/copia-voice
 cp brand/copia-frontend-design.md .claude/skills/copia-frontend-design/SKILL.md
+cp brand/copia-voice.md .claude/skills/copia-voice/SKILL.md
 ```
 
 The upstream plugin provides the general "don't ship generic AI UI" guardrail; the local one provides the Copia-specific direction and forbidden patterns.
