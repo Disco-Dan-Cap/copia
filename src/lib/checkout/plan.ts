@@ -61,20 +61,35 @@ export function deliveryCapable(seller: Seller): boolean {
 }
 
 /**
- * How you'd name this grower in a sentence. A first name where the brand is a
- * person ("Mira"), the operation's name where the contact is a warm role noun
- * ("Cherrywood Backyard", not "the grower" — which reads wrong mid-sentence
- * next to a place).
+ * How you name this grower in a sentence — and the page never says "the grower."
+ * Anonymity contradicts the whole thesis (you're buying from people), so every
+ * group is named: a first name where the brand is a person ("Mira"), the stall's
+ * own name otherwise ("Cherrywood Backyard", "Mueller Microgreens"). The role
+ * nouns in `contactName` ("the grower") are for the profile's "Ask …" CTA, never
+ * for naming a grower in correspondence.
  */
-function shortWho(seller: Seller): string {
+function nameFor(seller: Seller): string {
   const c = seller.contactName;
   const personLike = /^[A-Z]/.test(c) && !/^the\b/i.test(c);
   return personLike ? c : seller.name;
 }
 
-/** "from Mira" / "from the baker" — the in-clause attribution. */
-function fromWho(seller: Seller): string {
-  return `from ${seller.contactName}`;
+/** "at the Mueller market Saturday morning" — built from seed, never invented. */
+function pickupWhenWhere(seller: Seller): string {
+  const p = seller.pickup;
+  return `at ${p.venue} ${p.day} ${p.window}`;
+}
+
+// Short day / window for the compact pickup chip ("Sat AM"). Derived, not seeded
+// twice — the seed carries the full words and the chip abbreviates them.
+const SHORT_WINDOW: Record<string, string> = { morning: "AM", afternoon: "PM" };
+
+/** "Mueller market · Sat AM" — the pickup chip's where-and-when. */
+export function pickupChipLabel(seller: Seller): string {
+  const p = seller.pickup;
+  const day = p.day.slice(0, 3);
+  const win = SHORT_WINDOW[p.window] ?? p.window;
+  return `${p.venueShort} · ${day} ${win}`.trim();
 }
 
 /**
@@ -154,27 +169,42 @@ export function buildPlan(
  * model call.
  */
 export function narrate(plan: CheckoutPlan): string {
-  const pickupClause = (g: BasketGroup) =>
-    `${goodsPhrase(g)} ${fromWho(g.seller)} in ${g.seller.area}`;
+  // "the heirloom tomatoes from Mira" — the goods plus the named grower.
+  const goodsFrom = (g: BasketGroup) => `${goodsPhrase(g)} from ${nameFor(g.seller)}`;
 
   const pickupSentence = () => {
-    const clauses = plan.pickup.map(pickupClause);
-    const body = `You'll collect ${listJoin(clauses)}`;
-    // The "whenever the week suits you" tail only reads well for a single stand;
-    // with several it clutters, so we let the list stand on its own.
-    return plan.pickup.length === 1 ? `${body}, whenever the week suits you.` : `${body}.`;
+    // Group pickups by venue + day, so two growers at the same market are said
+    // once ("the tomatoes from Mira and the cherries from Cherrywood Backyard at
+    // the Mueller market Saturday morning") rather than repeating the place.
+    const order: string[] = [];
+    const byVenue = new Map<string, BasketGroup[]>();
+    for (const g of plan.pickup) {
+      const p = g.seller.pickup;
+      const key = `${p.venue}|${p.day}|${p.window}`;
+      if (!byVenue.has(key)) {
+        byVenue.set(key, []);
+        order.push(key);
+      }
+      byVenue.get(key)!.push(g);
+    }
+    const venueClauses = order.map((key) => {
+      const gs = byVenue.get(key)!;
+      return `${listJoin(gs.map(goodsFrom))} ${pickupWhenWhere(gs[0].seller)}`;
+    });
+    return `You'll collect ${listJoin(venueClauses)}.`;
   };
 
   const deliverySentence = () => {
-    const clauses = plan.delivery.map(pickupClause);
+    const clauses = plan.delivery.map(goodsFrom);
     const carry = plan.delivery.length > 1 ? "bring it all to you" : "bring it to you";
     return `Your courier will gather ${listJoin(clauses)}, and ${carry} ${plan.deliveryWindow}.`;
   };
 
   if (plan.hasDelivery && plan.pickup.length === 0) return deliverySentence();
   if (!plan.hasDelivery) return pickupSentence();
-  // Mixed: lead with the courier (the thing being arranged), then the pickups.
-  return `${deliverySentence()} You'll collect ${listJoin(plan.pickup.map(pickupClause))} yourself.`;
+  // Mixed: lead with the courier (the thing being arranged), then the pickups,
+  // which carry their own venue + day from pickupSentence().
+  return `${deliverySentence()} ${pickupSentence()}`;
 }
 
 // ── The proximity suggestion — deterministic, NOT AI ──────────────────────────
@@ -182,16 +212,39 @@ export function narrate(plan: CheckoutPlan): string {
 const PROXIMITY_MI = 2.5;
 
 /**
- * If two pickup growers are close enough to fold into one trip, say so — once,
- * quietly. This is deliberately NOT a Claude call: it's haversine between two
- * coordinates against a fixed threshold. Two points and a distance don't need a
- * language model, and pretending they do would be the exact kind of AI theater
- * the brand refuses. The restraint is the case-study beat — the suggestion is
- * right because the geometry is right, not because a model guessed.
+ * If pickup growers can fold into one trip, say so — once, quietly. Deliberately
+ * NOT a Claude call: it's a seeded `marketId` match, falling back to haversine
+ * against a fixed threshold. Neither a shared market key nor a distance needs a
+ * language model, and pretending they did would be the exact AI theater the
+ * brand refuses. The restraint is the case-study beat — the suggestion is right
+ * because the data is right, not because a model guessed.
+ *
+ * A shared MARKET wins over raw distance: two growers at the same Saturday
+ * market is a stronger, truer "one trip" than two stands that merely sit close.
  */
 export function proximitySuggestion(pickup: BasketGroup[]): string | null {
   if (pickup.length < 2) return null;
 
+  // 1) Shared venue — the strongest signal. Find the first market two or more
+  // pickup growers both attend, and name all of them.
+  const byMarket = new Map<string, BasketGroup[]>();
+  for (const g of pickup) {
+    const id = g.seller.pickup.marketId;
+    if (!id) continue;
+    if (!byMarket.has(id)) byMarket.set(id, []);
+    byMarket.get(id)!.push(g);
+  }
+  for (const groups of byMarket.values()) {
+    if (groups.length < 2) continue;
+    const p = groups[0].seller.pickup;
+    const names = listJoin(groups.map((g) => nameFor(g.seller)));
+    const many = groups.length > 2;
+    const verb = many ? "are all at" : "are both at";
+    const tail = many ? "one trip gets all of them" : "one trip gets you both";
+    return `${names} ${verb} ${p.venue} ${p.day} — ${tail}.`;
+  }
+
+  // 2) Fall back to raw distance for the closest qualifying pair.
   let best: { a: Seller; b: Seller; mi: number } | null = null;
   for (let i = 0; i < pickup.length; i++) {
     for (let j = i + 1; j < pickup.length; j++) {
@@ -204,7 +257,7 @@ export function proximitySuggestion(pickup: BasketGroup[]): string | null {
   if (!best) return null;
 
   const { a, b } = best;
-  const names = `${shortWho(a)} and ${shortWho(b)}`;
+  const names = `${nameFor(a)} and ${nameFor(b)}`;
   return a.area === b.area
     ? `${names} are both in ${a.area}, a few minutes apart — one trip gets you both.`
     : `${names} are close enough to catch in one trip — ${a.area} and ${b.area} are barely apart.`;

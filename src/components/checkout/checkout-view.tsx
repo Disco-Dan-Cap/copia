@@ -5,12 +5,14 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { LeafMark } from "@/components/ui/leaf-mark";
 import { COPIA_MARK_PATHS, COPIA_MARK_VIEWBOX } from "@/components/ui/copia-mark";
+import { cn } from "@/lib/utils";
 import { clear, useGroupedBasket, type BasketGroup } from "@/lib/basket/store";
 import {
   buildPlan,
   deliveryCapable,
   growerEconomics,
   narrate,
+  pickupChipLabel,
   proximitySuggestion,
   DELIVERY_FEE,
   PILOT_TIERS,
@@ -39,6 +41,28 @@ const TIERS: { key: DeliveryTier; label: string }[] = [
   { key: "bicycle", label: "Bicycle" },
   { key: "motorcycle", label: "Motorcycle" },
 ];
+
+// The narration, set as type. A single sentence reads as a pull-quote — the
+// arrangement, quoted — so Fraunces italic is load-bearing there (the sanctioned
+// editorial-emphasis use). A multi-sentence plan (mixed pickup + delivery) is a
+// short logistics paragraph, and italic body that long drifts decorative against
+// the directive's "italics are rare and load-bearing" rule — so it falls back to
+// roman charcoal, set off by hairline rules instead of by slant.
+function NarrationProse({ text, className }: { text: string; className?: string }) {
+  const multiSentence = /\.\s+\S/.test(text);
+  if (multiSentence) {
+    return (
+      <div className={cn("border-y border-forest/15 py-[14px]", className)}>
+        <p className="text-[16px] leading-[1.6] text-charcoal">{text}</p>
+      </div>
+    );
+  }
+  return (
+    <p className={cn("font-emphasis text-[19px] italic leading-[1.5] text-forest", className)}>
+      {text}
+    </p>
+  );
+}
 
 const WEEKDAY = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -146,9 +170,7 @@ export function CheckoutView() {
         {/* The narration — the page speaking. Not a tooltip, not a callout box:
             it sits as prose, the way a letter opens, and rewrites itself as the
             choices below change. */}
-        <p className="px-[24px] pt-[12px] pb-[6px] font-emphasis text-[19px] italic leading-[1.5] text-forest">
-          {narration}
-        </p>
+        <NarrationProse text={narration} className="mx-[24px] mt-[12px] mb-[6px]" />
 
         <div className="flex flex-col gap-[28px] px-[24px] pb-[20px] pt-[18px]">
           {groups.map((group) => (
@@ -241,7 +263,7 @@ function GroupBlock({
           selected={choice === "pickup"}
           onClick={() => onChoose("pickup")}
         >
-          Pickup — {seller.area}
+          Pickup — {pickupChipLabel(seller)}
         </ChoiceChip>
         {canDeliver ? (
           <ChoiceChip
@@ -470,9 +492,7 @@ function ConfirmationNote({ order }: { order: PlacedOrder }) {
 
       {/* The headline is the arrangement — the plan restated, the same way the
           page spoke it before you settled. */}
-      <p className="mt-[12px] font-emphasis text-[19px] italic leading-[1.5] text-forest">
-        {order.narration}
-      </p>
+      <NarrationProse text={order.narration} className="mt-[14px]" />
 
       {/* The quiet recap — who's owed what, the run, the total. */}
       <div className="mt-[26px] flex flex-col gap-[12px] border-t border-forest/12 pt-[20px]">

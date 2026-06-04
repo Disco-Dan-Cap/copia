@@ -38,6 +38,26 @@ export type DietTag =
 
 export type CategoryKey = "vegetables" | "eggs" | "baked" | "honey";
 
+/**
+ * Where and when a seller's pickup happens — real seed data, so every named day
+ * and window on the checkout page traces back here and is never invented at
+ * render. A market seller carries a `marketId` so checkout can spot two growers
+ * at the same market (and suggest one trip); farm-gate / home pickups leave it
+ * null.
+ */
+export interface PickupSchedule {
+  /** Locative phrase said after "at", e.g. "the Mueller market" / "the farm in Wimberley". */
+  venue: string;
+  /** Concise venue label for the pickup chip, e.g. "Mueller market" / "Farm gate". */
+  venueShort: string;
+  /** Full day word, e.g. "Saturday" (a market day) or "Friday" (bake day). */
+  day: string;
+  /** Coarse window — "morning" / "afternoon". Never a fabricated clock time. */
+  window: string;
+  /** Shared-market key for proximity; null for farm-gate / home pickup. */
+  marketId: string | null;
+}
+
 /** Coarse price buckets for the filter sheet. */
 export type PriceTier = "budget" | "mid" | "premium";
 
@@ -97,6 +117,8 @@ export interface Seller {
    * it's a place ("the baker", "the beekeeper").
    */
   contactName: string;
+  /** Where/when buyers collect — drives the checkout pickup chip + narration. */
+  pickup: PickupSchedule;
   // Note: rating is no longer stored — it's computed from `reviews` via
   // `reviewStats()` so the star average reflects real seeded reviews.
 }
