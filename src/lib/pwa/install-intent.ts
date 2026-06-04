@@ -66,9 +66,9 @@ export function wasInstalled(): boolean {
   return local()?.getItem(KEYS.installed) === "1";
 }
 
-// Day-?? Checkout will call this on the buyer's first completed order, promoting
-// them to "means to stay" without waiting for a second session. Dormant for now —
-// nothing calls it yet, and that's intentional.
+// Called by checkout (Day 16) on the buyer's first settled order, promoting them
+// to "means to stay" without waiting for a second session — so the install
+// invitation can fire after one genuine order, not only on a return visit.
 export function markFirstOrderComplete(): void {
   local()?.setItem(KEYS.firstOrder, "1");
 }
