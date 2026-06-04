@@ -27,7 +27,7 @@ The case study is written in Garrison's first person. He is a designer and found
 
 1. **Specifics are the authenticity.** Real names (Mira, the Mueller market), real numbers ($1M–$1.5M, 47 interviews, 16s → 0.26s), real dates, verbatim quotes from the 2021 archives. An abstract claim that could appear in anyone's portfolio is a wasted sentence.
 2. **Computed, not estimated.** If a number can be calculated, calculate it and print the real value. If it can't be verified, either mark its provenance ("as we sized it in 2021") or cut it.
-3. **One quiet flourish per section, maximum.** A single aphoristic close ("The decision made itself.") can land. Two in a row is a poetry reading. When in doubt, end on a plain statement of fact — calm prose demonstrates the brand's maturity better than announcing it. (This rule exists because the first rename-section draft ended "the original was loved, and wrong" — Garrison cut it for being dramatic. He was right.)
+3. **Flourishes must be facts with feeling.** A closing punch line earns its place by being a concrete, verifiable statement that happens to land: *"The idea outran our ability to build it."* *"This is the product we couldn't ship five years ago."* What's banned is the crafted abstraction — the self-conscious paradox, the aphorism that performs ("the original was loved, and wrong" — cut by Garrison for exactly this). Test any closing line: is it a fact? Keep it. Is it a performance? Cut it. Calibrated in a blind test 2026-06-04: Garrison consistently picks plain-spoken fact-closes over crafted ones.
 4. **Admissions earn trust.** "I tried to talk myself into the month grid once. The brief won." First-person concessions, dead ends, and declined temptations make the wins credible. Include them.
 5. **Rules ship with reasons.** Never state a design rule without its rationale in the same breath — "the calendar is bounded at four weeks *because nobody buys squash a month out*."
 6. **Italics are rare and load-bearing.** One italic phrase when it earns emphasis. Never italicize body text decoratively. Never two flourishes (italic + aphorism) in the same sentence.
@@ -65,6 +65,16 @@ Read the draft once asking only these questions:
 4. Is every number either computed or provenance-marked?
 5. Read the first clause of every paragraph in sequence — do they vary?
 6. Does it contain any ban-list word? (Search, don't trust memory.)
+
+## Calibration exemplar (Garrison-picked, blind, 2026-06-04)
+
+This ~140-word blurb is the register target for first-person case-study prose — direct, concrete, closes on facts:
+
+> I started Copia in 2021, back when it was called EDEN — a pandemic-era idea for a peer-to-peer marketplace where people buy fresh produce directly from the growers down the road. The Airbnb for farmers markets. We got far enough to attract a VC offer between $1M and $1.5M, and we turned it down for an honest reason: nobody on the founding team could code. The idea outran our ability to build it.
+>
+> In 2026 I rebuilt it alone. I'm a designer, not an engineer, so AI wrote the implementation while I directed every screen, every word, every decision. The result is an iPhone-first PWA set in Austin, Texas — complete with an AI Growing Coach that writes sellers a weekly letter about their crops. This is the product we couldn't ship five years ago.
+
+Note what makes it work: a sentence fragment used confidently ("The Airbnb for farmers markets."), an admission framed as fact, and both paragraph closes are statements you could fact-check.
 
 ## Before / after exemplars
 
