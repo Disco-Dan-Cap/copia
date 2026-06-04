@@ -229,7 +229,7 @@ export function InstallInvitation() {
   const restingLine =
     context === "seller"
       ? "You'll find this any time in Settings."
-      : "You can add Copia any time from your browser's Share menu.";
+      : "You'll find this any time at the foot of your orders.";
 
   return (
     <InstallSheet open={open} headingId="copia-install-heading" onExitComplete={() => setParting(false)}>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { LeafMark } from "@/components/ui/leaf-mark";
 import { COPIA_MARK_PATHS, COPIA_MARK_VIEWBOX } from "@/components/ui/copia-mark";
-import { cn } from "@/lib/utils";
+import { ArrangementNote, NarrationProse } from "@/components/orders/arrangement-note";
 import { clear, useGroupedBasket, type BasketGroup } from "@/lib/basket/store";
 import {
   buildPlan,
@@ -14,19 +14,14 @@ import {
   narrate,
   pickupChipLabel,
   proximitySuggestion,
-  DELIVERY_FEE,
   PILOT_TIERS,
   type DeliveryTier,
   type FulfillmentByGroup,
   type FulfillmentChoice,
   type PaymentMethod,
 } from "@/lib/checkout/plan";
-import {
-  nextOrderRef,
-  placeOrder,
-  type PlacedGroup,
-  type PlacedOrder,
-} from "@/lib/orders/store";
+import { buildPlacedOrder } from "@/lib/orders/build";
+import { nextOrderRef, placeOrder, type PlacedOrder } from "@/lib/orders/store";
 import { markFirstOrderComplete } from "@/lib/pwa/install-intent";
 
 type Status = "form" | "settling" | "confirmed";
@@ -41,28 +36,6 @@ const TIERS: { key: DeliveryTier; label: string }[] = [
   { key: "bicycle", label: "Bicycle" },
   { key: "motorcycle", label: "Motorcycle" },
 ];
-
-// The narration, set as type. A single sentence reads as a pull-quote — the
-// arrangement, quoted — so Fraunces italic is load-bearing there (the sanctioned
-// editorial-emphasis use). A multi-sentence plan (mixed pickup + delivery) is a
-// short logistics paragraph, and italic body that long drifts decorative against
-// the directive's "italics are rare and load-bearing" rule — so it falls back to
-// roman charcoal, set off by hairline rules instead of by slant.
-function NarrationProse({ text, className }: { text: string; className?: string }) {
-  const multiSentence = /\.\s+\S/.test(text);
-  if (multiSentence) {
-    return (
-      <div className={cn("border-y border-forest/15 py-[14px]", className)}>
-        <p className="text-[16px] leading-[1.6] text-charcoal">{text}</p>
-      </div>
-    );
-  }
-  return (
-    <p className={cn("font-emphasis text-[19px] italic leading-[1.5] text-forest", className)}>
-      {text}
-    </p>
-  );
-}
 
 const WEEKDAY = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MONTH = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -109,33 +82,16 @@ export function CheckoutView() {
   const settle = () => {
     if (status !== "form") return;
 
-    const orderGroups: PlacedGroup[] = groups.map((g) => ({
-      sellerId: g.seller.id,
-      sellerName: g.seller.name,
-      area: g.seller.area,
-      contactName: g.seller.contactName,
-      lines: g.lines.map((l) => ({
-        name: l.listing.name,
-        unit: l.listing.unit,
-        qty: l.qty,
-        lineTotal: l.lineTotal,
-      })),
-      subtotal: g.subtotal,
-      fulfillment: choiceFor(g),
-    }));
-
-    const order: PlacedOrder = {
+    // Same builder the seeded history uses — a settled order and a seeded one are
+    // identical in shape, consolidation, and narration.
+    const order = buildPlacedOrder({
+      groups,
+      fulfillment,
+      tier,
+      payment,
       ref: nextOrderRef(),
       placedAtOffset: 0,
-      groups: orderGroups,
-      delivery: plan.hasDelivery
-        ? { tier, fee: plan.deliveryFee, window: plan.deliveryWindow }
-        : null,
-      payment,
-      itemsTotal: plan.itemsTotal,
-      total: plan.total,
-      narration,
-    };
+    });
 
     setStatus("settling");
     settleTimer.current = setTimeout(
@@ -470,86 +426,36 @@ function Settling({ reduce }: { reduce: boolean }) {
 }
 
 // ── The confirmation — a note, not a receipt printer ──────────────────────────
+// The note itself is the shared ArrangementNote (reused on /orders); here it
+// fades in once, with a footer that points to where it now permanently lives.
 function ConfirmationNote({ order }: { order: PlacedOrder }) {
   const reduce = useReducedMotion();
-  const dateline = formatToday();
-  const settledBy =
-    order.payment === "card"
-      ? "Settled by card."
-      : order.payment === "usdc"
-        ? "Settled in USDC."
-        : "Settled in Bitcoin.";
 
-  const body = (
-    <article className="px-[24px] pb-[40px] pt-[24px]">
-      <p className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-mid-forest">
-        Settled — {dateline}
-      </p>
-
-      <h1 className="mt-[14px] font-display text-[30px] font-bold leading-[1.05] tracking-[-0.03em] text-forest">
-        It&rsquo;s arranged.
-      </h1>
-
-      {/* The headline is the arrangement — the plan restated, the same way the
-          page spoke it before you settled. */}
-      <NarrationProse text={order.narration} className="mt-[14px]" />
-
-      {/* The quiet recap — who's owed what, the run, the total. */}
-      <div className="mt-[26px] flex flex-col gap-[12px] border-t border-forest/12 pt-[20px]">
-        {order.groups.map((g) => (
-          <div key={g.sellerId} className="flex items-baseline justify-between gap-[12px]">
-            <span className="text-[15px] leading-[1.4] text-charcoal">
-              {g.sellerName}
-              <span className="font-mono text-[9.5px] uppercase tracking-[0.12em] text-sage-shadow">
-                {" "}· {g.fulfillment === "delivery" ? "Delivery" : "Pickup"}
-              </span>
-            </span>
-            <span className="shrink-0 text-[14px] font-semibold tabular-nums text-deepest-forest">
-              ${g.subtotal}
-            </span>
-          </div>
-        ))}
-
-        {order.delivery ? (
-          <div className="flex items-baseline justify-between gap-[12px]">
-            <span className="text-[15px] leading-[1.4] text-charcoal">
-              Courier run
-              <span className="font-mono text-[9.5px] uppercase tracking-[0.12em] text-sage-shadow">
-                {" "}· {order.delivery.window}
-              </span>
-            </span>
-            <span className="shrink-0 text-[14px] font-semibold tabular-nums text-deepest-forest">
-              ${order.delivery.fee}
-            </span>
-          </div>
-        ) : null}
-      </div>
-
-      <div className="mt-[16px] flex items-baseline justify-between border-t border-forest/12 pt-[16px]">
-        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-sage-shadow">
-          {settledBy}
-        </span>
-        <span className="font-display text-[22px] font-bold tabular-nums tracking-[-0.02em] text-forest">
-          ${order.total}
-        </span>
-      </div>
-
-      {/* Wax-seal colophon — the leaf mark, with the reference as mono chrome. */}
-      <div className="mt-[28px] flex items-center gap-[12px] border-t border-forest/12 pt-[20px]">
-        <LeafMark className="h-[26px] w-[19px] text-forest" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-sage-shadow">
-          {order.ref}
-        </span>
-      </div>
-
+  const footer = (
+    <div className="mt-[24px] flex flex-col gap-[14px]">
       <Link
-        href="/"
-        className="mt-[24px] inline-flex min-h-[44px] items-center gap-[6px] font-mono text-[11px] uppercase tracking-[0.14em] text-forest underline decoration-forest/30 underline-offset-4 transition-opacity active:opacity-60"
+        href="/orders"
+        className="inline-flex min-h-[44px] items-center gap-[6px] font-mono text-[11px] uppercase tracking-[0.14em] text-forest underline decoration-forest/30 underline-offset-4 transition-opacity active:opacity-60"
       >
-        Back to the market
+        See your orders
         <span aria-hidden>→</span>
       </Link>
-    </article>
+      <Link
+        href="/"
+        className="inline-flex min-h-[44px] items-center font-mono text-[11px] uppercase tracking-[0.14em] text-mid-forest underline decoration-mid-forest/30 underline-offset-4 transition-opacity active:opacity-60"
+      >
+        Back to the market
+      </Link>
+    </div>
+  );
+
+  const body = (
+    <ArrangementNote
+      order={order}
+      eyebrow={`Settled — ${formatToday()}`}
+      headline="It’s arranged."
+      footer={footer}
+    />
   );
 
   return (

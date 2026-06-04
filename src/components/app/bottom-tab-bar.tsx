@@ -7,7 +7,7 @@ import {
   HomeIcon,
   SearchIcon,
   BasketIcon,
-  ProfileIcon,
+  OrdersIcon,
 } from "@/components/ui/icons";
 
 type Tab = {
@@ -22,7 +22,7 @@ const tabs: Tab[] = [
   { label: "Home", href: "/", Icon: HomeIcon, ready: true },
   { label: "Search", href: "/search", Icon: SearchIcon, ready: true },
   { label: "Basket", href: "/basket", Icon: BasketIcon, ready: true },
-  { label: "Profile", href: "/profile", Icon: ProfileIcon, ready: false },
+  { label: "Orders", href: "/orders", Icon: OrdersIcon, ready: true },
 ];
 
 /**

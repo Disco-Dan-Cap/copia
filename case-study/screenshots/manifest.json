@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-06-02T15:35:06.274Z",
+  "capturedAt": "2026-06-04T15:45:00.116Z",
   "viewports": [
     {
       "name": "mobile",
@@ -82,6 +82,26 @@
     {
       "file": "design-system",
       "url": "/design-system"
+    },
+    {
+      "file": "basket",
+      "url": "/basket"
+    },
+    {
+      "file": "settling-up-single",
+      "url": "/checkout"
+    },
+    {
+      "file": "settling-up-multi",
+      "url": "/checkout"
+    },
+    {
+      "file": "confirmation",
+      "url": "/checkout"
+    },
+    {
+      "file": "buyer-orders",
+      "url": "/orders"
     }
   ],
   "loadingState": {
@@ -108,6 +128,11 @@
     "mobile/settings",
     "mobile/coach",
     "mobile/design-system",
+    "mobile/basket",
+    "mobile/settling-up-single",
+    "mobile/settling-up-multi",
+    "mobile/confirmation",
+    "mobile/buyer-orders",
     "desktop/home",
     "desktop/seller-profile",
     "desktop/product-detail",
@@ -124,7 +149,12 @@
     "desktop/analytics",
     "desktop/settings",
     "desktop/coach",
-    "desktop/design-system"
+    "desktop/design-system",
+    "desktop/basket",
+    "desktop/settling-up-single",
+    "desktop/settling-up-multi",
+    "desktop/confirmation",
+    "desktop/buyer-orders"
   ],
   "failed": []
 }

@@ -124,3 +124,16 @@ export function placedOrderByRef(ref: string): PlacedOrder | undefined {
   ensureHydrated();
   return orders.find((o) => o.ref === ref);
 }
+
+/**
+ * Reactive lookup for the detail route. SSR-safe: the server snapshot is
+ * undefined (the store is empty there), so the page falls back to its seeded
+ * order prop; once the client store hydrates, a session-created order resolves.
+ */
+export function usePlacedOrderByRef(ref: string): PlacedOrder | undefined {
+  return useSyncExternalStore(
+    subscribe,
+    () => orders.find((o) => o.ref === ref),
+    () => undefined,
+  );
+}

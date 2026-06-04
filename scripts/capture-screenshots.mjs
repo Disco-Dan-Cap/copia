@@ -58,6 +58,30 @@ const ROUTES = [
   { file: "design-system", url: "/design-system" },
 ];
 
+// Buyer surfaces that need client state seeded before they render: the basket
+// and checkout read localStorage `copia.basket`, so we inject it before load.
+// `settle: true` drives the real confirmation by pressing Settle up and waiting
+// for the arranged note. The /orders list renders from its own seed, no inject.
+const BASKET_SINGLE = [
+  { listingId: "l-miras-eggs", qty: 1 },
+  { listingId: "l-miras-tomatoes", qty: 2 },
+];
+// Three growers all at the Mueller market — exercises the named narration and
+// the shared-venue proximity line.
+const BASKET_MULTI = [
+  { listingId: "l-miras-tomatoes", qty: 2 },
+  { listingId: "l-cherry-tomatoes", qty: 1 },
+  { listingId: "l-mueller-pea", qty: 2 },
+];
+
+const STATEFUL = [
+  { file: "basket", url: "/basket", basket: BASKET_MULTI },
+  { file: "settling-up-single", url: "/checkout", basket: BASKET_SINGLE },
+  { file: "settling-up-multi", url: "/checkout", basket: BASKET_MULTI },
+  { file: "confirmation", url: "/checkout", basket: BASKET_MULTI, settle: true },
+  { file: "buyer-orders", url: "/orders" },
+];
+
 // Unlocks the fixed-height inner-scroll shells into document flow so fullPage
 // captures everything. Deliberately narrow: only vertical overflow + the dvh
 // height cap, never overflow-hidden (rounded cards) or overflow-x (strips).
@@ -152,6 +176,38 @@ async function captureRoute(context, dir, name, route) {
   }
 }
 
+// Buyer stateful surfaces: seed localStorage before load; optionally settle.
+async function captureStateful(context, dir, name, shot) {
+  const page = await context.newPage();
+  try {
+    await page.emulateMedia({ reducedMotion: "reduce", colorScheme: "light" });
+    if (shot.basket) {
+      await page.addInitScript((items) => {
+        try {
+          localStorage.setItem("copia.basket", JSON.stringify(items));
+        } catch {
+          /* private mode — the surface will just render empty */
+        }
+      }, shot.basket);
+    }
+    await page.goto(BASE + shot.url, { waitUntil: "load", timeout: 45000 });
+    await settle(page, {});
+    if (shot.settle) {
+      await page.getByRole("button", { name: "Settle up" }).click();
+      await page.getByText("arranged").first().waitFor({ timeout: 10000 });
+      await page.waitForTimeout(300);
+    }
+    await shoot(page, dir, shot.file);
+    results.ok.push(`${name}/${shot.file}`);
+    log(`✓ ${name}/${shot.file}`);
+  } catch (e) {
+    results.fail.push({ shot: `${name}/${shot.file}`, error: e.message });
+    log(`✗ ${name}/${shot.file} — ${e.message}`);
+  } finally {
+    await page.close();
+  }
+}
+
 async function main() {
   for (const vp of VIEWPORTS) mkdirSync(join(OUT, vp.name), { recursive: true });
 
@@ -187,6 +243,20 @@ async function main() {
         isMobile: vp.isMobile,
         hasTouch: vp.hasTouch,
       });
+      // Suppress the earned-intent install invitation for clean surfaces. It
+      // would otherwise auto-open across the run: Playwright gives each page a
+      // fresh sessionStorage (a new tab) while localStorage persists, so the
+      // per-session visit guard resets every page and the visit count climbs
+      // past the threshold. The invitation has its own dedicated captures in
+      // capture-pwa-surfaces.mjs; here we mark it dismissed so it never covers a
+      // surface. (The permanent Settings/orders InstallAffordance is unaffected.)
+      await contexts[vp.name].addInitScript(() => {
+        try {
+          localStorage.setItem("copia.pwa.inviteDismissed", "1");
+        } catch {
+          /* private mode — nothing to suppress */
+        }
+      });
     }
 
     // Phase A — coach loading state, both viewports, while the cache is cold.
@@ -196,6 +266,8 @@ async function main() {
     for (const vp of VIEWPORTS) {
       const dir = join(OUT, vp.name);
       for (const route of ROUTES) await captureRoute(contexts[vp.name], dir, vp.name, route);
+      // Stateful buyer surfaces (basket / checkout / confirmation / orders).
+      for (const shot of STATEFUL) await captureStateful(contexts[vp.name], dir, vp.name, shot);
     }
 
     for (const vp of VIEWPORTS) await contexts[vp.name].close();
@@ -210,7 +282,7 @@ async function main() {
       {
         capturedAt: new Date().toISOString(),
         viewports: VIEWPORTS.map(({ name, width, height, deviceScaleFactor }) => ({ name, width, height, deviceScaleFactor })),
-        routes: ROUTES.map((r) => ({ file: r.file, url: r.url })),
+        routes: [...ROUTES, ...STATEFUL].map((r) => ({ file: r.file, url: r.url })),
         loadingState: { file: "coach-loading", url: `/seller/coach?as=${SELLER}` },
         ok: results.ok,
         failed: results.fail,
