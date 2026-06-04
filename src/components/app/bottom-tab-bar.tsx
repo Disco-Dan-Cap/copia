@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import {
   HomeIcon,
   SearchIcon,
-  CartIcon,
+  BasketIcon,
   ProfileIcon,
 } from "@/components/ui/icons";
 
@@ -21,7 +21,7 @@ type Tab = {
 const tabs: Tab[] = [
   { label: "Home", href: "/", Icon: HomeIcon, ready: true },
   { label: "Search", href: "/search", Icon: SearchIcon, ready: true },
-  { label: "Cart", href: "/cart", Icon: CartIcon, ready: false },
+  { label: "Basket", href: "/basket", Icon: BasketIcon, ready: true },
   { label: "Profile", href: "/profile", Icon: ProfileIcon, ready: false },
 ];
 

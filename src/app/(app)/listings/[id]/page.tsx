@@ -7,7 +7,7 @@ import { ProductTitle } from "@/components/products/product-title";
 import { ProductAnchor } from "@/components/products/product-anchor";
 import { ProductFacts } from "@/components/products/product-facts";
 import { GrowerBlock } from "@/components/products/grower-block";
-import { AddToCartBar } from "@/components/products/add-to-cart-bar";
+import { AddToBasketBar } from "@/components/products/add-to-basket-bar";
 
 // Rendered per request so the in-season signal / peak window stay honest to the
 // visitor's actual month (same as the seller profile).
@@ -42,7 +42,7 @@ export default async function ProductPage({ params }: Params) {
         <GrowerBlock seller={seller} />
         <div className="h-[28px]" />
       </main>
-      <AddToCartBar listing={listing} />
+      <AddToBasketBar listing={listing} />
     </>
   );
 }

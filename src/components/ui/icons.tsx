@@ -67,21 +67,24 @@ export function SearchIcon({ className }: IconProps) {
   );
 }
 
-export function CartIcon({ className }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
-      <path d="M3 6 L7 6 L10 18 L19 18 L21 10 L8 10" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx={10} cy={21} r={1.5} />
-      <circle cx={18} cy={21} r={1.5} />
-    </svg>
-  );
-}
-
 export function ProfileIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
       <circle cx={12} cy={8} r={4} />
       <path d="M4 21 Q4 14 12 14 Q20 14 20 21" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function BasketIcon({ className }: IconProps) {
+  // A market basket — woven body, arched handle. Deliberately not a wheeled cart:
+  // a basket is what you carry through a market, a cart is what you push at a store.
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden>
+      <path d="M8.5 8 Q12 3.5 15.5 8" strokeLinecap="round" />
+      <path d="M3.5 8.5 H20.5" strokeLinecap="round" />
+      <path d="M5 8.5 L6.7 18.6 Q6.9 20 8.2 20 H15.8 Q17.1 20 17.3 18.6 L19 8.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10 11.5 V17 M14 11.5 V17" strokeLinecap="round" opacity={0.45} />
     </svg>
   );
 }
