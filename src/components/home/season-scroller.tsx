@@ -18,7 +18,7 @@ function SeasonCard({ item }: { item: SeasonalItem }) {
           backgroundImage: `linear-gradient(135deg, ${item.gradient[0]} 0%, ${item.gradient[1]} 100%)`,
         }}
       >
-        <PhotoFill src={photo} alt={item.name} />
+        <PhotoFill src={photo} alt={item.name} overrideKey={item.listingId} />
       </div>
       <div className="text-[14px] font-semibold leading-[1.2] tracking-[-0.01em] text-deepest-forest">
         {item.name}

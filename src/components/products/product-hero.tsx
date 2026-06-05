@@ -18,7 +18,7 @@ export function ProductHero({ listing }: { listing: Listing }) {
       className="relative h-[280px] w-full overflow-hidden"
       style={{ backgroundImage: `linear-gradient(135deg, ${from} 0%, ${to} 100%)` }}
     >
-      <PhotoFill src={listing.photo} alt={listing.name} eager />
+      <PhotoFill src={listing.photo} alt={listing.name} eager overrideKey={listing.id} />
       {/* The Leaf Wave is the gradient's texture — when a photo takes the fill,
           the texture goes with it, leaving the photo clean. */}
       {!listing.photo ? (

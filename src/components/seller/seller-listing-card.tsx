@@ -25,7 +25,7 @@ export function SellerListingCard({ listing, month }: { listing: Listing; month:
         className="relative mb-[12px] h-[80px] w-full overflow-hidden rounded-[6px]"
         style={{ backgroundImage: `linear-gradient(135deg, ${listing.gradient[0]} 0%, ${listing.gradient[1]} 100%)` }}
       >
-        <PhotoFill src={listing.photo} alt={listing.name} />
+        <PhotoFill src={listing.photo} alt={listing.name} overrideKey={listing.id} />
       </div>
       <div className="text-[13px] font-semibold tracking-[-0.01em] text-deepest-forest">
         {listing.name}

@@ -11,11 +11,13 @@ import { asteriskToHtml, htmlToAsterisk } from "@/lib/emphasis";
 import { EditableText } from "./editable-text";
 import { EditableAnchor } from "./editable-anchor";
 import { GradientPicker } from "./gradient-picker";
+import { PhotoPicker } from "./photo-picker";
 import { MonthPicker } from "./month-picker";
 import { DietChipsEditor } from "./diet-chips-editor";
 import { PairsEditor } from "./pairs-editor";
 import { StatusWord } from "./status-word";
 import { applyEdit, createListing, deleteListing, nextListingId } from "./store";
+import { setPhotoOverride, useListingPhotoOverride } from "@/lib/listings/photo-overrides";
 
 type ListingStatusValue = NonNullable<Listing["status"]>;
 
@@ -82,6 +84,36 @@ export function ListingEdit({
   const [saved, setSaved] = useState(false);
   const [leaving, setLeaving] = useState<string | null>(null);
 
+  // Photo is a media action that commits immediately (it has its own Add/Remove
+  // controls) rather than riding the text draft's Save/Discard. By path: a new
+  // listing holds it in state until it's created; a session-created listing
+  // stores it on its in-memory object; a seed listing persists a localStorage
+  // override — the seeded /photos file on disk is never touched.
+  const [newPhoto, setNewPhoto] = useState<string | undefined>(undefined);
+  const seedOverride = useListingPhotoOverride(
+    mode === "edit" && !isCreated ? listing.id : undefined,
+  );
+  const effectivePhoto =
+    mode === "new"
+      ? newPhoto
+      : isCreated
+        ? listing.photo
+        : seedOverride !== undefined
+          ? seedOverride ?? undefined
+          : listing.photo;
+
+  function commitPhoto(value: string | null): boolean {
+    if (mode === "new") {
+      setNewPhoto(value ?? undefined);
+      return true;
+    }
+    if (isCreated) {
+      applyEdit(listing.id, { photo: value ?? undefined });
+      return true;
+    }
+    return setPhotoOverride(listing.id, value); // false on quota → keep gradient
+  }
+
   const set = <K extends keyof Draft>(key: K, value: Draft[K]) => {
     setDraft((d) => ({ ...d, [key]: value }));
     setSaved(false);
@@ -115,7 +147,7 @@ export function ListingEdit({
   function onSave() {
     if (mode === "new") {
       const id = nextListingId();
-      createListing({ ...listing, ...patch(), id, sellerId: listing.sellerId });
+      createListing({ ...listing, ...patch(), id, sellerId: listing.sellerId, photo: newPhoto });
       leaveWith(closureLine(id, draft.status));
       return;
     }
@@ -165,11 +197,25 @@ export function ListingEdit({
         <span aria-hidden>←</span> All listings
       </Link>
 
-      <GradientPicker
-        from={draft.gradient[0]}
-        to={draft.gradient[1]}
-        onChange={(g) => set("gradient", g)}
-      />
+      <div>
+        <div className={FIELD_LABEL}>Photo</div>
+        <PhotoPicker
+          photo={effectivePhoto}
+          gradient={draft.gradient}
+          alt={draft.name.trim() || "this listing"}
+          onPick={(url) => commitPhoto(url)}
+          onRemove={() => commitPhoto(null)}
+        />
+      </div>
+
+      <div>
+        <div className={FIELD_LABEL}>Gradient · shows when there&rsquo;s no photo</div>
+        <GradientPicker
+          from={draft.gradient[0]}
+          to={draft.gradient[1]}
+          onChange={(g) => set("gradient", g)}
+        />
+      </div>
 
       {/* Title block — name, live price, and the tappable status word */}
       <div>
