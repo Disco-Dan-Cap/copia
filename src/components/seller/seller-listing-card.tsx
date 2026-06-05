@@ -1,6 +1,7 @@
 import type { Listing } from "@/lib/data/types";
 import { priceLabel, listingStatus } from "@/lib/data/listings";
 import { cn } from "@/lib/utils";
+import { PhotoFill } from "@/components/media/photo-fill";
 
 const STATUS_LABEL: Record<NonNullable<Listing["status"]>, string> = {
   active: "Active",
@@ -21,9 +22,11 @@ export function SellerListingCard({ listing, month }: { listing: Listing; month:
   return (
     <div className="rounded-[10px] border border-sage-shadow/25 bg-cream-warm p-[14px]">
       <div
-        className="mb-[12px] h-[80px] w-full rounded-[6px]"
+        className="relative mb-[12px] h-[80px] w-full overflow-hidden rounded-[6px]"
         style={{ backgroundImage: `linear-gradient(135deg, ${listing.gradient[0]} 0%, ${listing.gradient[1]} 100%)` }}
-      />
+      >
+        <PhotoFill src={listing.photo} alt={listing.name} />
+      </div>
       <div className="text-[13px] font-semibold tracking-[-0.01em] text-deepest-forest">
         {listing.name}
       </div>

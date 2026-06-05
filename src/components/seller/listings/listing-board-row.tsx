@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { Listing } from "@/lib/data/types";
 import { priceLabel, listingStatus } from "@/lib/data/listings";
+import { PhotoFill } from "@/components/media/photo-fill";
 import { StatusWord } from "./status-word";
 
 /**
@@ -29,9 +30,11 @@ export function ListingBoardRow({
   const left = (
     <>
       <span
-        className="h-[40px] w-[40px] shrink-0 rounded-[8px]"
+        className="relative block h-[40px] w-[40px] shrink-0 overflow-hidden rounded-[8px]"
         style={{ backgroundImage: `linear-gradient(135deg, ${listing.gradient[0]} 0%, ${listing.gradient[1]} 100%)` }}
-      />
+      >
+        <PhotoFill src={listing.photo} alt={listing.name} />
+      </span>
       <span className="min-w-0">
         <span className="block truncate text-[16px] font-medium tracking-[-0.01em] text-deepest-forest">
           {listing.name || "Untitled"}

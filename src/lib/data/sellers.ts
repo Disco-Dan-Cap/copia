@@ -219,6 +219,12 @@ export const sellers: Seller[] = [
   },
 ];
 
+// Every seller has an art-directed vignette named v-{id} — the master lives at
+// public/photos/v-{id}.webp (see scripts/fetch-photos.mjs and
+// brand/copia-imagery-direction.md). The avatarGradient stays as the designed
+// fallback (and the seller-profile avatar mark, which is never a photo).
+for (const s of sellers) s.photo = `/photos/v-${s.id}.webp`;
+
 /** Fast id → seller lookup for joining listings to their seller. */
 export const sellersById: Record<string, Seller> = Object.fromEntries(
   sellers.map((s) => [s.id, s]),

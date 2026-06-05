@@ -308,6 +308,13 @@ export const listings: Listing[] = [
   },
 ];
 
+// Every seed listing ships with an art-directed photo named for its id — the
+// master lives at public/photos/{id}.webp (see scripts/fetch-photos.mjs and
+// brand/copia-imagery-direction.md). Assigned by id so the 38 paths can't drift.
+// Session-created listings never enter this array, so they keep their picked
+// gradient — the photo layer is additive, the gradient is the designed fallback.
+for (const l of listings) l.photo = `/photos/${l.id}.webp`;
+
 /** Listings belonging to one seller, in seed order. */
 export function listingsBySeller(sellerId: string): Listing[] {
   return listings.filter((l) => l.sellerId === sellerId);

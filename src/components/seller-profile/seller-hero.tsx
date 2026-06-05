@@ -5,6 +5,7 @@ import { archetypeLabels } from "@/lib/data/labels";
 import { LeafWave } from "@/components/ui/leaf-wave";
 import { HeartIcon } from "@/components/ui/icons";
 import { BackButton } from "@/components/app/back-button";
+import { PhotoFill } from "@/components/media/photo-fill";
 
 /**
  * Substack/Etsy-pattern hero: a full-bleed banner in the seller's identity
@@ -26,11 +27,17 @@ export function SellerHero({ seller }: { seller: Seller }) {
         className="relative h-[220px] w-full"
         style={{ backgroundImage: `linear-gradient(135deg, ${from} 0%, ${to} 100%)` }}
       >
-        <LeafWave
-          density="sparse"
-          opacity={0.6}
-          className="absolute inset-0 h-full w-full text-cream opacity-25"
-        />
+        {/* The vignette fills the banner; the avatar below stays a gradient mark,
+            so the seller reads as cover-photo + identity avatar. No overflow-hidden
+            here — the avatar deliberately overhangs the banner's lower edge. */}
+        <PhotoFill src={seller.photo} alt={seller.name} eager />
+        {!seller.photo ? (
+          <LeafWave
+            density="sparse"
+            opacity={0.6}
+            className="absolute inset-0 h-full w-full text-cream opacity-25"
+          />
+        ) : null}
 
         <div className="safe-top absolute inset-x-0 top-0 z-[3]">
           <BackButton className="ml-[16px] mt-[12px]" />

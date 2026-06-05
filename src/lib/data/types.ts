@@ -101,6 +101,12 @@ export interface Seller {
   /** Count of listings added recently; omit/0 if none. */
   newListings?: number;
   avatarGradient: Gradient;
+  /**
+   * The seller's art-directed vignette (a 3:2 establishing photo of their plot —
+   * see `brand/copia-imagery-direction.md`). Optional: where it's absent, the
+   * `avatarGradient` remains the designed fallback.
+   */
+  photo?: string;
   // ── Profile fields (Day 4) ──────────────────────────────────────────────
   /**
    * The vignette that introduces the seller on their profile — 2–3 sentences
@@ -134,6 +140,13 @@ export interface Listing {
   unit: string;
   diet: DietTag[];
   gradient: Gradient;
+  /**
+   * The product's art-directed photo (an 800×800 master — see
+   * `brand/copia-imagery-direction.md`). Optional: a session-created listing has
+   * none, so its picked `gradient` shows instead — the photo is additive, the
+   * gradient is the designed fallback.
+   */
+  photo?: string;
   /** Recently listed — drives "new" markers. */
   isNew?: boolean;
   /**

@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { formatDistance } from "@/lib/geo";
 import { reviewStats } from "@/lib/data/reviews";
 import { StarIcon } from "@/components/ui/icons";
+import { PhotoFill } from "@/components/media/photo-fill";
 import type { SellerResult } from "@/lib/search/query";
 
 interface SellerCarouselProps {
@@ -49,11 +50,13 @@ export function SellerCarousel({ sellers, selectedSellerId }: SellerCarouselProp
               )}
             >
               <div
-                className="h-[50px] w-[50px] shrink-0 rounded-[12px]"
+                className="relative h-[50px] w-[50px] shrink-0 overflow-hidden rounded-[12px]"
                 style={{
                   backgroundImage: `linear-gradient(135deg, ${seller.avatarGradient[0]} 0%, ${seller.avatarGradient[1]} 100%)`,
                 }}
-              />
+              >
+                <PhotoFill src={seller.photo} alt={seller.name} />
+              </div>
               <div className="min-w-0 flex-1">
                 <div className="truncate text-[13.5px] font-semibold tracking-[-0.01em] text-deepest-forest">
                   {seller.name}

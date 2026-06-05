@@ -1,20 +1,25 @@
 import Link from "next/link";
 import type { SeasonalItem } from "@/lib/data/types";
 import { seasonalItems } from "@/lib/data/seasonal";
+import { listingById } from "@/lib/data/listings";
+import { PhotoFill } from "@/components/media/photo-fill";
 import { SectionHead } from "./section-head";
 
 function SeasonCard({ item }: { item: SeasonalItem }) {
+  const photo = listingById(item.listingId)?.photo;
   return (
     <Link
       href={`/listings/${item.listingId}`}
       className="flex w-[130px] shrink-0 flex-col rounded-[14px] border border-sage-shadow/25 bg-cream-warm p-[14px] transition-transform active:scale-[0.98]"
     >
       <div
-        className="mb-[12px] h-[78px] w-full rounded-[8px]"
+        className="relative mb-[12px] h-[78px] w-full overflow-hidden rounded-[8px]"
         style={{
           backgroundImage: `linear-gradient(135deg, ${item.gradient[0]} 0%, ${item.gradient[1]} 100%)`,
         }}
-      />
+      >
+        <PhotoFill src={photo} alt={item.name} />
+      </div>
       <div className="text-[14px] font-semibold leading-[1.2] tracking-[-0.01em] text-deepest-forest">
         {item.name}
       </div>

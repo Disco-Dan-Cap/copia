@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { LeafMark } from "@/components/ui/leaf-mark";
+import { PhotoFill } from "@/components/media/photo-fill";
 import { priceLabel } from "@/lib/data/listings";
 import { formatEditorialCount } from "@/lib/format";
 import {
@@ -59,17 +60,27 @@ function GrowerGroup({ group }: { group: BasketGroup }) {
 
   return (
     <section className="border-t border-forest/12 pt-[22px] first:border-t-0 first:pt-0">
-      {/* The stall sign — location eyebrow over the grower's name, the design statement. */}
-      <header>
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-sage-shadow">
-          {seller.area}
-        </p>
-        <Link
-          href={`/sellers/${seller.id}`}
-          className="mt-[3px] inline-block font-display text-[22px] font-bold leading-[1.1] tracking-[-0.02em] text-forest underline decoration-forest/0 underline-offset-4 transition-colors active:decoration-forest/40"
+      {/* The stall sign — a small vignette of the grower's plot beside the
+          location eyebrow and their name. Line items below stay text-only: a
+          market list, not a cart. The avatarGradient is the photo's fallback. */}
+      <header className="flex items-center gap-[12px]">
+        <div
+          className="relative h-[46px] w-[46px] shrink-0 overflow-hidden rounded-[12px]"
+          style={{ backgroundImage: `linear-gradient(135deg, ${seller.avatarGradient[0]} 0%, ${seller.avatarGradient[1]} 100%)` }}
         >
-          {seller.name}
-        </Link>
+          <PhotoFill src={seller.photo} alt={seller.name} />
+        </div>
+        <div className="min-w-0">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-sage-shadow">
+            {seller.area}
+          </p>
+          <Link
+            href={`/sellers/${seller.id}`}
+            className="mt-[3px] inline-block font-display text-[22px] font-bold leading-[1.1] tracking-[-0.02em] text-forest underline decoration-forest/0 underline-offset-4 transition-colors active:decoration-forest/40"
+          >
+            {seller.name}
+          </Link>
+        </div>
       </header>
 
       <ul className="mt-[16px] flex flex-col gap-[18px]">

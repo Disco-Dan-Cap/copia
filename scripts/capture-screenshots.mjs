@@ -117,9 +117,40 @@ async function settle(page, route) {
   await page.waitForTimeout(route?.map ? 1800 : 600);
 }
 
+// With the shells unlocked into document flow, force any lazy product/seller
+// photos to load and wait for them, so full-page captures are photo-complete
+// (a lazy image below the original fold would otherwise miss the shot).
+async function ensureImagesLoaded(page, timeout = 12000) {
+  await page.evaluate(async (t) => {
+    const imgs = Array.from(document.images);
+    for (const img of imgs) {
+      try {
+        img.loading = "eager";
+      } catch {
+        /* read-only in some engines */
+      }
+    }
+    await Promise.race([
+      Promise.all(
+        imgs.map((img) =>
+          img.complete && img.naturalWidth > 0
+            ? null
+            : new Promise((res) => {
+                img.addEventListener("load", res, { once: true });
+                img.addEventListener("error", res, { once: true });
+              }),
+        ),
+      ),
+      new Promise((r) => setTimeout(r, t)),
+    ]);
+  }, timeout);
+  await page.waitForTimeout(150);
+}
+
 async function shoot(page, dir, file) {
   await page.addStyleTag({ content: UNLOCK_SCROLL });
   await page.waitForTimeout(250); // reflow after unlocking scroll
+  await ensureImagesLoaded(page);
   await page.screenshot({ path: join(dir, `${file}.png`), fullPage: true });
 }
 

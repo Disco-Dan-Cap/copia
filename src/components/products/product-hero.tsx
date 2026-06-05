@@ -2,6 +2,7 @@ import type { Listing } from "@/lib/data/types";
 import { LeafWave } from "@/components/ui/leaf-wave";
 import { HeartIcon } from "@/components/ui/icons";
 import { BackButton } from "@/components/app/back-button";
+import { PhotoFill } from "@/components/media/photo-fill";
 
 /**
  * Product hero — a scaled-up version of the listing's own gradient (the
@@ -14,14 +15,19 @@ export function ProductHero({ listing }: { listing: Listing }) {
 
   return (
     <div
-      className="relative h-[280px] w-full"
+      className="relative h-[280px] w-full overflow-hidden"
       style={{ backgroundImage: `linear-gradient(135deg, ${from} 0%, ${to} 100%)` }}
     >
-      <LeafWave
-        density="sparse"
-        opacity={0.6}
-        className="absolute inset-0 h-full w-full text-cream opacity-20"
-      />
+      <PhotoFill src={listing.photo} alt={listing.name} eager />
+      {/* The Leaf Wave is the gradient's texture — when a photo takes the fill,
+          the texture goes with it, leaving the photo clean. */}
+      {!listing.photo ? (
+        <LeafWave
+          density="sparse"
+          opacity={0.6}
+          className="absolute inset-0 h-full w-full text-cream opacity-20"
+        />
+      ) : null}
       <div className="safe-top absolute inset-x-0 top-0 z-[3] flex items-start justify-between px-[16px] pt-[12px]">
         <BackButton />
         <button

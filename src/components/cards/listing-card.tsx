@@ -2,6 +2,7 @@ import { priceLabel } from "@/lib/data/listings";
 import { dietLabels } from "@/lib/data/labels";
 import { formatDistance } from "@/lib/geo";
 import { cn } from "@/lib/utils";
+import { PhotoFill } from "@/components/media/photo-fill";
 import type { Listing, Seller } from "@/lib/data/types";
 
 export interface ListingCardProps {
@@ -60,6 +61,7 @@ export function ListingCard({
           className="relative mb-[10px] aspect-[4/3] w-full overflow-hidden rounded-[10px]"
           style={{ backgroundImage: gradient }}
         >
+          <PhotoFill src={listing.photo} alt={listing.name} />
           {listing.isNew ? <NewBadge /> : null}
         </div>
         {showSeller ? (
@@ -89,6 +91,7 @@ export function ListingCard({
         className="relative h-[64px] w-[64px] shrink-0 overflow-hidden rounded-[12px]"
         style={{ backgroundImage: gradient }}
       >
+        <PhotoFill src={listing.photo} alt={listing.name} />
         {listing.isNew ? <NewBadge /> : null}
       </div>
       <div className="min-w-0 flex-1">
