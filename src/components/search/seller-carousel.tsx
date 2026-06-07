@@ -50,12 +50,12 @@ export function SellerCarousel({ sellers, selectedSellerId }: SellerCarouselProp
               )}
             >
               <div
-                className="relative h-[50px] w-[50px] shrink-0 overflow-hidden rounded-[12px]"
+                className="relative h-[50px] w-[50px] shrink-0 overflow-hidden rounded-full"
                 style={{
                   backgroundImage: `linear-gradient(135deg, ${seller.avatarGradient[0]} 0%, ${seller.avatarGradient[1]} 100%)`,
                 }}
               >
-                <PhotoFill src={seller.photo} alt={seller.name} />
+                <PhotoFill src={seller.avatar} alt={seller.name} />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="truncate text-[13.5px] font-semibold tracking-[-0.01em] text-deepest-forest">

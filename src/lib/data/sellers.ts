@@ -219,11 +219,15 @@ export const sellers: Seller[] = [
   },
 ];
 
-// Every seller has an art-directed vignette named v-{id} — the master lives at
-// public/photos/v-{id}.webp (see scripts/fetch-photos.mjs and
-// brand/copia-imagery-direction.md). The avatarGradient stays as the designed
-// fallback (and the seller-profile avatar mark, which is never a photo).
-for (const s of sellers) s.photo = `/photos/v-${s.id}.webp`;
+// Every seller has an art-directed vignette (the 3:2 banner scene, v-{id}) and
+// an identity avatar (a face or farm logo, avatar-{id}) — masters live in
+// public/photos/ (see scripts/fetch-photos.mjs, scripts/fetch-avatars.mjs, and
+// brand/copia-imagery-direction.md). avatarGradient stays as the designed
+// fallback for both.
+for (const s of sellers) {
+  s.photo = `/photos/v-${s.id}.webp`;
+  s.avatar = `/photos/avatar-${s.id}.webp`;
+}
 
 /** Fast id → seller lookup for joining listings to their seller. */
 export const sellersById: Record<string, Seller> = Object.fromEntries(

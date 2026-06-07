@@ -5,6 +5,7 @@ import { archetypeLabels } from "@/lib/data/labels";
 import { stallPrefs } from "@/lib/data/stall-prefs";
 import { SettingsLedger } from "@/components/seller/settings/settings-ledger";
 import { Colophon } from "@/components/seller/settings/colophon";
+import { PhotoFill } from "@/components/media/photo-fill";
 
 // Per-request so ?as= carries the demo identity through, matching the other
 // seller surfaces. The masthead + colophon are static seed; the ledger between
@@ -29,12 +30,13 @@ export default async function SettingsPage({ searchParams }: SearchParams) {
       <header className="max-w-[620px]">
         <div className="flex items-center gap-[14px]">
           <div
-            className="h-[46px] w-[46px] shrink-0 rounded-full"
+            className="relative h-[46px] w-[46px] shrink-0 overflow-hidden rounded-full"
             style={{
               background: `linear-gradient(135deg, ${seller.avatarGradient[0]}, ${seller.avatarGradient[1]})`,
             }}
-            aria-hidden
-          />
+          >
+            <PhotoFill src={seller.avatar} alt={seller.name} />
+          </div>
           <div className="min-w-0">
             <h1 className="text-[28px] font-bold leading-[1.05] tracking-[-0.03em] text-deepest-forest lg:text-[34px]">
               {seller.name}

@@ -22,10 +22,10 @@ export function GrowerBlock({ seller }: { seller: Seller }) {
         className="flex items-center gap-[13px] rounded-[14px] border border-sage-shadow/25 bg-cream-warm p-[14px] transition-transform active:scale-[0.99]"
       >
         <div
-          className="relative h-[48px] w-[48px] shrink-0 overflow-hidden rounded-[12px]"
+          className="relative h-[48px] w-[48px] shrink-0 overflow-hidden rounded-full"
           style={{ backgroundImage: `linear-gradient(315deg, ${from} 0%, ${to} 100%)` }}
         >
-          <PhotoFill src={seller.photo} alt={seller.name} />
+          <PhotoFill src={seller.avatar} alt={seller.name} />
         </div>
         <div className="min-w-0 flex-1">
           <div className="font-mono text-[9px] uppercase tracking-[0.12em] text-mid-forest">From</div>

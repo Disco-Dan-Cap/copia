@@ -17,12 +17,12 @@ export function SellerList() {
             className="flex gap-[14px] rounded-[14px] border border-sage-shadow/25 bg-cream-warm p-[14px] transition-transform active:scale-[0.99]"
           >
             <div
-              className="relative h-[56px] w-[56px] shrink-0 overflow-hidden rounded-[12px]"
+              className="relative h-[56px] w-[56px] shrink-0 overflow-hidden rounded-full"
               style={{
                 backgroundImage: `linear-gradient(135deg, ${seller.avatarGradient[0]} 0%, ${seller.avatarGradient[1]} 100%)`,
               }}
             >
-              <PhotoFill src={seller.photo} alt={seller.name} />
+              <PhotoFill src={seller.avatar} alt={seller.name} />
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-[14.5px] font-semibold tracking-[-0.01em] text-deepest-forest">

@@ -107,6 +107,12 @@ export interface Seller {
    * `avatarGradient` remains the designed fallback.
    */
   photo?: string;
+  /**
+   * The seller's identity avatar — a grower's face or a farm logo, 1:1, shown in
+   * the circular avatar slots (profile, lists, dashboard header). Optional: where
+   * it's absent, the `avatarGradient` remains the designed fallback.
+   */
+  avatar?: string;
   // ── Profile fields (Day 4) ──────────────────────────────────────────────
   /**
    * The vignette that introduces the seller on their profile — 2–3 sentences

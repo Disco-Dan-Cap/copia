@@ -43,11 +43,15 @@ export function SellerHero({ seller }: { seller: Seller }) {
           <BackButton className="ml-[16px] mt-[12px]" />
         </div>
 
-        {/* Avatar — half on the banner, half below. Opposed gradient + cream ring. */}
+        {/* Avatar — half on the banner, half below. The identity photo (face or
+            farm logo) in a circle; the opposed gradient is its fallback. Cream
+            ring is existing chrome. */}
         <div
-          className="absolute -bottom-[40px] left-[24px] z-[2] h-[80px] w-[80px] rounded-[16px] border-[3px] border-cream shadow-[var(--shadow-md)]"
+          className="absolute -bottom-[40px] left-[24px] z-[2] h-[80px] w-[80px] overflow-hidden rounded-full border-[3px] border-cream shadow-[var(--shadow-md)]"
           style={{ backgroundImage: `linear-gradient(315deg, ${from} 0%, ${to} 100%)` }}
-        />
+        >
+          <PhotoFill src={seller.avatar} alt={seller.name} eager />
+        </div>
       </div>
 
       {/* Identity block — pt clears the avatar overhang. */}

@@ -85,6 +85,28 @@ Status: ✅ delivered — all 50 downloaded, converted to webp (`scripts/fetch-p
 
 **Totals:** 50 of 50 GENERATED and DELIVERED (2026-06-05) — converted to webp and wired into the seed (`Listing.photo` / `Seller.photo`) and every fill-bearing component, with the gradient kept as the designed fallback. Full URL ledger with raw links: `case-study/imagery-contact-sheet.html` — the wiring prompt's source of truth. Two shipped with open flags for a later regen pass: l-drip-shishito (char marks), v-soco-preserves (illegible jar labels). All others passed editorial review.
 
+## Seller avatars (added 2026-06-06)
+
+Replaces the `avatarGradient` color squares. 5 grower faces (fictional people, environmental portraits, avatar-scale) + 7 farm/group logos (Garrison chose AI logos over SVG monograms; regenerated as a locked single-style set — forest-green line emblem on cream, no text). All 1:1. Gradient stays as the fallback, same pattern as listing photos. Filenames below are the Higgsfield job stems (full-res .png at the CDN base in the contact sheet).
+
+FACES → /photos/avatar-{sellerId}.webp:
+- miras-half-acre ✅ hf_20260606_203414_7985e9da
+- cherrywood-backyard ✅ hf_20260606_203415_596f5e48
+- mueller-microgreens ✅ hf_20260606_203417_6f6cdb96
+- hyde-park-hens ✅ hf_20260606_213308_858dbd29
+- round-rock-roots ✅ hf_20260606_203420_39243fa0
+
+LOGOS → /photos/avatar-{sellerId}.webp (per-farm distinct colors — Garrison's call 2026-06-06: independent businesses shouldn't share a brand family; superseded the first forest-on-cream set):
+- honey-and-the-comb ✅ hf_20260606_214003_d5f4e0c1 (honeycomb + bee, honey-gold bg)
+- wimberley-hill-farm ✅ hf_20260606_214004_214eb64d (hills + sun, sky-blue bg)
+- dripping-market-garden ✅ hf_20260606_214006_618ddb19 (droplet + sprout, cream bg, teal)
+- lockhart-orchard ✅ hf_20260606_214007_04a52cc2 (fruit tree, peach bg)
+- buda-sourdough ✅ hf_20260606_214008_40fc3310 (loaf + wheat, tan bg)
+- bastrop-berry-patch ✅ hf_20260606_214009_cea0176f (berries, lavender bg)
+- soco-preserves ✅ hf_20260606_214011_8f09990e (jar + pepper, tomato-red bg)
+
+Source URLs for all 12 are in case-study/seller-avatars-final.html (each <img> src; swap `_min.webp` → `.png` for full-res).
+
 ## Delivery pipeline
 
 DONE (2026-06-05): `scripts/fetch-photos.mjs` parses the contact-sheet URLs, downloads all 50, converts to webp (sharp, listing 800×800 / vignette 1200×800), and saves to `public/photos/{manifest-id}.webp`. The seed carries an optional `photo` field (`Listing.photo` / `Seller.photo`), assigned by id; every fill-bearing component renders the photo over the gradient, so a session-created listing (no photo) still shows its picked gradient — the photo is additive, the gradient is the designed fallback.
