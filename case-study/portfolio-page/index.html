@@ -182,9 +182,24 @@
   .detail-frame { border-radius: 16px; overflow: hidden; border: 1px solid color-mix(in oklab, var(--forest) 20%, transparent); box-shadow: 0 12px 30px rgba(30,61,48,0.10); background: var(--cream); }
   .detail-frame img { width: 100%; display: block; }
 
+  /* ── On the home screen (install proof) ─────────────── */
+  .install-strip { display: flex; gap: 18px; justify-content: center; align-items: flex-start; }
+  .install-strip .phone { flex: 1 1 0; max-width: 184px; padding: 5px; border-radius: 26px; }
+  .install-strip .phone .screen { border-radius: 21px; }
+  .install-caption { font-size: 16.5px; line-height: 1.62; max-width: 62ch; color: var(--charcoal); margin: 28px auto 0; text-align: center; }
+  @media (max-width: 480px) {
+    .install-strip { gap: 8px; }
+    .install-strip .phone { padding: 3px; border-radius: 15px; }
+    .install-strip .phone .screen { border-radius: 12px; }
+    .install-caption { text-align: left; }
+  }
+
   /* ── Try it ─────────────────────────────────────────── */
   .tryit-url { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5.2vw, 56px); line-height: 1.05; letter-spacing: 0.004em; color: var(--forest); display: inline-block; }
   .tryit-url:hover { color: var(--deepest-forest); }
+  .tryit { display: grid; grid-template-columns: 1fr 196px; gap: 48px; align-items: center; }
+  .tryit .phone { max-width: 196px; }
+  @media (max-width: 700px) { .tryit { grid-template-columns: 1fr; gap: 32px; } }
 
   /* ── Footer ─────────────────────────────────────────── */
   footer { margin-top: 72px; padding-top: 26px; border-top: 1px solid var(--hair); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
@@ -232,9 +247,8 @@
       <div class="hero-grid">
         <p class="hero-sentence">Copia is for buying food from your neighbors, the people who grow it — built the way a farmers market feels: calm, personal, unhurried.</p>
         <figure>
-          <!-- SWAP: on-device capture -->
           <div class="phone hero-phone">
-            <div class="screen"><img src="assets/home.png" alt="The Copia buyer home screen: a cream masthead over a scrolling feed of nearby growers and what's in season this week."></div>
+            <div class="screen"><img src="assets/hero-home.webp" alt="The Copia home on a real iPhone: a cream masthead, the headline 'Peaches are early this year,' and a strip of what's ripening this week."></div>
           </div>
           <figcaption class="fig-label">Buyer · Home</figcaption>
         </figure>
@@ -410,14 +424,53 @@
       <p class="prose">The hardest part wasn’t building — it was refusing: the month grid, the progress bars, the trust badges, the sparkle. Next would be real payments (Stripe for cards; USDC settlement matters most where the local currency doesn’t hold), and the long thread from my 2020 notes: robot-tended backyards removing the last labor barrier between “I’d like to sell some tomatoes” and “I am, in fact, selling tomatoes.”</p>
     </section>
 
-    <!-- ══════════ 08 · TRY IT ══════════ -->
+    <!-- ══════════ 08 · ON THE HOME SCREEN ══════════ -->
     <section>
       <div class="sec-head">
-        <div class="eyebrow">08 — Try it</div>
+        <div class="eyebrow">08 — On the home screen</div>
+        <h2 class="sec-title">On the home screen</h2>
+      </div>
+      <div class="install-strip">
+        <figure class="pair-col">
+          <div class="phone">
+            <div class="screen"><img src="assets/device-invite.webp" alt="Copia open in Safari, with its own invitation card: 'Keep Copia on your home screen,' pointing to the share menu's Add to Home Screen."></div>
+          </div>
+          <figcaption class="fig-label">The invitation</figcaption>
+        </figure>
+        <figure class="pair-col">
+          <div class="phone">
+            <div class="screen"><img src="assets/device-add-step.webp" alt="The iOS Add to Home Screen sheet, showing the Copia leaf icon, the name Copia, and 'Open as Web App' switched on."></div>
+          </div>
+          <figcaption class="fig-label">Add to Home Screen</figcaption>
+        </figure>
+        <figure class="pair-col">
+          <div class="phone">
+            <div class="screen"><img src="assets/device-icon.webp" alt="An iPhone home screen with the Copia leaf icon sitting among the other apps."></div>
+          </div>
+          <figcaption class="fig-label">Among the apps</figcaption>
+        </figure>
+      </div>
+      <p class="install-caption">Add to Home Screen from Safari and the leaf joins the other apps. The real iPhone status bars are the point — a genuine install, not a mockup of one.</p>
+    </section>
+
+    <!-- ══════════ 09 · TRY IT ══════════ -->
+    <section>
+      <div class="sec-head">
+        <div class="eyebrow">09 — Try it</div>
         <h2 class="sec-title">Try it</h2>
       </div>
-      <p style="margin: 0 0 22px;"><a class="tryit-url" href="https://copia-virid.vercel.app">copia-virid.vercel.app</a></p>
-      <p class="prose">— open it in Safari on an iPhone. Put three things from three growers in your basket and settle up. For the full effect, add it to your home screen: the wordmark assembles itself on the way in.</p>
+      <div class="tryit">
+        <div>
+          <p style="margin: 0 0 22px;"><a class="tryit-url" href="https://copia-virid.vercel.app">copia-virid.vercel.app</a></p>
+          <p class="prose">— open it in Safari on an iPhone. Put three things from three growers in your basket and settle up. For the full effect, add it to your home screen: the wordmark assembles itself on the way in.</p>
+        </div>
+        <figure>
+          <div class="phone">
+            <div class="screen"><img src="assets/splash.webp" alt="The Copia launch splash on a real iPhone: the gummy COPIA wordmark with the leaf on the P, on retro mint."></div>
+          </div>
+          <figcaption class="fig-label">Launch · Splash</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- ══════════ FOOTER ══════════ -->
