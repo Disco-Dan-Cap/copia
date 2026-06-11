@@ -2,17 +2,21 @@ import type { CategoryKey } from "@/lib/data/types";
 import { categories } from "@/lib/data/categories";
 import {
   VegetablesIcon,
+  FruitIcon,
   EggsIcon,
   BakedIcon,
   HoneyIcon,
+  FlowersIcon,
 } from "@/components/ui/icons";
 import { SectionHead } from "./section-head";
 
 const iconFor: Record<CategoryKey, (props: { className?: string }) => React.ReactElement> = {
   vegetables: VegetablesIcon,
+  fruit: FruitIcon,
   eggs: EggsIcon,
   baked: BakedIcon,
   honey: HoneyIcon,
+  "flowers-herbs": FlowersIcon,
 };
 
 export function CategoryGrid() {

@@ -36,7 +36,13 @@ export type DietTag =
   | "pasture-raised"
   | "raw";
 
-export type CategoryKey = "vegetables" | "eggs" | "baked" | "honey";
+export type CategoryKey =
+  | "vegetables"
+  | "fruit"
+  | "eggs"
+  | "baked"
+  | "honey"
+  | "flowers-herbs";
 
 /**
  * Where and when a seller's pickup happens — real seed data, so every named day

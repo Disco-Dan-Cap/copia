@@ -26,7 +26,7 @@ export const listings: Listing[] = [
     pairsWith: ["Fresh mozzarella", "Basil", "Flaky salt"],
   },
   {
-    id: "l-miras-basil", sellerId: "miras-half-acre", name: "Sweet basil", category: "vegetables", price: 3, unit: "bunch",
+    id: "l-miras-basil", sellerId: "miras-half-acre", name: "Sweet basil", category: "flowers-herbs", price: 3, unit: "bunch",
     diet: ["organic", "pesticide-free"], gradient: ["#74B5A1", "#1C664D"], peakMonths: [5, 6, 7, 8, 9],
     anchor: "Cut in the cool of the morning so it doesn't wilt by noon — <em>smell it before you take it home</em>.",
     growingMethod: "Open-pollinated, no spray", harvestCadence: "Cut to order",
@@ -68,7 +68,7 @@ export const listings: Listing[] = [
     pairsWith: ["Grilled", "Ribboned", "Skillet"],
   },
   {
-    id: "l-miras-zinnias", sellerId: "miras-half-acre", name: "Cut zinnias", category: "vegetables", price: 8, unit: "bunch",
+    id: "l-miras-zinnias", sellerId: "miras-half-acre", name: "Cut zinnias", category: "flowers-herbs", price: 8, unit: "bunch",
     diet: ["pesticide-free"], gradient: ["#E8927C", "#C46A4F"], peakMonths: [5, 6, 7, 8, 9, 10],
     anchor: "Planted along the tomato row to pull the bees in, then earned a row of their own — <em>cut them and they only make more</em>.",
     growingMethod: "No spray, cut at dawn", harvestCadence: "Cut to order",
@@ -107,7 +107,7 @@ export const listings: Listing[] = [
 
   // Wimberley Hill Farm — Hill Country (small-farm)
   {
-    id: "l-wim-peaches", sellerId: "wimberley-hill-farm", name: "Hill Country peaches", category: "vegetables", price: 4, unit: "lb",
+    id: "l-wim-peaches", sellerId: "wimberley-hill-farm", name: "Hill Country peaches", category: "fruit", price: 4, unit: "lb",
     diet: ["organic"], gradient: ["#E8927C", "#C46A4F"], isNew: true, peakMonths: [5, 6, 7],
     anchor: "Tree-ripened and freestone, so the pit slips clean — <em>cobbler weather</em>.",
     growingMethod: "Certified organic", harvestCadence: "Picked ripe, twice a week",
@@ -137,7 +137,7 @@ export const listings: Listing[] = [
     pairsWith: ["Olive oil", "Sea salt", "Basil"],
   },
   {
-    id: "l-cherry-herbs", sellerId: "cherrywood-backyard", name: "Mixed cutting herbs", category: "vegetables", price: 3, unit: "bunch",
+    id: "l-cherry-herbs", sellerId: "cherrywood-backyard", name: "Mixed cutting herbs", category: "flowers-herbs", price: 3, unit: "bunch",
     diet: ["pesticide-free"], gradient: ["#74B5A1", "#1C664D"], peakMonths: [3, 4, 5, 6, 7, 8, 9, 10],
     anchor: "Whatever's gotten ahead of the kitchen that week — <em>ask what's good before you commit</em>.",
     growingMethod: "No spray", harvestCadence: "Cut to order",
@@ -160,7 +160,7 @@ export const listings: Listing[] = [
     pairsWith: ["Mint", "Lemon", "Ricotta"],
   },
   {
-    id: "l-drip-melon", sellerId: "dripping-market-garden", name: "Cantaloupe", category: "vegetables", price: 5, unit: "each",
+    id: "l-drip-melon", sellerId: "dripping-market-garden", name: "Cantaloupe", category: "fruit", price: 5, unit: "each",
     diet: ["organic"], gradient: ["#E8C36A", "#C49A3F"], isNew: true, peakMonths: [6, 7, 8],
     anchor: "Cut from the vine only when it slips free on its own — <em>you'll smell it through the bag</em>.",
     growingMethod: "Certified organic", harvestCadence: "Picked at full slip",
@@ -192,14 +192,14 @@ export const listings: Listing[] = [
 
   // Lockhart Orchard Co. — Lockhart (small-farm)
   {
-    id: "l-lock-peaches", sellerId: "lockhart-orchard", name: "Freestone peaches", category: "vegetables", price: 4, unit: "lb",
+    id: "l-lock-peaches", sellerId: "lockhart-orchard", name: "Freestone peaches", category: "fruit", price: 4, unit: "lb",
     diet: ["organic"], gradient: ["#E8927C", "#C46A4F"], isNew: true, peakMonths: [5, 6, 7],
     anchor: "From trees older than the people picking them, left on the branch until <em>they let go on their own</em>.",
     growingMethod: "Certified organic, tree-ripened", harvestCadence: "Picked ripe, sold within the week",
     pairsWith: ["Cream", "Cornmeal", "Brown sugar"],
   },
   {
-    id: "l-lock-plums", sellerId: "lockhart-orchard", name: "Methley plums", category: "vegetables", price: 5, unit: "lb",
+    id: "l-lock-plums", sellerId: "lockhart-orchard", name: "Methley plums", category: "fruit", price: 5, unit: "lb",
     diet: ["organic"], gradient: ["#8B5A4A", "#5A2D24"], peakMonths: [5, 6],
     anchor: "Small and dark, tart at the skin with the sweet right behind it — <em>eat them over the sink</em>.",
     growingMethod: "Certified organic", harvestCadence: "Picked late May into June",
@@ -247,7 +247,7 @@ export const listings: Listing[] = [
 
   // Bastrop Berry Patch — Bastrop (small-farm)
   {
-    id: "l-bastrop-blackberry", sellerId: "bastrop-berry-patch", name: "Blackberries", category: "vegetables", price: 6, unit: "pt",
+    id: "l-bastrop-blackberry", sellerId: "bastrop-berry-patch", name: "Blackberries", category: "fruit", price: 6, unit: "pt",
     diet: ["organic", "pesticide-free"], gradient: ["#9C3F4A", "#5E2630"], peakMonths: [5, 6],
     anchor: "Picked the morning you get them because <em>they won't make it to tomorrow</em> — eat them today.",
     growingMethod: "Spray-free", harvestCadence: "Picked at dawn, late spring only",
@@ -286,14 +286,14 @@ export const listings: Listing[] = [
 
   // South Congress Salsa & Preserves — South Congress (specialty)
   {
-    id: "l-soco-salsa", sellerId: "soco-preserves", name: "Roasted salsa", category: "baked", price: 8, unit: "jar",
+    id: "l-soco-salsa", sellerId: "soco-preserves", name: "Roasted salsa", category: "honey", price: 8, unit: "jar",
     diet: ["vegan", "gluten-free"], gradient: ["#D2674A", "#9C3F2A"], isNew: true, peakMonths: YEAR_ROUND,
     anchor: "Tomatoes and chiles charred dark before they're blended, which is where <em>the smoke comes from</em>.",
     growingMethod: "Small-batch, fire-roasted", harvestCadence: "Made in runs of forty jars",
     pairsWith: ["Tortilla chips", "Eggs", "Carnitas"],
   },
   {
-    id: "l-soco-pickles", sellerId: "soco-preserves", name: "Dill pickles", category: "baked", price: 7, unit: "jar",
+    id: "l-soco-pickles", sellerId: "soco-preserves", name: "Dill pickles", category: "honey", price: 7, unit: "jar",
     diet: ["vegan", "gluten-free"], gradient: ["#509982", "#1C664D"], peakMonths: YEAR_ROUND,
     anchor: "Cured in brine, not shocked with vinegar, so they stay <em>snappy instead of soft</em>.",
     growingMethod: "Lacto-fermented, small batch", harvestCadence: "Made in runs of forty jars",

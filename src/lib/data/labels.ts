@@ -12,9 +12,11 @@ import type {
 
 export const categoryLabels: Record<CategoryKey, string> = {
   vegetables: "Vegetables",
+  fruit: "Fruit",
   eggs: "Eggs & Dairy",
   baked: "Baked & Made",
   honey: "Honey & Preserves",
+  "flowers-herbs": "Flowers & Herbs",
 };
 
 export const archetypeLabels: Record<SellerArchetype, string> = {
@@ -56,7 +58,14 @@ export const priceTierLabels: Record<PriceTier, string> = {
 };
 
 /** Stable display order for the filter sheet. */
-export const categoryOrder: CategoryKey[] = ["vegetables", "eggs", "baked", "honey"];
+export const categoryOrder: CategoryKey[] = [
+  "vegetables",
+  "fruit",
+  "eggs",
+  "baked",
+  "honey",
+  "flowers-herbs",
+];
 export const archetypeOrder: SellerArchetype[] = [
   "backyard",
   "suburban",

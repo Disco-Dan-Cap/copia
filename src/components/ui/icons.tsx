@@ -24,6 +24,27 @@ export function VegetablesIcon({ className }: IconProps) {
   );
 }
 
+export function FruitIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <circle cx={12} cy={14} r={6.5} />
+      <path d="M12 7.5 C12 5 13.5 3.5 16 3.5 C16 6 14.5 7.5 12 7.5 Z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function FlowersIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
+      <circle cx={12} cy={12} r={2.2} />
+      <path d="M12 9.8 Q9 7 12 4 Q15 7 12 9.8 Z" strokeLinejoin="round" />
+      <path d="M12 14.2 Q9 17 12 20 Q15 17 12 14.2 Z" strokeLinejoin="round" />
+      <path d="M9.8 12 Q7 9 4 12 Q7 15 9.8 12 Z" strokeLinejoin="round" />
+      <path d="M14.2 12 Q17 9 20 12 Q17 15 14.2 12 Z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function EggsIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden>
