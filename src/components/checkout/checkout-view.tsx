@@ -14,7 +14,9 @@ import {
   narrate,
   pickupChipLabel,
   proximitySuggestion,
-  PILOT_TIERS,
+  COURIER_LANES,
+  PILOT_LANE,
+  type CourierLane,
   type DeliveryTier,
   type FulfillmentByGroup,
   type FulfillmentChoice,
@@ -30,11 +32,6 @@ const PAYMENTS: { key: PaymentMethod; label: string }[] = [
   { key: "card", label: "Card" },
   { key: "usdc", label: "USDC" },
   { key: "bitcoin", label: "Bitcoin" },
-];
-
-const TIERS: { key: DeliveryTier; label: string }[] = [
-  { key: "bicycle", label: "Bicycle" },
-  { key: "motorcycle", label: "Motorcycle" },
 ];
 
 const WEEKDAY = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -264,7 +261,7 @@ function ChoiceChip({
   );
 }
 
-// ── The delivery lane — one consolidated run, the now-tier choice, a glimpse ──
+// ── The delivery lane — one consolidated run, the lane choice, a glimpse ──────
 function DeliveryLane({
   tier,
   onTier,
@@ -284,29 +281,31 @@ function DeliveryLane({
         The courier run
       </p>
 
-      <div className="mt-[12px] flex flex-wrap gap-[8px]">
-        {TIERS.map((t) => (
-          <ChoiceChip key={t.key} selected={tier === t.key} onClick={() => onTier(t.key)}>
-            {t.label}
-          </ChoiceChip>
+      {/* The live lanes — calm rows, single-select. Mode on the left, ETA and
+          price on the right. Picking one drives the run fee and the total. These
+          are Copia's own couriers — the final mile the brand owns. */}
+      <div role="radiogroup" aria-label="Courier lane" className="mt-[12px] flex flex-col gap-[8px]">
+        {COURIER_LANES.map((lane) => (
+          <CourierLaneRow
+            key={lane.key}
+            lane={lane}
+            selected={tier === lane.key}
+            onSelect={() => onTier(lane.key)}
+          />
         ))}
-        {/* The pilot tiers — visible, not selectable. A calm glimpse of what's
-            coming, styled like the rest, not a gimmick. */}
-        {PILOT_TIERS.map((p) => (
-          <span
-            key={p.key}
-            className="inline-flex min-h-[44px] items-center rounded-full border border-dashed border-sage-shadow/35 px-[16px] text-[13px] text-sage-shadow"
-          >
-            {p.label}
+
+        {/* The pilot lane — visible, never selectable. Its status sits where the
+            ETA and price would be: a calm glimpse, styled like the live lanes. */}
+        <div className="flex items-center justify-between gap-[12px] rounded-[14px] border border-dashed border-sage-shadow/35 px-[16px] py-[12px]">
+          <span className="text-[15px] leading-[1.2] text-sage-shadow">{PILOT_LANE.label}</span>
+          <span className="shrink-0 font-mono text-[9.5px] uppercase tracking-[0.12em] text-sage-shadow">
+            {PILOT_LANE.status}
           </span>
-        ))}
+        </div>
       </div>
-      <p className="mt-[8px] font-mono text-[9.5px] uppercase tracking-[0.12em] text-sage-shadow">
-        Drone &amp; zipline — coming to your area
-      </p>
 
       {/* The consolidation made plain: one run, one fee, one window — never one
-          fee per grower. */}
+          fee per grower. The fee tracks the selected lane. */}
       <div className="mt-[16px] flex items-baseline justify-between gap-[12px] rounded-[12px] bg-cream-warm px-[16px] py-[13px]">
         <span className="text-[14px] leading-[1.4] text-charcoal">
           {runners > 1 ? `One run, all ${runners} growers` : "One run"} · {deliveryWindow}
@@ -316,6 +315,59 @@ function DeliveryLane({
         </span>
       </div>
     </section>
+  );
+}
+
+// One courier-lane row — the calm rebuild of the bare vehicle chip. Mode + the
+// quiet trade-off note on the left; the coarse ETA and the flat run fee on the
+// right. Radio semantics: exactly one lane carries the run.
+function CourierLaneRow({
+  lane,
+  selected,
+  onSelect,
+}: {
+  lane: CourierLane;
+  selected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={selected}
+      onClick={onSelect}
+      className={
+        "flex min-h-[56px] items-center justify-between gap-[12px] rounded-[14px] border px-[16px] py-[10px] text-left transition-colors active:scale-[0.99] " +
+        (selected
+          ? "border-forest bg-forest/[0.06]"
+          : "border-sage-shadow/30 active:bg-sage-shadow/10")
+      }
+    >
+      <span className="flex flex-col">
+        <span
+          className={
+            "text-[15px] font-medium leading-[1.2] " +
+            (selected ? "text-forest" : "text-charcoal")
+          }
+        >
+          {lane.label}
+        </span>
+        <span className="mt-[2px] text-[12px] leading-[1.2] text-sage-shadow">{lane.note}</span>
+      </span>
+      <span className="flex shrink-0 items-baseline gap-[10px]">
+        <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-sage-shadow">
+          {lane.eta}
+        </span>
+        <span
+          className={
+            "text-[15px] font-semibold tabular-nums " +
+            (selected ? "text-forest" : "text-deepest-forest")
+          }
+        >
+          ${lane.fee}
+        </span>
+      </span>
+    </button>
   );
 }
 

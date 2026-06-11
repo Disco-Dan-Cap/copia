@@ -15,8 +15,8 @@ import { haversineMi } from "@/lib/geo";
 // ── Choice vocabulary ───────────────────────────────────────────────────────
 /** A grower group is either collected by the buyer or carried by one courier. */
 export type FulfillmentChoice = "pickup" | "delivery";
-/** The two delivery lanes a buyer can actually pick today. */
-export type DeliveryTier = "bicycle" | "motorcycle";
+/** The live courier lanes a buyer can actually pick today — Copia's own couriers. */
+export type DeliveryTier = "bicycle" | "motorcycle" | "car";
 /** The three payment rails. All stubbed — no money moves. */
 export type PaymentMethod = "card" | "usdc" | "bitcoin";
 
@@ -24,14 +24,34 @@ export type FulfillmentByGroup = Record<string, FulfillmentChoice>;
 
 // ── Constants (stated once, here) ────────────────────────────────────────────
 /**
- * One flat courier fee per RUN, not per grower — the consolidation rule made
- * numeric. Bicycle is the close-in lane; motorcycle reaches the Hill Country
- * growers. Stubbed values, but real arithmetic flows from them.
+ * The live courier lanes — Copia's OWN couriers, the final mile the brand owns
+ * (no third-party handoff; that's the thesis). Each lane is a real, comparable
+ * option: a mode, a coarse ETA, and one flat fee per RUN — not per grower, the
+ * consolidation rule made numeric. Cheaper means slower and shorter-range; the
+ * bike stays close-in, the car reaches the Hill Country growers. Stubbed values,
+ * but real arithmetic flows from them.
  */
-export const DELIVERY_FEE: Record<DeliveryTier, number> = {
-  bicycle: 4,
-  motorcycle: 6,
-};
+export interface CourierLane {
+  key: DeliveryTier;
+  label: string;
+  /** The quiet trade-off line under the lane name. */
+  note: string;
+  /** Coarse ETA — a stated window, never a fabricated clock time. */
+  eta: string;
+  /** Flat fee for the whole run on this lane. */
+  fee: number;
+}
+
+export const COURIER_LANES: CourierLane[] = [
+  { key: "bicycle", label: "Bike courier", note: "Low-carbon, close-in", eta: "~40 min", fee: 4 },
+  { key: "motorcycle", label: "Motorcycle", note: "Most of the city", eta: "~25 min", fee: 6 },
+  { key: "car", label: "Car", note: "Longest range, most to carry", eta: "~20 min", fee: 8 },
+];
+
+/** Fee per RUN by lane — derived from the lanes, so the numbers live in one place. */
+export const DELIVERY_FEE = Object.fromEntries(
+  COURIER_LANES.map((l) => [l.key, l.fee]),
+) as Record<DeliveryTier, number>;
 
 /**
  * The arrangement window — coarse by design. We never invent a clock time
@@ -40,11 +60,16 @@ export const DELIVERY_FEE: Record<DeliveryTier, number> = {
  */
 export const DELIVERY_WINDOW = "tomorrow afternoon";
 
-/** The two pilot lanes — rendered, never selectable. A calm glimpse, not a joke. */
-export const PILOT_TIERS: { key: FulfillmentMode; label: string }[] = [
-  { key: "drone", label: "Drone" },
-  { key: "zipline", label: "Zipline drone" },
-];
+/**
+ * The pilot lane — rendered, never selectable. One calm glimpse of the Zipline
+ * drop that's coming, styled like the live lanes but with its status where the
+ * ETA and price would be. Not a gimmick, not a joke.
+ */
+export const PILOT_LANE: { key: FulfillmentMode; label: string; status: string } = {
+  key: "zipline",
+  label: "Zipline drone",
+  status: "Coming to your area",
+};
 
 // Card processing — the real Stripe-ish rate, so the grower-economics line is
 // computed, not estimated.
